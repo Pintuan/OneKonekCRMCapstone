@@ -12,6 +12,7 @@ import './charts/ChartjsConfig';
 // Import pages
 import Admin from './pages/Dashboard';
 import Index from './pages/Index';
+import Login from './pages/index/Login';
 
 function App() {
 
