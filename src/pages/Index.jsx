@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Header from '../partials/indexHeader';
+import Header from '../components/indexHeader';
 
 function Dashboard() {
 
