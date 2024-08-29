@@ -28,6 +28,7 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<Index />} />
+        <Route exact path="/index/Login" element={<Login />} />
         <Route exact path="/Admin" element={<Admin />} />
       </Routes>
     </>
