@@ -51,9 +51,8 @@ function Sidebar({
     <div className="min-w-fit">
       {/* Sidebar backdrop (mobile only) */}
       <div
-        className={`fixed inset-0 bg-gray-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
-          sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-gray-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         aria-hidden="true"
       ></div>
 
@@ -78,12 +77,6 @@ function Sidebar({
               <path d="M10.7 18.7l1.4-1.4L7.8 13H20v-2H7.8l4.3-4.3-1.4-1.4L4 12z" />
             </svg>
           </button>
-          {/* Logo */}
-          <NavLink end to="/" className="block">
-            <svg className="fill-violet-500" xmlns="http://www.w3.org/2000/svg" width={32} height={32}>
-              <path d="M31.956 14.8C31.372 6.92 25.08.628 17.2.044V5.76a9.04 9.04 0 0 0 9.04 9.04h5.716ZM14.8 26.24v5.716C6.92 31.372.63 25.08.044 17.2H5.76a9.04 9.04 0 0 1 9.04 9.04Zm11.44-9.04h5.716c-.584 7.88-6.876 14.172-14.756 14.756V26.24a9.04 9.04 0 0 1 9.04-9.04ZM.044 14.8C.63 6.92 6.92.628 14.8.044V5.76a9.04 9.04 0 0 1-9.04 9.04H.044Z" />
-            </svg>
-          </NavLink>
         </div>
 
         {/* Links */}
@@ -103,9 +96,8 @@ function Sidebar({
                     <React.Fragment>
                       <a
                         href="#0"
-                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
-                          pathname === "/Admin" || pathname.includes("Admin") ? "" : "hover:text-gray-900 dark:hover:text-white"
-                        }`}
+                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${pathname === "/Admin" || pathname.includes("Admin") ? "" : "hover:text-gray-900 dark:hover:text-white"
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           handleClick();
@@ -117,7 +109,7 @@ function Sidebar({
                             <svg className={`shrink-0 fill-current ${pathname === "/" || pathname.includes("dashboard") ? 'text-violet-500' : 'text-gray-400 dark:text-gray-500'}`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                               <path d="M5.936.278A7.983 7.983 0 0 1 8 0a8 8 0 1 1-8 8c0-.722.104-1.413.278-2.064a1 1 0 1 1 1.932.516A5.99 5.99 0 0 0 2 8a6 6 0 1 0 6-6c-.53 0-1.045.076-1.548.21A1 1 0 1 1 5.936.278Z" />
                               <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
-                            </svg>                            
+                            </svg>
                             <span className="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                               Dashboard
                             </span>
@@ -158,19 +150,6 @@ function Sidebar({
                               </span>
                             </NavLink>
                           </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " + (isActive ? "text-violet-500" : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Fintech
-                              </span>
-                            </NavLink>
-                          </li>
                         </ul>
                       </div>
                     </React.Fragment>
@@ -184,9 +163,8 @@ function Sidebar({
                     <React.Fragment>
                       <a
                         href="#0"
-                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
-                          pathname.includes("finance") ? "" : "hover:text-gray-900 dark:hover:text-white"
-                        }`}
+                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${pathname.includes("finance") ? "" : "hover:text-gray-900 dark:hover:text-white"
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           handleClick();
@@ -213,11 +191,11 @@ function Sidebar({
                       </a>
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-8 mt-1 ${!open && "hidden"}`}>
-                          
+
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="http://localhost:5173/Admin"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " + (isActive ? "text-violet-500" : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
                               }
@@ -230,7 +208,7 @@ function Sidebar({
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="http://localhost:5173/Admin"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " + (isActive ? "text-violet-500" : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
                               }
@@ -246,7 +224,7 @@ function Sidebar({
                   );
                 }}
               </SidebarLinkGroup>
-              
+
               {/* Tasks */}
               <SidebarLinkGroup activecondition={pathname.includes("tasks")}>
                 {(handleClick, open) => {
@@ -254,9 +232,8 @@ function Sidebar({
                     <React.Fragment>
                       <a
                         href="#0"
-                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
-                          pathname.includes("tasks") ? "" : "hover:text-gray-900 dark:hover:text-white"
-                        }`}
+                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${pathname.includes("tasks") ? "" : "hover:text-gray-900 dark:hover:text-white"
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           handleClick();
@@ -285,7 +262,7 @@ function Sidebar({
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="http://localhost:5173/Admin"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " + (isActive ? "text-violet-500" : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
                               }
@@ -308,9 +285,8 @@ function Sidebar({
                     <React.Fragment>
                       <a
                         href="#0"
-                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
-                          pathname.includes("settings") ? "" : "hover:text-gray-900 dark:hover:text-white"
-                        }`}
+                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${pathname.includes("settings") ? "" : "hover:text-gray-900 dark:hover:text-white"
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           handleClick();
@@ -339,7 +315,7 @@ function Sidebar({
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="http://localhost:5173/Admin"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " + (isActive ? "text-violet-500" : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
                               }
@@ -352,7 +328,7 @@ function Sidebar({
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="http://localhost:5173/Admin"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " + (isActive ? "text-violet-500" : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
                               }
@@ -365,7 +341,7 @@ function Sidebar({
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="http://localhost:5173/Admin"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " + (isActive ? "text-violet-500" : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
                               }
@@ -378,7 +354,7 @@ function Sidebar({
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="http://localhost:5173/Admin"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " + (isActive ? "text-violet-500" : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
                               }
@@ -388,7 +364,7 @@ function Sidebar({
                               </span>
                             </NavLink>
                           </li>
-                          
+
                         </ul>
                       </div>
                     </React.Fragment>

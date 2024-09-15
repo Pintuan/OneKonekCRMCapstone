@@ -10,9 +10,10 @@ import './css/style.css';
 import './charts/ChartjsConfig';
 
 // Import pages
-import Admin from './pages/Dashboard';
+import Admin from './pages/Admin/Dashboard';
 import Index from './pages/Index';
 import Login from './pages/index/Login';
+import Navbar from './components/IndexNavigation';
 
 function App() {
 
@@ -25,13 +26,14 @@ function App() {
   }, [location.pathname]); // triggered on route change
 
   return (
-    <>
+    <div>
+      <Navbar />
       <Routes>
         <Route exact path="/" element={<Index />} />
-        <Route exact path="/index/Login" element={<Login />} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/Admin" element={<Admin />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
