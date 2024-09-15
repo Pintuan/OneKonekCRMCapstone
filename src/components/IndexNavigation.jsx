@@ -68,24 +68,24 @@ const Navbar = () => {
                         </Link>
                         <Link
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/shop"
+                            to="/Plans"
                         >
                             Plans
                         </Link>
                         <Link
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/contact"
+                            to="/Contact"
                         >
                             Inquire
                         </Link>
                         <Link
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/about"
+                            to="/About"
                         >
                             About
                         </Link><Link
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/login"
+                            to="/Login"
                         >
                             Login
                         </Link>

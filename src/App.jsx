@@ -10,10 +10,12 @@ import './css/style.css';
 import './charts/ChartjsConfig';
 
 // Import pages
+import Navbar from './components/IndexNavigation';
 import Admin from './pages/Admin/Dashboard';
 import Index from './pages/Index';
 import Login from './pages/index/Login';
-import Navbar from './components/IndexNavigation';
+import Plans from './pages/index/Plans';
+import About from './pages/index/About';
 
 function App() {
 
@@ -30,7 +32,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route exact path="/" element={<Index />} />
-        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/Login" element={<Login />} />
+        <Route exact path="/Plans" element={<Plans />} />
+        <Route exact path="/About" element={<About />} />
         <Route exact path="/Admin" element={<Admin />} />
       </Routes>
     </div>

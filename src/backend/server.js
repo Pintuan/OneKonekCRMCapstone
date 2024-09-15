@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'password',
-    database: 'users_db'
+    password: '',
+    database: 'onekonekcrm'
 });
 
 db.connect(err => {
@@ -40,7 +40,16 @@ app.post('/login', (req, res) => {
     });
 });
 
-const port = 5000;
+app.get('/getPlans', (req, res) => {
+    console.log("retrieving plans...");
+    let sql = 'SELECT * FROM PLANS';
+    db.query(sql, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
+
+const port = 7222;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
