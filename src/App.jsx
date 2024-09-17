@@ -16,6 +16,7 @@ import Index from './pages/Index';
 import Login from './pages/index/Login';
 import Plans from './pages/index/Plans';
 import About from './pages/index/About';
+import Inquire from './pages/index/Inquire';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/Login" element={<Login />} />
         <Route exact path="/Plans" element={<Plans />} />
         <Route exact path="/About" element={<About />} />
+        <Route exact path="/ContactUs" element={<Inquire />} />
         <Route exact path="/Admin" element={<Admin />} />
       </Routes>
     </div>

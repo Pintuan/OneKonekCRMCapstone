@@ -31,12 +31,11 @@ const Plans = () => {
                 <div className="p-6">
                     <div>
                         <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">&#8369; {data[i].planPrice}</span>
-                        <a href='/inquire?id='
-                            className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline" tabindex="0" role="link">
+                        <a href={'/ContactUs?plan=' + data[i].planId}
+                            className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline" tabIndex={i} role="link">
                             {data[i].planName}
                         </a>
                         <h4>{data[i].planSpeed}Mbps</h4>
-                        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie parturient et sem ipsum volutpat vel. Natoque sem et aliquam mauris egestas quam volutpat viverra. In pretium nec senectus erat. Et malesuada lobortis.</p>
                     </div>
                 </div>
             </div>
@@ -45,8 +44,8 @@ const Plans = () => {
     }
 
     return (
-        <div className="flex h-screen">
-            <div className='md:grid grid-cols-3 place-content-center md:columns-3 gap-2'>
+        <div className="flex h-screen mt-8">
+            <div className='md:grid grid-cols-3 place-content-center md:columns-3 gap-52'>
                 {loading ? <p>Loading...</p> : renderData}
             </div>
         </div>
