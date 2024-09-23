@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 app.use(cors());
@@ -14,30 +15,21 @@ const db = mysql.createConnection({
     database: 'onekonekcrm'
 });
 
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Routes
+app.use('/auth', authRoutes);
+
 db.connect(err => {
     if (err) {
         console.error('Error connecting to the database:', err);
         return;
     }
     console.log('Connected to the MySQL database.');
-});
-
-app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-
-    const query = 'SELECT * FROM users WHERE email = ? AND password = ?';
-    db.query(query, [email, password], (err, results) => {
-        if (err) {
-            res.status(500).send('Server error');
-            return;
-        }
-
-        if (results.length > 0) {
-            res.send({ message: 'Login successful' });
-        } else {
-            res.send({ message: 'Invalid email or password' });
-        }
-    });
 });
 
 app.get('/getPlans', (req, res) => {

@@ -8,6 +8,9 @@ function DropdownProfile({
   align
 }) {
 
+
+
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
@@ -33,7 +36,10 @@ function DropdownProfile({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    window.location.href = "/";
+  }
   return (
     <div className="relative inline-flex">
       <button
@@ -84,8 +90,7 @@ function DropdownProfile({
             <li>
               <Link
                 className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                to="/signin"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={() => handleLogout()}
               >
                 Sign Out
               </Link>

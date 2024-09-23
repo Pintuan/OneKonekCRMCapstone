@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import logo from '../images/onekonek.svg';
 
@@ -6,8 +6,10 @@ import logo from '../images/onekonek.svg';
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const components = logo;
+    if (window.location.pathname == "/Admin") return null;
 
     return (
+
         <nav className="relative bg-white shadow dark:bg-gray-800">
             <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
                 <div className="flex items-center justify-between">

@@ -21,6 +21,9 @@ import Inquire from './pages/index/Inquire';
 function App() {
 
   const location = useLocation();
+  let isAuthenticated = false;
+  if (localStorage.getItem('authToken') != null) { isAuthenticated = true; }
+
 
   useEffect(() => {
     document.querySelector('html').style.scrollBehavior = 'auto'
@@ -32,8 +35,8 @@ function App() {
     <div>
       <Navbar />
       <Routes>
-        <Route exact path="/" element={<Index />} />
-        <Route exact path="/Login" element={<Login />} />
+        <Route exact path="/" element={isAuthenticated ? <Redirect to='/Admin' /> : <Index />} />
+        <Route exact path="/Login" element={isAuthenticated ? <Redirect to='/Admin' /> : <Login />} />
         <Route exact path="/Plans" element={<Plans />} />
         <Route exact path="/About" element={<About />} />
         <Route exact path="/ContactUs" element={<Inquire />} />
