@@ -37,7 +37,7 @@ function DropdownProfile({
     return () => document.removeEventListener('keydown', keyHandler);
   });
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
+    sessionStorage.clear();
     window.location.href = "/";
   }
   return (

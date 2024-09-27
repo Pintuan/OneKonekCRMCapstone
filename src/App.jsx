@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {
   Routes,
   Route,
-  useLocation
+  Navigate
 } from 'react-router-dom';
 
 import './css/style.css';
@@ -10,37 +10,17 @@ import './css/style.css';
 import './charts/ChartjsConfig';
 
 // Import pages
-import Navbar from './components/IndexNavigation';
-import Admin from './pages/Admin/Dashboard';
+import Admin from './pages/Admin';
+import Staff from './pages/Staff';
 import Index from './pages/Index';
-import Login from './pages/index/Login';
-import Plans from './pages/index/Plans';
-import About from './pages/index/About';
-import Inquire from './pages/index/Inquire';
 
 function App() {
-
-  const location = useLocation();
-  let isAuthenticated = false;
-  if (localStorage.getItem('authToken') != null) { isAuthenticated = true; }
-
-
-  useEffect(() => {
-    document.querySelector('html').style.scrollBehavior = 'auto'
-    window.scroll({ top: 0 })
-    document.querySelector('html').style.scrollBehavior = ''
-  }, [location.pathname]); // triggered on route change
-
   return (
     <div>
-      <Navbar />
       <Routes>
-        <Route exact path="/" element={isAuthenticated ? <Redirect to='/Admin' /> : <Index />} />
-        <Route exact path="/Login" element={isAuthenticated ? <Redirect to='/Admin' /> : <Login />} />
-        <Route exact path="/Plans" element={<Plans />} />
-        <Route exact path="/About" element={<About />} />
-        <Route exact path="/ContactUs" element={<Inquire />} />
-        <Route exact path="/Admin" element={<Admin />} />
+        <Route path="/admin/*" element={sessionStorage.getItem('token') != null ? <Admin /> : <Navigate replace to="/" />} />
+        <Route path="/staff/*" element={sessionStorage.getItem('token') != null ? <Staff /> : <Navigate replace to="/" />} />
+        <Route path="/*" element={<Index />} />
       </Routes>
     </div>
   );

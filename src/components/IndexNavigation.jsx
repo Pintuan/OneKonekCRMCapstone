@@ -1,11 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
-import logo from '../images/onekonek.svg';
+import logo from '/onekonek.svg';
 
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const components = logo;
+    const Logo = logo;
     if (window.location.pathname == "/Admin") return null;
 
     return (
@@ -15,8 +15,9 @@ const Navbar = () => {
                 <div className="flex items-center justify-between">
                     <Link to="/">
                         <img
-                            className="w-auto h-6 sm:h-7"
-                            src={components}
+                            className="w-auto h-12 m-0 p-0"
+                            viewBox="0 0 5 8"
+                            src={Logo}
                             alt="Logo"
                         />
                     </Link>
@@ -62,35 +63,21 @@ const Navbar = () => {
                         } absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center`}
                 >
                     <div className="flex flex-col md:flex-row md:mx-6">
-                        <Link
+                        <Link to="/"
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/"
-                        >
-                            Home
-                        </Link>
-                        <Link
+                        > Home </Link>
+                        <Link to="/Plans"
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/Plans"
-                        >
-                            Plans
-                        </Link>
-                        <Link
+                        > Plans</Link>
+                        <Link to="/ContactUs"
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/ContactUs"
-                        >
-                            Inquire
-                        </Link>
-                        <Link
+                        > Inquire </Link>
+                        <Link to="/About"
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/About"
-                        >
-                            About
-                        </Link><Link
+                        > About</Link>
+                        <Link to="/Login"
                             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                            to="/Login"
-                        >
-                            Login
-                        </Link>
+                        > Login</Link>
                     </div>
                 </div>
             </div>
