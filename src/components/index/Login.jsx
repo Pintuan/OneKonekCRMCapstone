@@ -19,9 +19,16 @@ const LoginForm = () => {
     try {
       const response = await axios.post('http://localhost:7222/auth/login', { username, password });
       if (response != null || localStorage.getItem('token') == null) {
-        sessionStorage.clear();
         sessionStorage.setItem('token', response.data.token); // save token to local storage for future use.
-        window.location.href = '/Admin/';
+
+        const hgtq2 = bcrypt.compare("$2a$10$jMu40K2I2FlLrsQiibInrO8W69p31pXFzTgAg/PmzYEZC47jjyW9O", response.data.zhas2chasT);
+        if (!hgtq2) {
+          window.location.href = '/Admin/';
+        }
+        else {
+          window.location.href = '/Staff/';
+        }
+
       }
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
@@ -43,7 +50,7 @@ const LoginForm = () => {
           <input
             type="text"
             value={username}
-            onChange={(e) => { setUsername(e.target.value); console.log(e.target.value) }}
+            onChange={(e) => setUsername(e.target.value)}
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
           />
         </div>
