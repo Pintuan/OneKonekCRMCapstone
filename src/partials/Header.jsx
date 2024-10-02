@@ -42,6 +42,7 @@ function Header({
           {/* Header: Right side */}
           <div className="flex items-center space-x-3">
             <UserMenu align="right" />
+            <ThemeToggle/>
 
           </div>
 

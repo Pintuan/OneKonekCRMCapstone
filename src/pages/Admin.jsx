@@ -7,13 +7,15 @@ import {
 
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
-import FilterButton from '../components/DropdownFilter';
-import Datepicker from '../components/Datepicker';
-import DashboardCard01 from '../partials/dashboard/DashboardCard01';
-import DashboardCard02 from '../partials/dashboard/DashboardCard02';
-import DashboardCard03 from '../partials/dashboard/DashboardCard03';
-import DashboardCard04 from '../partials/dashboard/DashboardCard04';
-import DashboardCard05 from '../partials/dashboard/DashboardCard05';
+
+import Home from '../components/Admin/Home';
+import Analytics from '../components/Admin/Analytics';
+import Logs from '../components/Admin/Logs';
+import Customers from '../components/Admin/Customers';
+import Plans from '../components/Admin/Plans';
+import Settings from '../components/Admin/Settings';
+import Staff from '../components/Admin/Staff';
+import Transactions from '../components/Admin/Transactions';
 
 function Dashboard() {
 
@@ -31,7 +33,14 @@ function Dashboard() {
         {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <Routes>
-          <Route />
+          <Route path='/' element = {<Home/>} />
+          <Route path='/Analytics' element = {<Analytics/>} />
+          <Route path='/Plans' element = {<Plans/>} />
+          <Route path='/Settings' element = {<Settings/>} />
+          <Route path='/Staff' element = {<Staff/>} />
+          <Route path='/Transactions' element = {<Transactions/>} />
+          <Route path='/Customers' element = {<Customers/>} />
+          <Route path='/Logs' element = {<Logs/>} />
         </Routes>
       </div>
     </div>

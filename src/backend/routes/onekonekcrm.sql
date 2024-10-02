@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2024 at 01:31 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Oct 02, 2024 at 09:03 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,13 @@ CREATE TABLE `accounts` (
   `stat` decimal(5,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`serverConn`, `accountId`, `userId`, `currPlan`, `billingDate`, `stat`) VALUES
+(17642231212, 655123331235123, '16458364911', 10293312812, '14', 5522);
+
 -- --------------------------------------------------------
 
 --
@@ -53,10 +60,10 @@ CREATE TABLE `acounttype` (
 --
 
 INSERT INTO `acounttype` (`restrictionId`, `restrictionType`, `position`) VALUES
-('25464136845', 'onr', 'Owner'),
-('25464136855', 'cs', 'Customer'),
-('25464136865', 'st', 'Staff'),
-('99999999999', 'adn', 'Admin');
+(25464136845, 'onr', 'Owner'),
+(25464136855, 'cs', 'Customer'),
+(25464136865, 'st', 'Staff'),
+(99999999999, 'adn', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -91,8 +98,17 @@ CREATE TABLE `payments` (
   `cashierId` varchar(50) DEFAULT NULL,
   `rebate` decimal(20,0) DEFAULT NULL,
   `totalPaid` decimal(20,0) DEFAULT NULL,
-  `plan` decimal(11,0) DEFAULT NULL
+  `plan` decimal(11,0) DEFAULT NULL,
+  `paymentDate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`paymentId`, `accountId`, `cashierId`, `rebate`, `totalPaid`, `plan`, `paymentDate`) VALUES
+(123233132231323, 655123331235123, '16458364981', 0, 1949, 10293312819, '2024-10-01'),
+(533421223888775, 655123331235123, '16458364981', 0, 1949, 10293312819, '2024-10-01');
 
 -- --------------------------------------------------------
 
@@ -112,10 +128,10 @@ CREATE TABLE `plans` (
 --
 
 INSERT INTO `plans` (`planId`, `planName`, `planSpeed`, `planPrice`) VALUES
-('10293312812', 'Sulit Plan', '75', '749'),
-('10293312815', 'OK Plan', '100', '949'),
-('10293312817', 'WOW Plan', '200', '1449'),
-('10293312819', 'Panalo Plan', '300', '1949');
+(10293312812, 'Sulit Plan', 75, 749),
+(10293312815, 'OK Plan', 100, 949),
+(10293312817, 'WOW Plan', 200, 1449),
+(10293312819, 'Panalo Plan', 300, 1949);
 
 -- --------------------------------------------------------
 
@@ -130,6 +146,15 @@ CREATE TABLE `servers` (
   `maxConn` decimal(10,0) DEFAULT NULL,
   `ipAdd` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `servers`
+--
+
+INSERT INTO `servers` (`serverId`, `serverName`, `serverLocation`, `maxConn`, `ipAdd`) VALUES
+(17642231212, 'Palapat', 'Petro Jam, Palapat, Hagonoy, Bulacan', 1000, '192.168.62.15'),
+(17642231213, 'San Sebastian', 'San Sebastian, Hagonoy, Bulacan', 1000, '192.168.22.12'),
+(17642231215, 'Santa Elena', 'Sta Elena, Hagonoy, Bulacan', 1000, '192.168.63.5');
 
 -- --------------------------------------------------------
 
@@ -183,9 +208,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userId`, `firstName`, `middleName`, `lastName`, `age`, `email`, `contactNum`, `address`, `profilePic`, `restriction`) VALUES
-('16458364911', 'Palapat', '', 'Customer', '0', '', '0', '', '', '25464136855'),
-('16458364951', 'Dharist', '', 'Coronel', '42', '', '0', '', '', '25464136845'),
-('16458364981', 'Main', '', 'Staff', '0', '', '0', '', '', '25464136865');
+('16458364911', 'Palapat', '', 'Customer', 0, '', 0, '', '', 25464136855),
+('16458364951', 'Dharist', '', 'Coronel', 42, '', 0, '', '', 25464136845),
+('16458364981', 'Main', '', 'Staff', 0, '', 0, '', '', 25464136865);
 
 --
 -- Indexes for dumped tables

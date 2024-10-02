@@ -16,20 +16,36 @@ function getRestriction(accountId) {
                 return reject(new Error('No user found')); // Handle no result case
             }
 
-            const restrictionData = results[0]; // Assume position needs to be hashed
-
-            // Hash the restriction (you can hash `position`, `userId`, or any other data you want)
+            const restrictionData = results[0];
+            console.log(restrictionData.position);
             bcrypt.hash(restrictionData.position, 10, (err, hashedRestriction) => {
                 if (err) {
                     return reject(err); // Reject if hashing fails
                 }
 
                 // Resolve the hashed restriction
-                resolve({ userId: restrictionData.userId, hashedRestriction });
+                resolve(hashedRestriction);
             });
         });
     });
 }
+
+router.post('/redirect', async (req, res) => {
+    try {
+        const { data } = req.body;
+        const temp = "Owner";
+        const auth = await bcrypt.compare(temp, data);
+        if (auth) {
+            return res.json({ path: "/Admin" });
+        }
+        else {
+            return res.json({ path: "/Staff" });
+        }
+    } catch (error) {
+        return res.status(400).json({ code: error })
+    }
+
+});
 
 // Login Route
 router.post('/login', async (req, res) => {
@@ -71,18 +87,42 @@ router.post('/login', async (req, res) => {
                 resolve(hash);
             });
         });
-
-        ipAddress = req.ip;
-        await insertLoginLog(user.userId, ipAddress, "login");
         res.json({ message: 'Login successful', token: token, zhas2chasT: restriction });
     } catch (error) {
         res.json({ error: 'Server error', code: error });
     }
 });
+router.post('/getTransactions', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = 'select p.paymentId, CONCAT(u.firstName, " ", u.middleName, " ", u.lastName) as name, p.paymentDate, plans.planName, a.billingDate, p.totalPaid, p.rebate from payments p INNER JOIN accounts a on p.accountId = a.accountId INNER JOIN users u on a.userId = u.userId INNER JOIN plans on p.plan = plans.planId';
+    if (authorizationToken != null) {
+        db.query(query, (error, results) => {
+            if (error) {
+                return res.status(400).json({error: error})
+            }
+            res.json(results)
+        })
+    }
+
+});
+
+router.post('/getStaff', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = 'SELECT * FROM users WHERE restriction = 25464136865';
+    if (authorizationToken != null) {
+        db.query(query, (error, results) => {
+            if (error) {
+                return res.status(400).json({error: error})
+            }
+            res.json(results)
+        })
+    }
+
+});
 // Function to insert log
 function insertLoginLog(userId, ipAddress, action) {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO login_logs (userId, timedate,ationTaken, ipAdd) VALUES (?, ?, ?, ?)';
+        const query = 'INSERT INTO login_logs (userId, timedate,actionTaken, ipAdd) VALUES (?, ?, ?, ?)';
 
         // Execute the query with parameters
         db.query(query, [userId, new Date(), action, ipAddress], (err, results) => {

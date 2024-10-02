@@ -12,7 +12,7 @@ function Index() {
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" />
+        <Route path="/" element={<Plans/>}/>
         <Route path="/plans" element={<Plans />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/login" element={<Login />} />
