@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Sidebar from '../../partials/Sidebar';
+import Sidebar from '../../partials/StaffSidebar';
 import Header from '../../partials/Header';
 import DashboardCard01 from '../../partials/dashboard/DashboardCard01';
 import DashboardCard02 from '../../partials/dashboard/DashboardCard02';

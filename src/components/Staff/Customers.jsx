@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
-import DashboardCard01 from '../../partials/dashboard/DashboardCard01';
-import DashboardCard02 from '../../partials/dashboard/DashboardCard02';
-import DashboardCard03 from '../../partials/dashboard/DashboardCard03';
-import DashboardCard04 from '../../partials/dashboard/DashboardCard04';
-import DashboardCard05 from '../../partials/dashboard/DashboardCard05';
-
 function Customers() {
 
 

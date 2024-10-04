@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 const Transactions = () => {
-    const [plans, setPlans] = useState([]); // Initial state as an array
+    const [transaction, setTransactions] = useState([]); // Initial state as an array
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -13,29 +13,27 @@ const Transactions = () => {
             const response = await axios.post('http://localhost:7222/auth/getTransactions', {
                 token: sessionStorage.getItem('3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0')
             });
-            setPlans(response.data);
+            setTransactions(response.data);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
-            setLoading(false); 
+            setLoading(false);
         }
 
     };
     useEffect(() => { fetchData(); }, []);
     let i = 0;
     const renderData = [];
-
-    console.log(plans);
-    while (i < plans.length) {
+    while (i < transaction.length) {
         renderData.push(
-            <tr key={plans[i].paymentId}>
-                <td>{plans[i].paymentId}</td>
-                <td>{plans[i].name}</td>
-                <td>{plans[i].planName}</td>
-                <td>{plans[i].billingDate}</td>
-                <td>{plans[i].paymentDate}</td>
-                <td>{plans[i].Rebate}</td>
-                <td>{plans[i].totalPaid}</td>
+            <tr key={transaction[i].paymentId}>
+                <td>{transaction[i].paymentId}</td>
+                <td>{transaction[i].name}</td>
+                <td>{transaction[i].planName}</td>
+                <td>{transaction[i].billingDate}</td>
+                <td>{transaction[i].paymentDate}</td>
+                <td>{transaction[i].Rebate}</td>
+                <td>{transaction[i].totalPaid}</td>
             </tr>
         );
         i++;

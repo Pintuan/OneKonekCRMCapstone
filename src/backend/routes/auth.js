@@ -98,7 +98,7 @@ router.post('/getTransactions', async (req, res) => {
     if (authorizationToken != null) {
         db.query(query, (error, results) => {
             if (error) {
-                return res.status(400).json({error: error})
+                return res.status(400).json({ error: error })
             }
             res.json(results)
         })
@@ -108,11 +108,26 @@ router.post('/getTransactions', async (req, res) => {
 
 router.post('/getStaff', async (req, res) => {
     const authorizationToken = req.body;
-    const query = 'SELECT * FROM users WHERE restriction = 25464136865';
+    const query = "SELECT users.userId,CONCAT(users.firstName,' ',users.lastName) as name, users.email,users.contactNum as contact, acounttype.position FROM users " +
+        "INNER JOIN acounttype on users.restriction = acounttype.restrictionid " +
+        "WHERE users.restriction != 99999999999 and users.restriction != 25464136845";
     if (authorizationToken != null) {
         db.query(query, (error, results) => {
             if (error) {
-                return res.status(400).json({error: error})
+                return res.status(400).json({ error: error })
+            }
+            res.json(results)
+        })
+    }
+
+});
+router.post('/getPlans', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = "SELECT * FROM plans";
+    if (authorizationToken != null) {
+        db.query(query, (error, results) => {
+            if (error) {
+                return res.status(400).json({ error: error })
             }
             res.json(results)
         })

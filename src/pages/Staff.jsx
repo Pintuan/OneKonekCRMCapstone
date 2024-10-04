@@ -4,7 +4,7 @@ import {
   Route
 } from 'react-router-dom';
 
-import Sidebar from '../partials/Sidebar';
+import Sidebar from '../partials/StaffSidebar';
 import Header from '../partials/Header';
 import Home from '../components/Staff/Home';
 import Analylics from '../components/Staff/Analytics';
