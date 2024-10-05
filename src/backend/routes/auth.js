@@ -29,6 +29,84 @@ function getRestriction(accountId) {
         });
     });
 }
+function verifyPassword(accountId, password) {
+    return new Promise((resolve, reject) => {
+        const query = "select * from login where accountId = ?";
+        db.query(query, [accountId], (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            if (results != 0) {
+                user = results[0];
+                return resolve(bcrypt.compare(password, user.pWord));
+            }
+            else {
+                return reject('no user Found');
+            }
+        });
+    })
+}
+
+//update user information from settings
+router.post('/zxT10Rrshxb', async (req, res) => {
+    const {
+        hsdn2owet,
+        fName,
+        mName,
+        lName,
+        contactNum,
+        email,
+        profilePic,
+        passConfirm
+    } = req.body;
+
+    // Build the SQL update query dynamically
+    const updates = [];
+    const values = [];
+
+    if (fName) {
+        updates.push('firstName = ?');
+        values.push(fName);
+    }
+    if (mName) {
+        updates.push('middleName = ?');
+        values.push(mName);
+    }
+    if (lName) {
+        updates.push('lastName = ?');
+        values.push(lName);
+    }
+    if (contactNum) {
+        updates.push('contactNum = ?');
+        values.push(contactNum);
+    }
+    if (email) {
+        updates.push('email = ?');
+        values.push(email);
+    }
+    if (profilePic) {
+        updates.push('profilePic = ?');
+        values.push(profilePic);
+    }
+    if (await verifyPassword(hsdn2owet, passConfirm)) {
+
+        values.push(hsdn2owet);
+    }
+    else {
+        return res.status(401).json({ error: "Incorrect password confirmation" });
+    }
+
+    const sql = `UPDATE users SET ${updates.join(', ')} WHERE userId = ?`;
+    const results = await new Promise((resolve, reject) => {
+        db.query(sql, values, (err, result) => {
+            if (err) {
+                return res.json(err);
+            }
+            res.send('User updated successfully!');
+        });
+    });
+    return results;
+});
 
 router.post('/redirect', async (req, res) => {
     try {
@@ -115,19 +193,19 @@ router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
                 resolve(results);
             });
         });
-        if(results === 0){
-            return res.status(300).json({error: "no results found"});
+        if (results === 0) {
+            return res.status(300).json({ error: "no results found" });
         }
-        else{
-             const buffer = results[0].profilePic;
-             const image = buffer.toString('base64');
-            return res.status(200).json({rawData : results, image : image});
+        else {
+            const buffer = results[0].profilePic;
+            const image = buffer.toString('base64');
+            return res.status(200).json({ rawData: results, image: image });
         }
     }
-    else{
-        return res.status(400).json({error: "No Token is Given"});
+    else {
+        return res.status(400).json({ error: "No Token is Given" });
     }
-    
+
 
 });
 
