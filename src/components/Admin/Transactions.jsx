@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Transactions = () => {
-  const [transaction, setTransactions] = useState([]); // Initial state as an array
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+    const [transaction, setTransactions] = useState([]); // Initial state as an array
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  // Fetch data from the backend
-  const fetchData = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:7222/auth/getTransactions",
-        {
-          token: sessionStorage.getItem(
-            "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
-          ),
+    // Fetch data from the backend
+    const fetchData = async () => {
+        try {
+            const response = await axios.post('http://localhost:7222/auth/getTransactions', {
+                token: sessionStorage.getItem('3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0')
+            });
+            setTransactions(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setLoading(false);
         }
       );
       setTransactions(response.data);

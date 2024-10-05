@@ -20,8 +20,6 @@ const Plans = () => {
     useEffect(() => { fetchData(); }, []);
     let i = 0;
     const renderData = [];
-
-    console.log(data);
     while (i < data.length) {
         renderData.push(
             <div key={data[i].planId} className="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">

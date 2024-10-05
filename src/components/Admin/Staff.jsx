@@ -9,32 +9,27 @@ const Staff = () => {
     // Fetch data from the backend
     const fetchData = async () => {
         try {
-            const response = await axios.post('http://localhost:7222/auth/getTransactions', {
+            const response = await axios.post('http://localhost:7222/auth/getStaff', {
                 token: sessionStorage.getItem('3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0')
             });
             setPlans(response.data);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
-            setLoading(false); 
+            setLoading(false);
         }
 
     };
     useEffect(() => { fetchData(); }, []);
     let i = 0;
     const renderData = [];
-
-    console.log(plans);
     while (i < plans.length) {
         renderData.push(
-            <tr key={plans[i].paymentId}>
-                <td>{plans[i].paymentId}</td>
+            <tr key={plans[i].userId}>
                 <td>{plans[i].name}</td>
-                <td>{plans[i].planName}</td>
-                <td>{plans[i].billingDate}</td>
-                <td>{plans[i].paymentDate}</td>
-                <td>{plans[i].Rebate}</td>
-                <td>{plans[i].totalPaid}</td>
+                <td>{plans[i].email}</td>
+                <td>{plans[i].contact}</td>
+                <td>{plans[i].position}</td>
             </tr>
         );
         i++;
@@ -53,16 +48,13 @@ const Staff = () => {
                             <table className="min-w-full">
                                 <thead>
                                     <tr>
-                                        <th>Transaction Number</th>
                                         <th>Name</th>
-                                        <th>Plan Name</th>
-                                        <th>Billing Date</th>
-                                        <th>Date Paid</th>
-                                        <th>Prorated</th>
-                                        <th>Total Paid</th>
+                                        <th>Email</th>
+                                        <th>Contact Number</th>
+                                        <th>Position</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className='content-center'>
                                     {loading ? (
                                         <tr>
                                             <td colSpan="7" className="text-center">Loading...</td>

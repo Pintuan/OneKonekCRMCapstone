@@ -20,12 +20,22 @@ const LoginForm = () => {
       const response = await axios.post('http://localhost:7222/auth/login', { username, password });
       if (response != null || localStorage.getItem('3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0') == null) {
         let data = response.data.zhas2chasT;
-        const path = await axios.post('http://localhost:7222/auth/redirect', {data});
+        const path = await axios.post('http://localhost:7222/auth/redirect', { data });
         sessionStorage.setItem('3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0', response.data.token);
-        sessionStorage.setItem('a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf',path.data.path);
+        sessionStorage.setItem(sessionStorage.getItem('3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0'), response.data.auth);
+        sessionStorage.setItem('a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf', path.data.path);
+        const authorizationToken = sessionStorage.getItem(sessionStorage.getItem('3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0'));
+        const resp = await axios.post('http://localhost:7222/auth/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', { authorizationToken });
+        let metadata = resp.data.rawData[0];
+        Object.entries(metadata).forEach(([key, value]) => {
+          sessionStorage.setItem(key, value);
+        });
+        sessionStorage.setItem('image',resp.data.image);
+        sessionStorage.setItem('username',username);
         window.location.href = path.data.path;
       }
     } catch (err) {
+      console.log(err);
       setError(err.response?.data?.error || 'Login failed');
     }
   };
