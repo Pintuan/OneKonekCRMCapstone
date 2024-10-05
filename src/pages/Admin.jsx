@@ -37,7 +37,7 @@ function Dashboard() {
           <Route path='/' element={<Home />} />
           <Route path='/Analytics' element={<Analytics />} />
           <Route path='/Plans' element={<Plans />} />
-          <Route path='/Settings' element={<Settings />} />
+          <Route path='/Personal' element={<Settings />} />
           <Route path='/PaymentSettings' element={<PaymentSettings />} />
           <Route path='/Staff' element={<Staff />} />
           <Route path='/Transactions' element={<Transactions />} />

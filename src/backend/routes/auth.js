@@ -42,7 +42,7 @@ router.post('/redirect', async (req, res) => {
             return res.json({ path: "/Staff" });
         }
     } catch (error) {
-        return res.status(400).json({ code: error })
+        return res.status(400).json({ code: error.data })
     }
 
 });
@@ -87,7 +87,7 @@ router.post('/login', async (req, res) => {
                 resolve(hash);
             });
         });
-        res.json({ message: 'Login successful', token: token, zhas2chasT: restriction });
+        res.json({ message: 'Login successful', token: token, zhas2chasT: restriction, auth: user.accountId });
     } catch (error) {
         res.json({ error: 'Server error', code: error });
     }
@@ -103,6 +103,31 @@ router.post('/getTransactions', async (req, res) => {
             res.json(results)
         })
     }
+
+});
+router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
+    const { authorizationToken } = req.body;
+    const query = "SELECT * from users where users.userId = ?";
+    if (authorizationToken != null) {
+        const results = await new Promise((resolve, reject) => {
+            db.query(query, [authorizationToken], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+        if(results === 0){
+            return res.status(300).json({error: "no results found"});
+        }
+        else{
+             const buffer = results[0].profilePic;
+             const image = buffer.toString('base64');
+            return res.status(200).json({rawData : results, image : image});
+        }
+    }
+    else{
+        return res.status(400).json({error: "No Token is Given"});
+    }
+    
 
 });
 
@@ -124,6 +149,21 @@ router.post('/getStaff', async (req, res) => {
 router.post('/getPlans', async (req, res) => {
     const authorizationToken = req.body;
     const query = "SELECT * FROM plans";
+    if (authorizationToken != null) {
+        db.query(query, (error, results) => {
+            if (error) {
+                return res.status(400).json({ error: error })
+            }
+            res.json(results)
+        })
+    }
+
+});
+router.post('/getCustomers', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = "select accounts.accountId, concat(users.firstName, ' ', users.middleName, ' ', users.lastName) as 'fullName',  users.address, plans.planName, accounts.billingDate, accounts.stat from users "
+        + "INNER JOIN accounts on users.userId = accounts.userId "
+        + "INNER JOIN plans on accounts.currPlan = plans.planId";
     if (authorizationToken != null) {
         db.query(query, (error, results) => {
             if (error) {

@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
 
-import UserAvatar from '../images/user-avatar-32.png';
-
 function DropdownProfile({
   align
 }) {
@@ -11,7 +9,9 @@ function DropdownProfile({
 
 
 
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [image, setImage] = useState(`data:image/jpeg;base64,${sessionStorage.getItem('image')}`);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -49,7 +49,7 @@ function DropdownProfile({
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
-        <img className="w-8 h-8 rounded-full" src={UserAvatar} width="32" height="32" alt="User" />
+        <img className="w-8 h-8 rounded-full" src={image} width="32" height="32" alt="User" />
         <div className="flex items-center truncate">
           <span className="truncate ml-2 text-sm font-medium text-gray-600 dark:text-gray-100 group-hover:text-gray-800 dark:group-hover:text-white">One Konek Inc.</span>
           <svg className="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500" viewBox="0 0 12 12">
@@ -74,8 +74,8 @@ function DropdownProfile({
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-gray-200 dark:border-gray-700/60">
-            <div className="font-medium text-gray-800 dark:text-gray-100">Dharist Coronel</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 italic">Owner</div>
+            <div className="font-medium text-gray-800 dark:text-gray-100">{sessionStorage.getItem('firstName')} {sessionStorage.getItem('lastName')}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 italic">{sessionStorage.getItem('restriction')}</div>
           </div>
           <ul>
             <li>
