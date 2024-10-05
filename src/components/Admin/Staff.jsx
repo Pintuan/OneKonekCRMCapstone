@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-
 const Staff = () => {
     const [plans, setPlans] = useState([]); // Initial state as an array
     const [loading, setLoading] = useState(true);
@@ -44,7 +43,7 @@ const Staff = () => {
     return (
         <section className="container px-4 mx-auto">
             <div className="flex items-center gap-x-3">
-                <h2 className="text-lg font-medium text-gray-800 dark:text-white">Staff</h2>
+                <h2 className="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">Staff</h2>
             </div>
 
             <div className="flex flex-col mt-6">

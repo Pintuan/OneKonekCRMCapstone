@@ -18,13 +18,12 @@ function Home() {
 
                     {/* Left: Title */}
                     <div className="mb-4 sm:mb-0">
-                        <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Dashboard</h1>
-                    </div>
+                        <h1 className="mx-10 pt-2 text-lg font-lg text-gray-800 dark:text-white font-bold">Plans</h1>
 
                 </div>
 
-                {/* Cards */}
-                <div className="grid grid-cols-12 gap-6">
+                            {/* Cards */}
+                            <div className="grid grid-cols-1">
 
                     {/* Line chart (Acme Plus) */}
                     <DashboardCard01 />

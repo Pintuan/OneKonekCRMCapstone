@@ -12,6 +12,31 @@ function Customers() {
 
 
     return (
+        <main className="grow">
+            <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+                {/* Dashboard actions */}
+                <div className="sm:flex sm:justify-between sm:items-center mb-8">
+
+                    {/* Left: Title */}
+                    <div className="mb-4 sm:mb-0">
+                        <h1 className="mx-10 text-lg font-lg text-gray-800 dark:text-white font-bold">Customers</h1>
+
+                        <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+
+                            {/* Cards */}
+                            <div className="grid grid-cols-12 gap-6">
+
+                                {/* Line chart (Acme Plus) */}
+                                <DashboardCard06 title="Subscriber per Server" />
+                                <DashboardCard06 title="Subscriber per Plan" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex h-screen overflow-hidden">
+                    <section className="container px-4 mx-auto">
+                        <div className="flex items-center gap-x-3">
+                            <h2 className="text-lg font-medium text-gray-800 dark:text-white">Customer List</h2>
         <div className="flex h-screen overflow-hidden">
             <section className="container px-4 mx-auto">
                 <div className="flex items-center gap-x-3">
