@@ -30,9 +30,9 @@ const LoginForm = () => {
     }
   };
   return (
-    <div className="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">
+    <div className="w-full max-w-sm p-6 m-auto mx-auto my-5 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div className="flex justify-center mx-auto">
-        <img className="w-auto" src="../onekonek.svg" alt="Logo" />
+        <img className="w-auto" src="../onekonek_white.png" alt="Logo" />
       </div>
       <div>
         {error && <p style={{ color: 'red' }}>{error}</p>}

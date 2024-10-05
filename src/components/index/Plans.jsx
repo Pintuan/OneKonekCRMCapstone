@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import Image from '/light_mode.png';
 
 
 const Plans = () => {
@@ -26,8 +26,7 @@ const Plans = () => {
         renderData.push(
             <div key={data[i].planId} className="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
                 <img className="object-cover w-full h-64"
-                    src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                    alt="Plans" />
+                    src="light_mode.png"></img>
 
                 <div className="p-6">
                     <div>
@@ -45,8 +44,8 @@ const Plans = () => {
     }
 
     return (
-        <div className="flex h-screen mt-8">
-            <div className='md:grid grid-cols-3 place-content-center md:columns-3 gap-52'>
+        <div className="flex h-fit place-content-center">
+            <div className='mx-10 my-8 grid-cols-4 md:columns-4 gap-10'>
                 {loading ? <p>Loading...</p> : renderData}
             </div>
         </div>
