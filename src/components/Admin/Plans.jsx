@@ -68,70 +68,70 @@ function Plans() {
                             {/* Cards */}
                             <div className="grid grid-cols-12 gap-6">
 
-                            {/* Cards */}
-                            <div className="grid grid-cols-1">
+                                {/* Cards */}
+                                <div className="grid grid-cols-1">
 
-                                {/* Line chart (Acme Plus) */}
-                                <DashboardCard01 />
-                                {/* Line chart (Acme Advanced) */}
-                                <DashboardCard02 />
-                                {/* Line chart (Acme Professional) */}
-                                <DashboardCard03 />
-                                {/* Bar chart (Direct vs Indirect) */}
-                                <DashboardCard04 />
-                                {/* Line chart (Real Time Value) */}
-                                <DashboardCard05 />
-                                {/* Line chart (Acme Plus) */}
-                                <DashboardCard06 title="Subscriber per Plan" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="flex h-screen overflow-hidden">
-                    <section className="container px-4 mx-auto">
-                        <div className="flex items-center gap-x-3">
-                            <h2 className="text-lg font-medium text-gray-800 dark:text-white">Transactions</h2>
-                        </div>
-
-                        <div className="flex flex-col mt-6">
-                            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                                    <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                                        <table className="min-w-full">
-                                            <thead>
-                                                <tr>
-                                                    <th>Subscriber Count</th>
-                                                    <th>Plan Name</th>
-                                                    <th>Speed</th>
-                                                    <th>Price</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {loading ? (
-                                                    <tr>
-                                                        <td colSpan="7" className="text-center">Loading...</td>
-                                                    </tr>
-                                                ) : error ? (
-                                                    <tr>
-                                                        <td colSpan="7" className="text-center text-red-600">{error}</td>
-                                                    </tr>
-                                                ) : renderData.length > 0 ? (
-                                                    renderData
-                                                ) : (
-                                                    <tr>
-                                                        <td colSpan="7" className="text-center">Nothing to Show</td>
-                                                    </tr>
-                                                )}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    {/* Line chart (Acme Plus) */}
+                                    <DashboardCard01 />
+                                    {/* Line chart (Acme Advanced) */}
+                                    <DashboardCard02 />
+                                    {/* Line chart (Acme Professional) */}
+                                    <DashboardCard03 />
+                                    {/* Bar chart (Direct vs Indirect) */}
+                                    <DashboardCard04 />
+                                    {/* Line chart (Real Time Value) */}
+                                    <DashboardCard05 />
+                                    {/* Line chart (Acme Plus) */}
+                                    <DashboardCard06 title="Subscriber per Plan" />
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                    <div className="flex h-screen overflow-hidden">
+                        <section className="container px-4 mx-auto">
+                            <div className="flex items-center gap-x-3">
+                                <h2 className="text-lg font-medium text-gray-800 dark:text-white">Transactions</h2>
+                            </div>
+
+                            <div className="flex flex-col mt-6">
+                                <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                    <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                        <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                                            <table className="min-w-full">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Subscriber Count</th>
+                                                        <th>Plan Name</th>
+                                                        <th>Speed</th>
+                                                        <th>Price</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {loading ? (
+                                                        <tr>
+                                                            <td colSpan="7" className="text-center">Loading...</td>
+                                                        </tr>
+                                                    ) : error ? (
+                                                        <tr>
+                                                            <td colSpan="7" className="text-center text-red-600">{error}</td>
+                                                        </tr>
+                                                    ) : renderData.length > 0 ? (
+                                                        renderData
+                                                    ) : (
+                                                        <tr>
+                                                            <td colSpan="7" className="text-center">Nothing to Show</td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-            </div>
         </main>
     );
 }
