@@ -61,13 +61,26 @@ function Plans() {
 
                     {/* Left: Title */}
                     <div className="mb-4 sm:mb-0">
-                        <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Plans</h1>
+                        <h1 className="mx-10 pt-2 text-lg font-lg text-gray-800 dark:text-white font-bold">Plans</h1>
 
                         <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
                             {/* Cards */}
                             <div className="grid grid-cols-12 gap-6">
 
+                            {/* Cards */}
+                            <div className="grid grid-cols-1">
+
+                                {/* Line chart (Acme Plus) */}
+                                <DashboardCard01 />
+                                {/* Line chart (Acme Advanced) */}
+                                <DashboardCard02 />
+                                {/* Line chart (Acme Professional) */}
+                                <DashboardCard03 />
+                                {/* Bar chart (Direct vs Indirect) */}
+                                <DashboardCard04 />
+                                {/* Line chart (Real Time Value) */}
+                                <DashboardCard05 />
                                 {/* Line chart (Acme Plus) */}
                                 <DashboardCard06 title="Subscriber per Plan" />
                             </div>

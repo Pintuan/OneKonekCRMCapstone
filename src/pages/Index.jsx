@@ -6,6 +6,7 @@ import Navbar from '../components/IndexNavigation';
 import Plans from '../components/index/Plans';
 import Login from '../components/index/Login';
 import ContactUs from '../components/index/Inquire';
+import About from '../components/index/About';
 
 function Index() {
   return (
@@ -16,6 +17,7 @@ function Index() {
         <Route path="/plans" element={<Plans />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );

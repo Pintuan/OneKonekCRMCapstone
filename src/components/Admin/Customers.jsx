@@ -71,7 +71,7 @@ function Customers() {
 
                     {/* Left: Title */}
                     <div className="mb-4 sm:mb-0">
-                        <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Customers</h1>
+                        <h1 className="mx-10 text-lg font-lg text-gray-800 dark:text-white font-bold">Customers</h1>
 
                         <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -89,7 +89,6 @@ function Customers() {
                     <section className="container px-4 mx-auto">
                         <div className="flex items-center gap-x-3">
                             <h2 className="text-lg font-medium text-gray-800 dark:text-white">Customer List</h2>
-
                             <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{customers.length} user</span>
                         </div>
 
