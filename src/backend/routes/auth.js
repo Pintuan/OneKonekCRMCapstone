@@ -29,6 +29,23 @@ function getRestriction(accountId) {
         });
     });
 }
+function checkUsername(username) {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM login where login.username ?';
+        db.query(query, [username], (err, results) => {
+            if (err) {
+                return reject(err); // Reject the promise on database error
+            }
+
+            if (results.length === 0) {
+                resolve(true);
+            }
+            else {
+                return reject(false);
+            }
+        });
+    });
+}
 function verifyPassword(accountId, password) {
     return new Promise((resolve, reject) => {
         const query = "select * from login where accountId = ?";
@@ -46,7 +63,38 @@ function verifyPassword(accountId, password) {
         });
     })
 }
+// update login details for users
+router.post('/bnfjvbxgdsHAngWR', async (req, res) => {
+    const {
+        hsdn2owet,
+        username,
+        password,
+        confPass,
+        passConfirm
+    } = req.body;
+    const updates = [];
+    const values = [];
+    if (await verifyPassword(hsdn2owet, passConfirm)) {
+        if (await checkUsername(username)) {
+            updates.push('username = ?');
+            values.push(fName);
+        }
+        else {
+            return res.status(401).json({ error: 'Username already exists' });
+        }
+        if (confPass === password) {
+            updates.push('pWord =?');
+            values.push(password);
+        }
+        else {
+            return res.status(401).json({ error: "new password doesnt match" });
+        }
+    }
+    else {
+        return res.status(401).json({ error: "Incorrect password confirmation" });
+    }
 
+})
 //update user information from settings
 router.post('/zxT10Rrshxb', async (req, res) => {
     const {
@@ -111,12 +159,13 @@ router.post('/zxT10Rrshxb', async (req, res) => {
 router.post('/redirect', async (req, res) => {
     try {
         const { data } = req.body;
-        const temp = "Owner";
-        const auth = await bcrypt.compare(temp, data);
-        if (auth) {
+        const temp = ["Admin", "staff"];
+        const admin = await bcrypt.compare(temp[0], data);
+        const staff = await bcrypt.compare(temp[1], data);
+        if (admin) {
             return res.json({ path: "/Admin" });
         }
-        else {
+        if (staff) {
             return res.json({ path: "/Staff" });
         }
     } catch (error) {
@@ -124,7 +173,6 @@ router.post('/redirect', async (req, res) => {
     }
 
 });
-
 // Login Route
 router.post('/login', async (req, res) => {
     try {
@@ -170,6 +218,7 @@ router.post('/login', async (req, res) => {
         res.json({ error: 'Server error', code: error });
     }
 });
+//getTransactions
 router.post('/getTransactions', async (req, res) => {
     const authorizationToken = req.body;
     const query = 'select p.paymentId, CONCAT(u.firstName, " ", u.middleName, " ", u.lastName) as name, p.paymentDate, plans.planName, a.billingDate, p.totalPaid, p.rebate from payments p INNER JOIN accounts a on p.accountId = a.accountId INNER JOIN users u on a.userId = u.userId INNER JOIN plans on p.plan = plans.planId';
@@ -239,7 +288,7 @@ router.post('/getPlans', async (req, res) => {
 });
 router.post('/getCustomers', async (req, res) => {
     const authorizationToken = req.body;
-    const query = "select accounts.accountId, concat(users.firstName, ' ', users.middleName, ' ', users.lastName) as 'fullName',  users.address, plans.planName, accounts.billingDate, accounts.stat from users "
+    const query = "select accounts.accountId, concat(users.firstName, ' ', users.lastName) as 'fullName',  users.address, plans.planName, accounts.billingDate, accounts.stat from users "
         + "INNER JOIN accounts on users.userId = accounts.userId "
         + "INNER JOIN plans on accounts.currPlan = plans.planId";
     if (authorizationToken != null) {
