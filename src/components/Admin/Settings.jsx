@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const Home = () => {
 <<<<<<< Updated upstream
@@ -43,6 +43,74 @@ const Home = () => {
                     <div className="mb-4 sm:mb-0">
                         <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Personal Information</h1>
                     </div>
+=======
+  const [error, setError] = useState("");
+  const [fName, setfName] = useState(sessionStorage.getItem("firstName"));
+  const [mName, setmName] = useState(sessionStorage.getItem("middleName"));
+  const [lName, setlName] = useState(sessionStorage.getItem("lastName"));
+  const [address, setAddress] = useState(sessionStorage.getItem("address"));
+  const [contactNum, setcontactNum] = useState(
+    sessionStorage.getItem("contactNum")
+  );
+  const [email, setemail] = useState(sessionStorage.getItem("email"));
+  const [profilePic, setprofilePic] = useState("");
+  const [username, setusername] = useState(sessionStorage.getItem("username"));
+  const [password, setpassword] = useState("");
+  const [confPass, setconfPass] = useState("");
+  const [passConfirm, setpassConfirm] = useState("");
+  const [type, setType] = useState("password");
+  const handlePersonalInfoSubmit = async (event) => {
+    event.preventDefault();
+    console.log(password + confPass);
+    if (passConfirm) {
+      setError(false);
+      const hsdn2owet = sessionStorage.getItem(
+        sessionStorage.getItem(
+          "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
+        )
+      );
+      const response = await axios.post(
+        "http://localhost:7222/auth/zxT10Rrshxb",
+        {
+          hsdn2owet,
+          fName,
+          mName,
+          lName,
+          contactNum,
+          email,
+          profilePic,
+          passConfirm,
+        }
+      );
+      console.log(response);
+    }
+  };
+  const handleLoginInfoSubmit = async (event) => {
+    event.preventDefault();
+    console.log(password + confPass);
+    if (passConfirm) {
+      setError(false);
+      const hsdn2owet = sessionStorage.getItem(
+        sessionStorage.getItem(
+          "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
+        )
+      );
+      const response = await axios.post(
+        "http://localhost:7222/auth/zxT10Rrshxb",
+        {
+          hsdn2owet,
+          password,
+          confPass,
+          passConfirm,
+        }
+      );
+      console.log(response);
+    }
+  };
+  const toggleInput = () => {
+    setType(type === "password" ? "text" : "password");
+  };
+>>>>>>> Stashed changes
 
   return (
     <main className="min-w-full">

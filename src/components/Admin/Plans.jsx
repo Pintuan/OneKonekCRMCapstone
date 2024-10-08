@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DashboardCard06 from '../../partials/dashboard/DashboardCard06';
 
+<<<<<<< Updated upstream
 function Plans() {
+=======
+const Plans = () => {
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+>>>>>>> Stashed changes
 
     const [plans, setPlans] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -50,6 +57,7 @@ function Plans() {
         );
         i++;
     }
+<<<<<<< Updated upstream
 
 
 
