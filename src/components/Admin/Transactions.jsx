@@ -6,6 +6,7 @@ const Transactions = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+<<<<<<< Updated upstream
     // Fetch data from the backend
     const fetchData = async () => {
         try {
@@ -17,6 +18,17 @@ const Transactions = () => {
         } catch (error) {
             console.error('Error fetching data:', error);
             setLoading(false);
+=======
+  // Fetch data from the backend
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:7222/auth/getTransactions",
+        {
+          token: sessionStorage.getItem(
+            "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
+          ),
+>>>>>>> Stashed changes
         }
       );
       setTransactions(response.data);
@@ -33,6 +45,7 @@ const Transactions = () => {
   const renderData = [];
   while (i < transaction.length) {
     renderData.push(
+<<<<<<< Updated upstream
       <tr key={transaction[i].paymentId}>
         <td scope="col" class="px-4 py-4 font-nunito">{transaction[i].paymentId}</td>
         <td scope="col" class="px-4 py-4 font-nunito">{transaction[i].name}</td>
@@ -45,10 +58,53 @@ const Transactions = () => {
     );
     i++;
   } 
+=======
+      <tr key={transaction[i].paymentId} className="hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors duration-300 ease-in-out">
+        <td
+          scope="col"
+          className="px-4 py-4 font-nunito border-b dark:border-gray-700">
+          {transaction[i].paymentId}
+        </td>
+        <td
+          scope="col"
+          className="px-4 py-4 font-nunito border-b dark:border-gray-700">
+          {transaction[i].name}
+        </td>
+        <td
+          scope="col"
+          className="px-4 py-4 font-nunito border-b dark:border-gray-700">
+          {transaction[i].planName}
+        </td>
+        <td
+          scope="col"
+          className="px-4 py-4 font-nunito border-b dark:border-gray-700">
+          {transaction[i].billingDate}
+        </td>
+        <td
+          scope="col"
+          className="px-4 py-4 font-nunito border-b dark:border-gray-700">
+          {transaction[i].paymentDate}
+        </td>
+        <td
+          scope="col"
+          className="px-4 py-4 font-nunito border-b dark:border-gray-700">
+          {transaction[i].Rebate}
+        </td>
+        <td
+          scope="col"
+          className="px-4 py-4 font-nunito border-b dark:border-gray-700">
+          {transaction[i].totalPaid}
+        </td>
+      </tr>
+    );
+    i++;
+  }
+>>>>>>> Stashed changes
 
   return (
     <section className="container px-4 mx-auto">
       <div className="flex items-center gap-x-3">
+<<<<<<< Updated upstream
         <div className="flex justify-end items-end">
           <h2 className="font-bold mx-10 pt-5 text-lg font-lg text-gray-800 dark:text-white">
             Transactions
@@ -57,6 +113,16 @@ const Transactions = () => {
       </div>
 
       <div className="flex flex-col mt-6 place-items-center">
+=======
+      <div className="flex justify-end items-end">
+          <h1 className="font-bold mx-10 pt-5 text-2xl font-lg text-gray-800 dark:text-white">
+            Transaction
+          </h1>
+        </div>
+      </div>
+
+      <div className="flex flex-col mt-6">
+>>>>>>> Stashed changes
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 text-center">
             <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
