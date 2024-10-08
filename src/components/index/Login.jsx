@@ -33,6 +33,7 @@ const LoginForm = () => {
         sessionStorage.setItem('image',resp.data.image);
         sessionStorage.setItem('username',username);
         window.location.href = path.data.path;
+        console.log(path.data.path);
       }
     } catch (err) {
       console.log(err);

@@ -63,6 +63,67 @@ function verifyPassword(accountId, password) {
         });
     })
 }
+router.post('/redirect', async (req, res) => {
+    try {
+        const { data } = req.body;
+        const admin = await bcrypt.compare('Admin', data);
+        const staff = await bcrypt.compare('Staff', data);
+        if (admin) {
+            return res.json({ path: "/Admin" });
+        }
+        if (staff) {
+            return res.json({ path: "/Staff" });
+        }
+    } catch (error) {
+        return res.status(400).json({ code: error.data })
+    }
+
+});
+// Login Route
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res.status(400).json({ error: 'Please enter both username and password.' });
+        }
+
+        // Query to find the user by username
+        const query = 'select * from login where username = ?';
+        const results = await new Promise((resolve, reject) => {
+            db.query(query, [username], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
+        if (results.length === 0) {
+            return res.status(400).json({ error: 'Invalid username or password.' });
+        }
+
+        const user = results[0];
+
+        // Compare the password using bcrypt
+        const isMatch = await bcrypt.compare(password, user.pWord);
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Invalid username or password.' });
+        }
+
+        // Get restriction asynchronously with hashing
+        const restriction = await getRestriction(user.accountId);
+
+        // Generate the token
+        const token = await new Promise((resolve, reject) => {
+            bcrypt.hash(user.pWord, 10, (err, hash) => {
+                if (err) return reject(err);
+                resolve(hash);
+            });
+        });
+        res.json({ message: 'Login successful', token: token, zhas2chasT: restriction, auth: user.accountId });
+    } catch (error) {
+        res.json({ error: 'Server error', code: error });
+    }
+});
 // update login details for users
 router.post('/bnfjvbxgdsHAngWR', async (req, res) => {
     const {
@@ -155,83 +216,6 @@ router.post('/zxT10Rrshxb', async (req, res) => {
     });
     return results;
 });
-
-router.post('/redirect', async (req, res) => {
-    try {
-        const { data } = req.body;
-        const temp = ["Admin", "staff"];
-        const admin = await bcrypt.compare(temp[0], data);
-        const staff = await bcrypt.compare(temp[1], data);
-        if (admin) {
-            return res.json({ path: "/Admin" });
-        }
-        if (staff) {
-            return res.json({ path: "/Staff" });
-        }
-    } catch (error) {
-        return res.status(400).json({ code: error.data })
-    }
-
-});
-// Login Route
-router.post('/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
-
-        if (!username || !password) {
-            return res.status(400).json({ error: 'Please enter both username and password.' });
-        }
-
-        // Query to find the user by username
-        const query = 'select * from login where username = ?';
-        const results = await new Promise((resolve, reject) => {
-            db.query(query, [username], (err, results) => {
-                if (err) return reject(err);
-                resolve(results);
-            });
-        });
-
-        if (results.length === 0) {
-            return res.status(400).json({ error: 'Invalid username or password.' });
-        }
-
-        const user = results[0];
-
-        // Compare the password using bcrypt
-        const isMatch = await bcrypt.compare(password, user.pWord);
-        if (!isMatch) {
-            return res.status(400).json({ error: 'Invalid username or password.' });
-        }
-
-        // Get restriction asynchronously with hashing
-        const restriction = await getRestriction(user.accountId);
-
-        // Generate the token
-        const token = await new Promise((resolve, reject) => {
-            bcrypt.hash(user.pWord, 10, (err, hash) => {
-                if (err) return reject(err);
-                resolve(hash);
-            });
-        });
-        res.json({ message: 'Login successful', token: token, zhas2chasT: restriction, auth: user.accountId });
-    } catch (error) {
-        res.json({ error: 'Server error', code: error });
-    }
-});
-//getTransactions
-router.post('/getTransactions', async (req, res) => {
-    const authorizationToken = req.body;
-    const query = 'select p.paymentId, CONCAT(u.firstName, " ", u.middleName, " ", u.lastName) as name, p.paymentDate, plans.planName, a.billingDate, p.totalPaid, p.rebate from payments p INNER JOIN accounts a on p.accountId = a.accountId INNER JOIN users u on a.userId = u.userId INNER JOIN plans on p.plan = plans.planId';
-    if (authorizationToken != null) {
-        db.query(query, (error, results) => {
-            if (error) {
-                return res.status(400).json({ error: error })
-            }
-            res.json(results)
-        })
-    }
-
-});
 router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
     const { authorizationToken } = req.body;
     const query = "SELECT * from users where users.userId = ?";
@@ -257,12 +241,25 @@ router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
 
 
 });
+//getTransactions
+router.post('/getTransactions', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = 'select p.paymentId, CONCAT(u.firstName, " ", u.middleName, " ", u.lastName) as name, p.paymentDate, plans.planName, a.billingDate, p.totalPaid, p.rebate from payments p INNER JOIN accounts a on p.accountId = a.accountId INNER JOIN users u on a.userId = u.userId INNER JOIN plans on p.plan = plans.planId';
+    if (authorizationToken != null) {
+        db.query(query, (error, results) => {
+            if (error) {
+                return res.status(400).json({ error: error })
+            }
+            res.json(results)
+        })
+    }
 
+});
 router.post('/getStaff', async (req, res) => {
     const authorizationToken = req.body;
-    const query = "SELECT users.userId,CONCAT(users.firstName,' ',users.lastName) as name, users.email,users.contactNum as contact, acounttype.position FROM users " +
+    const query = "SELECT users.userId as id,CONCAT(users.firstName,' ',users.lastName) as name, users.email,users.contactNum as contact, acounttype.position FROM users " +
         "INNER JOIN acounttype on users.restriction = acounttype.restrictionid " +
-        "WHERE users.restriction != 99999999999 and users.restriction != 25464136845";
+        "WHERE users.restriction = 25464136865";
     if (authorizationToken != null) {
         db.query(query, (error, results) => {
             if (error) {
