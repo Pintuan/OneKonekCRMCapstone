@@ -43,6 +43,7 @@ const Settungs = () => {
             const hsdn2owet = sessionStorage.getItem(sessionStorage.getItem('3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0'));
             const response = await axios.post('http://localhost:7222/auth/zxT10Rrshxb', {
                 hsdn2owet,
+                username,
                 password,
                 confPass,
                 passConfirm
