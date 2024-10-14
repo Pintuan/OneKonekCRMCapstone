@@ -8,6 +8,8 @@ This project was bootstrapped with [Vite](https://vitejs.dev/).
 npm install
 ```
 
+npm install react-router-dom mysql mysql2 express axios
+
 #### Compiles and hot-reloads for development
 
 ```
