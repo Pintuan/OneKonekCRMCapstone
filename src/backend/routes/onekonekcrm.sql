@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2024 at 06:35 PM
+-- Generation Time: Oct 14, 2024 at 10:56 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -259,7 +259,6 @@ INSERT INTO `users` (`userId`, `firstName`, `middleName`, `lastName`, `age`, `em
 ('102339512337', 'Kaye Lyn', NULL, 'Pangan', '99', 'kayelynpangan@gmail.com', '9099999999', 'Abulalas, Hagonoy, Bulacan', NULL, '25464136855'),
 ('102339512338', 'Kaye Lyn', NULL, 'Pangan', '99', 'kayelynpangan@gmail.com', '9099999999', 'Abulalas, Hagonoy, Bulacan', NULL, '25464136855'),
 ('16458364911', 'Palapat', '', 'Customer', '0', '', '0', '', '', '25464136855'),
-('16458364951', 'Dharist', '', 'Coronel', '42', '', '0', '', '', '25464136845'),
 ('16458364951', 'Dharist', '', 'Coronel', '42', '', '0', '', '', '99999999999'),
 ('16458364981', 'Main', '', 'Staff', '0', '', '0', '', '', '25464136865');
 
