@@ -3,65 +3,70 @@ import Image from "/AboutUs_Top.png";
 
 function About() {
   return (
-    <div>
-      <div className="text-gray-800 flex flex-col justify-center items-center">
-        <div class="container px-6 py-10 mx-auto">
-          <div className="lg:-mx-6 lg:flex lg:items-center">
-            <img
-              className="mx-4 place-content-start mt-4 max-w-xl my-10 rounded-lg justify-center items-center shadow-lg"
-              src="about_us.png"
-              alt="About Us"
-            />
-            <div>
-              <h1 className="my-4 pt-5 text-4xl font-semibold tracking-wider capitalize dark:text-white">
-                Who Are We?
-              </h1>
-              <h3 className="pt-5 text-sm tracking-wider capitalize dark:text-white">
-                At "One Konek", we are passionate about [your core mission or
-                value]. Founded in [year], we have committed ourselves to
-                delivering exceptional [products/services] that not only meet
-                but exceed our customers' expectations. Our team of dedicated
-                professionals brings a wealth of experience and expertise,
-                ensuring that we stay at the forefront of innovation in the
-                industry. We believe in [core values such as integrity, quality,
-                sustainability, etc.], and we strive to create a positive impact
-                in everything we do, from our customer interactions to our
-                community engagements. Our mission is to [specific goals or
-                objectives], and we take pride in building lasting relationships
-                with our clients based on trust, transparency, and mutual
-                respect. At [Your Company Name], we understand that our success
-                is rooted in the success of our customers. That’s why we work
-                tirelessly to provide personalized solutions that cater to their
-                unique needs, helping them achieve their goals. Join us on this
-                journey as we continue to grow, innovate, and make a difference
-                in the world.
-              </h3>
-            </div>
-          </div>
-          <section>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
-              <div className="p-8 h-full w-full bg-white shadow-lg rounded-lg">
-                <div className="p-6 text-center">
-                  <h2 className="text-gray-500 text-lg font-semibold">
-                    Wala pa
-                  </h2>
-                  <p className="text-gray-400">Template</p>
-                </div>
-              </div>
-              <div className="p-8 h-full w-full bg-white shadow-lg rounded-lg">
-                <div className="p-6 text-center">
-                  <h2 className="text-gray-500 text-lg font-semibold">
-                    Wala pa
-                  </h2>
-                  <p className="text-gray-400">Template</p>
-                </div>
-              </div>
-            </div>
-          </section>
-          <div className="py-20">
-            <h1 className="text-lg font-semibold">Footer</h1>
+    <div className="flex flex-col items-center text-gray-800 dark:text-gray-200">
+      <div className="container mx-auto px-6 py-10">
+        <div className="lg:flex lg:items-center lg:-mx-6">
+          <img
+            className="mx-4 max-w-xl rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105"
+            src="about_us.png"
+            alt="About Us"
+          />
+          <div className="lg:mx-6">
+            <h1 className="my-4 text-4xl font-semibold tracking-wide capitalize">
+              Who Are We?
+            </h1>
+            <h3 className="text-sm tracking-wide leading-relaxed">
+              At OneKonek, we believe that every business and individual
+              deserves an internet experience tailored to their unique needs.
+              Founded on the principles of innovation and customer satisfaction,
+              we specialize in providing customizable internet solutions that
+              empower our clients to thrive in the digital age. With a dedicated
+              team of experts and state-of-the-art technology, we offer flexible
+              plans, exceptional reliability, and personalized support that sets
+              us apart from the competition. Whether you're a small business
+              looking to enhance productivity or a family seeking seamless
+              connectivity, OneKonek is committed to delivering the perfect
+              internet solution just for you. Join us in connecting to a world
+              of possibilities!
+            </h3>
           </div>
         </div>
+
+        <section className="py-10">
+          <h2 className="text-3xl font-semibold text-center text-gray-800 dark:text-gray-200 mb-6">
+            Our Services
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="p-8 h-full bg-white shadow-lg rounded-lg transition-shadow duration-300 hover:shadow-xl dark:bg-gray-900">
+              <div className="text-center">
+                <h3 className="text-gray-600 dark:text-gray-300 text-lg font-semibold mb-2">
+                  Internet Plans
+                </h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Choose from a variety of internet plans tailored to meet your
+                  needs, whether for home or business use.
+                </p>
+              </div>
+            </div>
+            <div className="p-8 h-full bg-white shadow-lg rounded-lg transition-shadow duration-300 hover:shadow-xl dark:bg-gray-900">
+              <div className="text-center">
+                <h3 className="text-gray-600 dark:text-gray-300 text-lg font-semibold mb-2">
+                  Customer Support
+                </h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Our dedicated customer support team is here to assist you with
+                  any inquiries or issues you may have.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer className="py-10 text-center">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            © {new Date().getFullYear()} OneKonek. All rights reserved.
+          </p>
+        </footer>
       </div>
     </div>
   );

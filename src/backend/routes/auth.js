@@ -1,7 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const db = require('../db'); // Import database connection
+const { resolve } = require('chart.js/helpers');
+const { listItemSecondaryActionClasses } = require('@mui/material');
+const { json } = require('react-router-dom');
 const router = express.Router();
+
 
 
 function getRestriction(accountId) {
@@ -62,6 +66,45 @@ function verifyPassword(accountId, password) {
             }
         });
     })
+}
+function verifyEmail(email) {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM users where email=?';
+        db.query(query, [email], (error, results) => {
+            if (error) {
+                return reject(error);
+            }
+            if (results.lenght === 0) {
+                return resolve(true);
+            }
+            else {
+                return resolve(false);
+            }
+        })
+    })
+
+}
+const genId = async (table, field, length) => {
+    let isUnique = false;
+    let id = 0;
+    while (!isUnique) {
+        const query = 'select * FROM ' + table + ' where ' + field + ' = ?';
+        const results = await new Promise((resolve, reject) => {
+            id = Math.floor(Math.random() * length);
+            db.query(query, [id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
+        if (results.length === 0) {
+            isUnique = true;
+        }
+        else {
+            isUnique = false;
+        }
+    }
+    return id;
 }
 router.post('/redirect', async (req, res) => {
     try {
@@ -216,6 +259,43 @@ router.post('/zxT10Rrshxb', async (req, res) => {
     });
     return results;
 });
+//inquire customer
+router.post('/hjgsahdghasgdhgdahsgdSAKNB', async (req, res) => {
+    const { fname, mname, lname, contactNum, address, email, plan } = req.body;
+    const userId = await genId('users', 'userId', 999999999999);
+    const accountId = await genId('accounts', 'accountId', 999999999999);
+    if (verifyEmail(email)) {
+        if (fname === '' || mname === '' || lname === '' || contactNum === '' || address === '' || email === '') {
+            return res.status(400).json({ error: 'fields must not be emmpty' })
+        }
+        else {
+            const resp = await new Promise((resolve, reject) => {
+                const query = 'INSERT INTO `users`(`userId`, `firstName`, `middleName`, `lastName`, `age`, `email`, `contactNum`, `address`, `profilePic`, `restriction`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                db.query(query, [userId, fname, mname, lname, '', email, contactNum, address, '', '25464136855'], (error, result) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    if (result) {
+                        const newAccountQuery = 'INSERT INTO `accounts`(`serverConn`, `currPlan`, `accountId`, `billingDate`, `stat`, `userId`) VALUES (?,?,?,?,?,?)';
+                        db.query(newAccountQuery, ['645', plan, accountId, '', '6201', userId], (error, result) => {
+                            if (error) {
+                                return reject(error);
+                            }
+                            if (result) {
+                                return resolve(res.status(200).json({ message: 'Great! please wait for the confirmation that will be sent to your email' }));
+                            }
+                        })
+                    }
+                    else {
+
+                    }
+                })
+            })
+        }
+    }
+})
+
+
 router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
     const { authorizationToken } = req.body;
     const query = "SELECT * from users where users.userId = ?";
@@ -255,6 +335,28 @@ router.post('/getTransactions', async (req, res) => {
     }
 
 });
+
+//getCustomer's Bill Records
+router.post('/getCustomerBills', async (req, res) => {
+    const { token, customerId } = req.body;
+    const query = "SELECT bill.billId, concat(users.firstName, ' ', users.lastName) as name, plans.planName, bill.stat, bill.amount " +
+        "FROM bill " +
+        "INNER JOIN accounts on bill.accountId = accounts.accountId " +
+        "INNER JOIN users on accounts.userId = users.userId " +
+        "INNER JOIN plans on bill.plan = plans.planId where bill.accountId = ?";
+    if (token != null) {
+        db.query(query, [customerId], (error, results) => {
+            if (error) {
+                return res.status(400).json({ error: error })
+            }
+            res.json(results)
+        })
+    }
+    else {
+        res.status(400).json({ message: "error! authentication token not valid!" });
+    }
+
+})
 router.post('/getStaff', async (req, res) => {
     const authorizationToken = req.body;
     const query = "SELECT users.userId as id,CONCAT(users.firstName,' ',users.lastName) as name, users.email,users.contactNum as contact, acounttype.position FROM users " +

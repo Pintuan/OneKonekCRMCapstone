@@ -7,13 +7,13 @@ import Plans from '../components/index/Plans';
 import Login from '../components/index/Login';
 import ContactUs from '../components/index/Inquire';
 import About from '../components/index/About';
-
+import Home from '../components/index/Home';
 function Index() {
   return (
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Plans/>}/>
+        <Route path="/" element={<Home/>}/>
         <Route path="/plans" element={<Plans />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/login" element={<Login />} />
