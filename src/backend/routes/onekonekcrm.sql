@@ -260,6 +260,7 @@ INSERT INTO `users` (`userId`, `firstName`, `middleName`, `lastName`, `age`, `em
 ('102339512338', 'Kaye Lyn', NULL, 'Pangan', '99', 'kayelynpangan@gmail.com', '9099999999', 'Abulalas, Hagonoy, Bulacan', NULL, '25464136855'),
 ('16458364911', 'Palapat', '', 'Customer', '0', '', '0', '', '', '25464136855'),
 ('16458364951', 'Dharist', '', 'Coronel', '42', '', '0', '', '', '25464136845'),
+('16458364951', 'Dharist', '', 'Coronel', '42', '', '0', '', '', '99999999999'),
 ('16458364981', 'Main', '', 'Staff', '0', '', '0', '', '', '25464136865');
 
 --

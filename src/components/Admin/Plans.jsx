@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DashboardCard06 from "../../partials/dashboard/DashboardCard06";
+import PlanModal from "../Modals/planModal";
 
 const Plans = () => {
   const [plans, setPlans] = useState([]);
