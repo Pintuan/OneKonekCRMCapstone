@@ -33,6 +33,7 @@ const LoginForm = () => {
         sessionStorage.setItem('image',resp.data.image);
         sessionStorage.setItem('username',username);
         window.location.href = path.data.path;
+        console.log(path.data.path);
       }
     } catch (err) {
       console.log(err);
@@ -40,53 +41,59 @@ const LoginForm = () => {
     }
   };
   return (
-    <div className="w-full max-w-sm p-6 m-auto mx-auto my-5 bg-white rounded-lg shadow-md dark:bg-gray-800">
-      <div className="flex justify-center mx-auto">
-        <img className="w-auto" src="../onekonek_white.png" alt="Logo" />
-      </div>
-      <div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-      </div>
-      <form onSubmit={handleSubmit} className="mt-6">
-        <div>
-          <label htmlFor="username" className="block text-sm text-gray-800 dark:text-gray-200">
-            Username
-          </label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-          />
-        </div>
-
-        <div className="mt-4">
-          <div className="flex items-center justify-between">
-            <label htmlFor="password" className="block text-sm text-gray-800 dark:text-gray-200">
-              Password
-            </label>
-
-          </div>
-
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-          />
-        </div>
-
-        <div className="mt-6">
-          <button className="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-            Sign In
-          </button>
-        </div>
-        <a href="#" className="text-xs text-gray-600 dark:text-gray-400 hover:underline">
-          Forget Password?
-        </a>
-      </form>
-
+    <div className="relative w-full max-w-sm p-6 mt-16 m-auto bg-white rounded-lg shadow-lg dark:bg-gray-800">
+  {/* Circle profile-like logo with a border */}
+  <div className="my-4 absolute inset-x-0 top-[-4rem] flex justify-center">
+    <div className="w-32 h-32 rounded-full bg-gray-100 dark:bg-gray-700 border-4 border-gray-300 dark:border-gray-500 flex items-center justify-center">
+      <img className="brightness-90 w-28 h-28 rounded-full" src="profile_icon.png" alt="Logo" />
     </div>
+  </div>
+
+  <div className="pt-10"> {/* Adjusted padding to make room for the larger logo */}
+    {error && <p style={{ color: 'red' }}>{error}</p>}
+  </div>
+
+  <form onSubmit={handleSubmit} className="mt-6">
+    <div>
+      <label htmlFor="username" className="block text-sm text-gray-800 dark:text-gray-200">
+        Username
+      </label>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+      />
+    </div>
+
+    <div className="mt-4">
+      <div className="flex items-center justify-between">
+        <label htmlFor="password" className="block text-sm text-gray-800 dark:text-gray-200">
+          Password
+        </label>
+      </div>
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+      />
+    </div>
+
+    <div className="mt-6">
+      <button className="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+        Sign In
+      </button>
+    </div>
+    <a href="#" className="text-xs text-gray-600 dark:text-gray-400 hover:underline">
+      Forget Password?
+    </a>
+  </form>
+</div>
+
+
+
+
   );
 };
 
