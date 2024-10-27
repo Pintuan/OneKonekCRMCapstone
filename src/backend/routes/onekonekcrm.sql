@@ -208,7 +208,7 @@ INSERT INTO `servers` (`serverId`, `serverName`, `serverLocation`, `maxConn`, `i
 CREATE TABLE `systemlogs` (
   `logId` decimal(30,0) NOT NULL,
   `userId` varchar(50) NOT NULL,
-  `timedate` date NOT NULL DEFAULT current_timestamp(),
+  `timedate` datetime NOT NULL DEFAULT current_timestamp(),
   `actionTaken` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
