@@ -8,6 +8,7 @@ const router = express.Router();
 
 
 
+
 function getRestriction(accountId) {
     return new Promise((resolve, reject) => {
         const query = 'select userId, position from users u INNER JOIN acounttype accType on u.restriction = accType.restrictionId WHERE userId = ?';
@@ -106,6 +107,22 @@ const genId = async (table, field, length) => {
     }
     return id;
 }
+
+// Function to insert log
+function insertLog(logid, userId, action, ipAddress) {
+    return new Promise((resolve, reject) => {
+        const query = 'INSERT INTO systemlogs (logid,userId, timedate,actionTaken, ipAdd) VALUES  (?, ?, ?, ?, ?)';
+
+        // Execute the query with parameters
+        db.query(query, [logid, userId, new Date(), action, ipAddress], (err, results) => {
+            if (err) {
+                return reject(err); // Reject the promise if there's an error
+            }
+
+            resolve(results); // Resolve with results if successful
+        });
+    });
+}
 router.post('/redirect', async (req, res) => {
     try {
         const { data } = req.body;
@@ -162,6 +179,7 @@ router.post('/login', async (req, res) => {
                 resolve(hash);
             });
         });
+        insertLog(await genId('systemlogs', 'logId', 100000000), user.accountId, 'Login', req.headers['x-forwarded-for'] || req.connection.remoteAddress);
         res.json({ message: 'Login successful', token: token, zhas2chasT: restriction, auth: user.accountId });
     } catch (error) {
         res.json({ error: 'Server error', code: error });
@@ -400,20 +418,4 @@ router.post('/getCustomers', async (req, res) => {
     }
 
 });
-// Function to insert log
-function insertLoginLog(userId, ipAddress, action) {
-    return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO login_logs (userId, timedate,actionTaken, ipAdd) VALUES (?, ?, ?, ?)';
-
-        // Execute the query with parameters
-        db.query(query, [userId, new Date(), action, ipAddress], (err, results) => {
-            if (err) {
-                return reject(err); // Reject the promise if there's an error
-            }
-
-            resolve(results); // Resolve with results if successful
-        });
-    });
-}
-
 module.exports = router;
