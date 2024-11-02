@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Plans from "./Plans";
+import Slider from "react-slick";
 
 function Home() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div>
   <div>
@@ -31,14 +40,23 @@ function Home() {
         </h4>
       </div>
     </div>
+     {/* Carousel Section */}
+     <div className="mx-8 mb-8">
+          <Slider {...settings}>
+            <div>
+              <img src="image1.jpg" alt="Image 1" className="w-full h-[300px] object-cover" />
+            </div>
+            <div>
+              <img src="image2.jpg" alt="Image 2" className="w-full h-[300px] object-cover" />
+            </div>
+            <div>
+              <img src="image3.jpg" alt="Image 3" className="w-full h-[300px] object-cover" />
+            </div>
+          </Slider>
+        </div>
+
   </div>
-  <div className="flex justify-center w-full mb-20">
-    <img
-      src="ok_man.png"
-      alt="Welcome Animation"
-      className="w-50 h-60 max-w-xs rounded-lg transition-transform duration-300 transform hover:scale-105 mb-6"
-    />
-  </div>
+  
 
   <Plans />
   <footer className="py-10 text-center">

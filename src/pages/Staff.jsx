@@ -11,6 +11,8 @@ import Transactions from '../components/Staff/Transactions';
 import Customers from '../components/Staff/Customers';
 import Settings from '../components/Staff/Settings';
 import Tickets from '../components/Staff/Tickets';
+import Installation from '../components/Staff/Installation';
+
 
 function Dashboard() {
 
@@ -33,6 +35,7 @@ function Dashboard() {
           <Route path='/Transactions' element={<Transactions />} />
           <Route path='/Customers' element={<Customers />} />
           <Route path='/Tickets' element={<Tickets />} />
+          <Route path='/Installation' element={<Installation />} />
         </Routes>
       </div>
     </div>

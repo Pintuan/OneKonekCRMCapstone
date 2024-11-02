@@ -89,7 +89,7 @@ const PaymentSettings = () => {
 
         {/* Button in Column 3 */}
         <div className="flex justify-end items-end col-span-1 md:col-start-3">
-          <button className="mr-6 text-white bg-blue-500 px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+          <button className="px-4 py-2 mr-6 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
             Add
           </button>
         </div>

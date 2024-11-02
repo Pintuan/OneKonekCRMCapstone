@@ -14,6 +14,7 @@ function Inquire() {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [mothersMaidenName, setMothersMaidenName] = useState("");
+  const [landmark, setLandmark] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,7 +27,10 @@ function Inquire() {
         contactNum,
         address,
         email,
+        birthday,
         plan,
+        mothersMaidenName,
+        landmark,
       }
     );
     setError(response.data.message);
@@ -126,7 +130,18 @@ function Inquire() {
                     />
                   </div>
                 </div>
-
+                <div>
+                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="johnsnow@example.com"
+                    className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
                 <div>
                   <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                     Address
@@ -141,17 +156,18 @@ function Inquire() {
                 </div>
                 <div>
                   <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                    Email address
+                    Nearest Landmark
                   </label>
                   <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="johnsnow@example.com"
+                    type="text"
+                    value={landmark}
+                    onChange={(e) => setLandmark(e.target.value)}
+                    placeholder=""
                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
-                <button className="flex items-center justify-center w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform hover:bg-blue-500 rounded-lg bg-gray-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                
+                <button className="px-4 py-3 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                   <span className="text-center">Sign Up</span>
 
                     <path

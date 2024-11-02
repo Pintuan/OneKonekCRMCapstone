@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TechSupport from "../Modals/TechSupport";
 
 function Customers() {
   const queryParameters = new URLSearchParams(window.location.search);
@@ -18,7 +19,7 @@ function Customers() {
   const [insideReading, setInsideReading] = useState("");
   const [comment, setComment] = useState("");
   const [tl, setTL] = useState("");
-
+  const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,10 +58,13 @@ function Customers() {
   return (
     <div className="flex h-screen">
       <section className="container px-4 mx-auto">
+        <div className="flex justify-end mr-8 mt-8">
+          <TechSupport />
+        </div>
         <div className="flex items-center gap-x-3">
           <div className="flex justify-end items-end">
             <h2 className="font-bold mx-10 pt-5 text-lg font-lg text-gray-800 dark:text-white">
-              Team Members
+              Tickets
             </h2>
             <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
               100 users
@@ -251,310 +255,6 @@ function Customers() {
               />
             </svg>
           </a>
-        </div>
-
-
-
-
-
-
-        <div className="flex items-center mt-6">
-          <div className="flex justify-end items-end">
-            <h2 className="font-bold mx-8 pt-5 text-lg font-lg text-gray-800 dark:text-white mb-4">
-              Technician
-            </h2>
-          </div>
-        </div>
-        <div className="ml-2 max-w-6xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-4">
-          <div className="flex justify-start items-end">
-            <h2 className="font-bold mx-6 pt-5 text-lg font-lg text-gray-800 dark:text-gray-300 mb-4">
-              Fill up/ Completion
-            </h2>
-          </div>
-          <form
-            onSubmit={handleSubmit}
-            className="grid grid-cols-1 gap-6 mt-2 md:grid-cols-1">
-            <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3">
-              <div>
-                <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                  ID Number
-                </label>
-                <input
-                  type="text"
-                  placeholder=""
-                  value={idNumber}
-                  onChange={(e) => setIdNumber(e.target.value)}
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
-              </div>
-
-              <div>
-                <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                  Tl
-                </label>
-                <input
-                  type="text"
-                  placeholder=""
-                  value={tl}
-                  onChange={(e) => setTL(e.target.value)}
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
-              </div>
-              <div>
-                <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                  Tech
-                </label>
-                <input
-                  type="text"
-                  placeholder=""
-                  value={tech}
-                  onChange={(e) => setTech(e.target.value)}
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Server
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                value={server}
-                onChange={(e) => setServer(e.target.value)}
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Maps Location
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                value={maps}
-                onChange={(e) => setMaps(e.target.value)}
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Phone number
-              </label>
-              <div className="flex items-center mt-2">
-                <p className="py-2.5 px-3 text-gray-500 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 border border-r-0 rtl:rounded-r-lg rtl:rounded-l-none rtl:border-l-0 rtl:border-r rounded-l-lg">
-                  +63
-                </p>
-                <input
-                  type="text"
-                  placeholder="9XX-XXX-XXXX"
-                  value={contactNum}
-                  onChange={(e) => setContactNum(e.target.value)}
-                  className="block w-full rounded-l-none rtl:rounded-l-lg rtl:rounded-r-none placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Plan
-              </label>
-              <input
-                type="text"
-                value={plans}
-                onChange={(e) => setPlans(e.target.value)}
-                placeholder=""
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                PPPOE
-              </label>
-              <input
-                type="email"
-                value={pppoe}
-                onChange={(e) => setPPPEO(e.target.value)}
-                placeholder=""
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                NAP
-              </label>
-              <input
-                type="text"
-                value={nap}
-                onChange={(e) => setNap(e.target.value)}
-                placeholder=""
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                NAP PORT
-              </label>
-              <input
-                type="text"
-                value={napPort}
-                onChange={(e) => setNapPort(e.target.value)}
-                placeholder=""
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                NAP Reading
-              </label>
-              <input
-                type="text"
-                value={napReading}
-                onChange={(e) => setNapReading(e.target.value)}
-                placeholder=""
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div>
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                Inside Reading
-              </label>
-              <input
-                type="email"
-                value={insideReading}
-                onChange={(e) => setInsideReading(e.target.value)}
-                placeholder=""
-                className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                  Time of Installation 1
-                </label>
-                <div className="flex items-center">
-                  <select
-                    name="hour"
-                    value={time.hour}
-                    onChange={handleChange}
-                    className="mr-2 px-3 py-2 border rounded w-40 bg-gray-800 text-white"
-                  >
-                    <option value="" disabled>
-                      Select Hour
-                    </option>
-                    {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
-                      <option key={hour} value={hour}>
-                        {hour}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    name="minute"
-                    value={time.minute}
-                    onChange={handleChange}
-                    className="mr-2 px-3 py-2 border rounded w-40 bg-gray-800 text-white"
-                  >
-                    <option value="" disabled>
-                      Select Minute
-                    </option>
-                    {Array.from({ length: 60 }, (_, i) => i).map((minute) => (
-                      <option key={minute} value={minute}>
-                        {minute < 10 ? `0${minute}` : minute}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    name="period"
-                    value={time.period}
-                    onChange={handleChange}
-                    className="mr-2 px-3 py-2 border rounded w-40 bg-gray-800 text-white"
-                  >
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                  End of Installation
-                </label>
-                <div className="flex items-center">
-                  <select
-                    name="hour"
-                    value={time.hour}
-                    onChange={handleChange}
-                    className="mr-2 px-3 py-2 border rounded w-40 bg-gray-800 text-white"
-                  >
-                    <option value="" disabled>
-                      Select Hour
-                    </option>
-                    {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
-                      <option key={hour} value={hour}>
-                        {hour}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    name="minute"
-                    value={time.minute}
-                    onChange={handleChange}
-                    className="mr-2 px-3 py-2 border rounded w-40 bg-gray-800 text-white"
-                  >
-                    <option value="" disabled>
-                      Select Minute
-                    </option>
-                    {Array.from({ length: 60 }, (_, i) => i).map((minute) => (
-                      <option key={minute} value={minute}>
-                        {minute < 10 ? `0${minute}` : minute}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    name="period"
-                    value={time.period}
-                    onChange={handleChange}
-                    className="mr-2 px-3 py-2 border rounded w-40 bg-gray-800 text-white"
-                  >
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div>
-                <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                  Comments
-                </label>
-                <input
-                  type="text"
-                  placeholder=""
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
-              </div>
-
-            <button className="flex items-center justify-center w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform hover:bg-blue-500 rounded-lg bg-gray-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-              <span className="text-center">Submit</span>
-
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </button>
-
-          </form>
         </div>
       </section>
     </div>

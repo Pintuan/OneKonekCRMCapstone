@@ -70,22 +70,8 @@ const LoginForm = () => {
   };
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[48%_52%] min-h-screen bg-gray-100 dark:bg-gray-900 gap-x-4 overflow-hidden">
-      {/* Left Image Section */}
-      <div className="hidden lg:flex items-center justify-center lg:pr-2">
-        {" "}
-        {/* Changed justify-end to justify-center */}
-        <img
-          src="login_side.png"
-          alt="Login Side Image"
-          className="h-4/6 max-w-full rounded-lg object-contain"
-        />
-      </div>
-
-      {/* Right Login Section */}
       <div className="flex items-center justify-start px-6 py-12 lg:pl-10">
-
         <div className="relative w-full max-w-md p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
-          {/* Profile Icon */}
           <div className="absolute inset-x-0 top-[-3rem] flex justify-center">
             <div className="w-36 h-36 rounded-full bg-gray-100 dark:bg-gray-700 border-4 border-gray-300 dark:border-gray-500 flex items-center justify-center">
               <img
@@ -95,13 +81,7 @@ const LoginForm = () => {
               />
             </div>
           </div>
-
-          {/* Error Message */}
-          <div className="pt-12">
-            {error && (
-              <p className="text-red-500 text-sm text-center">{error}</p>
-            )}
-          </div>
+          <div className="pt-16"></div>
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="mt-6">
@@ -142,19 +122,24 @@ const LoginForm = () => {
                 aria-label="Password"
               />
             </div>
+            <div className="my-4">
+              {error && (
+                <p className="text-red-500 text-sm text-right">{error}</p>
+              )}
+            </div>
 
             {/* Submit Button */}
             <div className="mb-4">
               <button
                 type="submit"
-                className="w-full px-6 py-3 text-base font-semibold text-white bg-gray-700 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 transition-colors duration-300 transform"
+                className="w-full px-6 py-3 text-base font-semibold text-white px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
               >
                 Sign In
               </button>
             </div>
 
             {/* Forgot Password Link */}
-            <div className="text-center">
+            <div className="text-left">
               <a
                 href="#"
                 className="text-sm text-gray-600 dark:text-gray-400 hover:underline"

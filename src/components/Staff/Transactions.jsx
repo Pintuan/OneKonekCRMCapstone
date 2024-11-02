@@ -31,29 +31,33 @@ const Transactions = () => {
   const renderData = [];
   while (i < transaction.length) {
     renderData.push(
-      <tr key={transaction[i].paymentId}>
-        <td scope="col" class="px-4 py-4 font-nunito">
-          {transaction[i].paymentId}
-        </td>
-        <td scope="col" class="px-4 py-4 font-nunito">
-          {transaction[i].name}
-        </td>
-        <td scope="col" class="px-4 py-4 font-nunito">
-          {transaction[i].planName}
-        </td>
-        <td scope="col" class="px-4 py-4 font-nunito">
-          {transaction[i].billingDate}
-        </td>
-        <td scope="col" class="px-4 py-4 font-nunito">
-          {transaction[i].paymentDate}
-        </td>
-        <td scope="col" class="px-4 py-4 font-nunito">
-          {transaction[i].Rebate}
-        </td>
-        <td scope="col" class="px-4 py-4 font-nunito">
-          {transaction[i].totalPaid}
-        </td>
-      </tr>
+      <tr
+      key={transaction[i].paymentId}
+      className="text-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+    >
+      <td scope="col" className="px-4 py-4 font-nunito">
+        {transaction[i].paymentId}
+      </td>
+      <td scope="col" className="px-4 py-4 font-nunito">
+        {transaction[i].name}
+      </td>
+      <td scope="col" className="px-4 py-4 font-nunito">
+        {transaction[i].planName}
+      </td>
+      <td scope="col" className="px-4 py-4 font-nunito">
+        {transaction[i].billingDate}
+      </td>
+      <td scope="col" className="px-4 py-4 font-nunito">
+        {transaction[i].paymentDate}
+      </td>
+      <td scope="col" className="px-4 py-4 font-nunito">
+        {transaction[i].Rebate}
+      </td>
+      <td scope="col" className="px-4 py-4 font-nunito">
+        {transaction[i].totalPaid}
+      </td>
+    </tr>
+    
     );
     i++;
   }
