@@ -28,7 +28,7 @@ const Home = () => {
         )
       );
       const response = await axios.post(
-        "http://localhost:7222/auth/zxT10Rrshxb",
+        "http://localhost:7222/auth/updateUserInfo",
         {
           hsdn2owet,
           fName,
@@ -54,7 +54,7 @@ const Home = () => {
         )
       );
       const response = await axios.post(
-        "http://localhost:7222/auth/bnfjvbxgdsHAngWR",
+        "http://localhost:7222/auth/updateLoginDetails",
         {
           hsdn2owet,
           password,

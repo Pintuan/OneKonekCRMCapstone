@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DashboardCard12() {
+function CardTableNoDivision() {
   return (
     <div className="col-span-full xl:col-span-6 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
       <div className="p-3">
@@ -104,4 +104,4 @@ function DashboardCard12() {
   );
 }
 
-export default DashboardCard12;
+export default CardTableNoDivision;

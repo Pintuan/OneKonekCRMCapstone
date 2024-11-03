@@ -8,14 +8,7 @@ function Customers() {
   const [error, setError] = useState(false);
   const fetchData = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:7222/auth/getCustomers",
-        {
-          token: sessionStorage.getItem(
-            "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
-          ),
-        }
-      );
+      const response = await axios.post("http://localhost:7222/auth/getCustomers", { token: sessionStorage.getItem("3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0") });
       setCustomers(response.data);
       setLoading(false);
     } catch (error) {
@@ -101,12 +94,12 @@ function Customers() {
         <div className="sm:flex sm:justify-between sm:items-center mb-8">
           {/* Left: Title */}
           <div className="container px-4 mx-auto">
-          <div className="flex items-center gap-x-3">
-                <div className="flex justify-end items-end">
-                    <h2 className="font-bold mx-10 pt-5 text-lg font-lg text-gray-800 dark:text-white">
-                        Customer
-                    </h2>
-                </div>
+            <div className="flex items-center gap-x-3">
+              <div className="flex justify-end items-end">
+                <h2 className="font-bold mx-10 pt-5 text-lg font-lg text-gray-800 dark:text-white">
+                  Customer
+                </h2>
+              </div>
             </div>
             <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
               {/* Cards */}

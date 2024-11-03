@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DashboardCard12 from "../../partials/dashboard/DashboardCard12";
+import CardTableNoDivision from "../../partials/dashboard/CardTableNoDivision";
 
 function Home() {
   return (
@@ -17,7 +17,7 @@ function Home() {
         {/* Cards */}
         <div className="grid grid-cols-12 gap-6">
           {/* Line chart (Real Time Value) */}
-          <DashboardCard12 />
+          <CardTableNoDivision />
         </div>
       </div>
     </main>
