@@ -68,89 +68,92 @@ const LoginForm = () => {
       setError(err.response?.data?.error || "Login failed");
     }
   };
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[48%_52%] min-h-screen bg-gray-100 dark:bg-gray-900 gap-x-4 overflow-hidden">
-      <div className="flex items-center justify-start px-6 py-12 lg:pl-10">
-        <div className="relative w-full max-w-md p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
-          <div className="absolute inset-x-0 top-[-3rem] flex justify-center">
-            <div className="w-36 h-36 rounded-full bg-gray-100 dark:bg-gray-700 border-4 border-gray-300 dark:border-gray-500 flex items-center justify-center">
-              <img
-                className="brightness-90 w-32 h-32 rounded-full"
-                src="profile_icon.png"
-                alt="User Profile"
-              />
-            </div>
-          </div>
-          <div className="pt-16"></div>
-
-          {/* Login Form */}
-          <form onSubmit={handleSubmit} className="mt-6">
-            {/* Username Input */}
-            <div className="mb-4">
-              <label
-                htmlFor="username"
-                className="block text-base font-medium text-gray-800 dark:text-gray-200"
-              >
-                Username
-              </label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none focus:ring-opacity-50"
-                required
-                aria-label="Username"
-              />
-            </div>
-
-            {/* Password Input */}
-            <div className="mb-6">
-              <label
-                htmlFor="password"
-                className="block text-base font-medium text-gray-800 dark:text-gray-200"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none focus:ring-opacity-50"
-                required
-                aria-label="Password"
-              />
-            </div>
-            <div className="my-4">
-              {error && (
-                <p className="text-red-500 text-sm text-right">{error}</p>
-              )}
-            </div>
-
-            {/* Submit Button */}
-            <div className="mb-4">
-              <button
-                type="submit"
-                className="w-full px-6 py-3 text-base font-semibold text-white px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-              >
-                Sign In
-              </button>
-            </div>
-
-            {/* Forgot Password Link */}
-            <div className="text-left">
-              <a
-                href="#"
-                className="text-sm text-gray-600 dark:text-gray-400 hover:underline"
-              >
-                Forgot Password?
-              </a>
-            </div>
-          </form>
+    <div className="flex items-center justify-center bg-gradient-to-b from-gray-50 to-blue-700 dark:from-gray-800 dark:to-gray-500 min-h-screen overflow-hidden">
+    <div className="relative w-full max-w-sm p-6 bg-white rounded-lg shadow-lg dark:bg-gray-800 transition-transform transform hover:scale-105">
+      <div className="absolute inset-x-0 top-[-4rem] flex justify-center">
+        <div className="w-36 h-36 rounded-full bg-gray-100 dark:bg-gray-700 border-4 border-gray-300 dark:border-gray-500 flex items-center justify-center">
+          <img
+            className="brightness-90 w-32 h-32 rounded-full"
+            src="profile_icon.png" // Replace with your image path
+            alt="User Profile"
+          />
         </div>
       </div>
+      <div className="pt-14"></div>
+  
+      {/* Login Form */}
+      <form onSubmit={handleSubmit} className="mt-2">
+        {/* Username Input */}
+        <div className="mb-4">
+          <label
+            htmlFor="username"
+            className="block text-base font-medium text-gray-800 dark:text-gray-200"
+          >
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none focus:ring-opacity-50"
+            required
+            aria-label="Username"
+          />
+        </div>
+  
+        {/* Password Input */}
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block text-base font-medium text-gray-800 dark:text-gray-200"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none focus:ring-opacity-50"
+            required
+            aria-label="Password"
+          />
+        </div>
+  
+        {/* Error Message */}
+        <div className="my-4">
+          {error && (
+            <p className="text-red-500 text-sm text-right">{error}</p>
+          )}
+        </div>
+  
+        {/* Submit Button */}
+        <div className="mb-4">
+          <button
+            type="submit"
+            className="w-full px-6 py-3 text-base font-semibold text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+          >
+            Sign In
+          </button>
+        </div>
+  
+        {/* Forgot Password Link */}
+        <div className="text-right">
+          <a
+            href="#"
+            className="text-sm text-gray-800 dark:text-gray-400 hover:underline"
+          >
+            Forgot Password?
+          </a>
+        </div>
+      </form>
     </div>
+  </div>
+  
+  
   );
 };
 

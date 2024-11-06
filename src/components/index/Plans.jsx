@@ -69,7 +69,7 @@ const Plans = () => {
     <div className="mx-10 my-8"> 
     <div className="w-full px-4 my-4 mt-6"> 
       <div className="text-left mb-6">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
+        <h2 className="text-3xl font-bold text-gray-700 dark:text-white">
           Choose the Perfect Plan for You!
         </h2>
         <p className="mt-4 text-gray-600 dark:text-gray-300">
