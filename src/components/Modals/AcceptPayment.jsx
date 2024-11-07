@@ -8,7 +8,7 @@ const AcceptPayment = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [bill, setBill] = useState([]);
-  
+
   const renderData = [];
   const getBills = async (event) => {
     event.preventDefault();

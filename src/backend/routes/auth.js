@@ -5,10 +5,10 @@ const router = express.Router();
 
 // Configure your PostgreSQL connection
 const pool = new Pool({
-    user: 'onekonek@123',
-    host: '192.168.100.21',
+    user: 'postgres',
+    host: '13.211.183.92',
     database: 'onekonekcrm',
-    password: 'admin@1123',
+    password: '5cnzw7YVXSaRyN6JDm',
     port: 5432, // Default PostgreSQL port
 });
 
@@ -48,10 +48,10 @@ pool.connect(err => {
 async function getRestriction(accountId) {
     try {
         const query = `
-            SELECT u.user_id, accType.position 
+            SELECT u.user_id, acc_type.position 
             FROM users u 
-            INNER JOIN acounttype accType 
-            ON u.restriction = accType."restrictionId"
+            INNER JOIN acounttype acc_type 
+            ON u.restriction = acc_type.restriction_id
             WHERE u.user_id = $1
         `;
         const results = await queryDatabase(query, [accountId]);
@@ -82,7 +82,7 @@ async function checkUsername(username) {
 // Function to verify password
 async function verifyPassword(accountId, password) {
     try {
-        const query = 'SELECT * FROM login WHERE accountid = $1';
+        const query = 'SELECT * FROM login WHERE account_id = $1';
         const results = await queryDatabase(query, [accountId]);
 
         if (results.length === 0) {
@@ -142,7 +142,7 @@ router.post('/redirect', async (req, res) => {
 // Login route
 router.post('/login', async (req, res) => {
     try {
-        debugger
+
         const { username, password } = req.body;
         if (!username || !password) {
             return res.status(400).json({ error: 'Please enter both username and password.' });
@@ -156,19 +156,19 @@ router.post('/login', async (req, res) => {
         }
 
         const user = results[0];
-        const isMatch = await bcrypt.compare(password, user.pWord);
+        const isMatch = await bcrypt.compare(password, user.pass_word);
         if (!isMatch) {
             return res.status(400).json({ error: 'Invalid username or password.' });
         }
 
-        const restriction = await getRestriction(user.accountId);
-        const token = await bcrypt.hash(user.pWord, 10);
+        const restriction = await getRestriction(user.account_id);
+        const token = await bcrypt.hash(user.pass_word, 10);
 
         res.json({
             message: 'Login successful',
             token: token,
             zhas2chasT: restriction,
-            auth: user.accountId,
+            auth: user.account_id,
         });
     } catch (error) {
         res.status(500).json({ error: 'Server error', code: error.message });
@@ -191,13 +191,13 @@ router.post('/updateLoginDetails', async (req, res) => {
             }
 
             if (confPass === password) {
-                updates.push('pword = $2');
+                updates.push('pass_word = $2');
                 values.push(await bcrypt.hash(password, 10));
             } else {
                 return res.status(401).json({ error: 'New password does not match' });
             }
 
-            const sql = `UPDATE login SET ${updates.join(', ')} WHERE accountid = $3`;
+            const sql = `UPDATE login SET ${updates.join(', ')} WHERE account_id = $3`;
             await queryDatabase(sql, [values, hsdn2owet]);
             res.send('User login details updated successfully!');
         } else {
@@ -215,16 +215,16 @@ router.post('/updateUserInfo', async (req, res) => {
         const updates = [];
         const values = [];
 
-        if (fName) updates.push('firstname = $1') && values.push(fName);
-        if (mName) updates.push('middlename = $2') && values.push(mName);
-        if (lName) updates.push('lastname = $3') && values.push(lName);
-        if (contactNum) updates.push('contactnum = $4') && values.push(contactNum);
+        if (fName) updates.push('first_name = $1') && values.push(fName);
+        if (mName) updates.push('middle_name = $2') && values.push(mName);
+        if (lName) updates.push('last_name = $3') && values.push(lName);
+        if (contactNum) updates.push('contact_num = $4') && values.push(contactNum);
         if (email) updates.push('email = $5') && values.push(email);
         if (profilePic) updates.push('profilepic = $6') && values.push(profilePic);
 
         if (await verifyPassword(hsdn2owet, passConfirm)) {
             values.push(hsdn2owet);
-            const sql = `UPDATE users SET ${updates.join(', ')} WHERE userid = $7`;
+            const sql = `UPDATE users SET ${updates.join(', ')} WHERE user_id = $7`;
             await queryDatabase(sql, values);
             res.send('User information updated successfully!');
         } else {
@@ -236,7 +236,6 @@ router.post('/updateUserInfo', async (req, res) => {
 });
 //inquire customer
 router.post('/hjgsahdghasgdhgdahsgdSAKNB', async (req, res) => {
-    debugger;
     let x;
     const { fname, mname, lname, contactNum, address, email, birthday, mothersMaidenName, plan } = req.body;
     const userId = await genId('users', 'user_id', 999999999999);
@@ -248,11 +247,11 @@ router.post('/hjgsahdghasgdhgdahsgdSAKNB', async (req, res) => {
         else {
             const query = `
                 INSERT INTO public.users(
-	                user_id, "firstName", "middleName", "lastName", age, email, "contactNum", address, "profilePic", restriction, birthdate, mothers_maiden_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+	                user_id, first_name, middle_name, last_name, age, email, contact_num, address, profilepic, restriction, birthdate, mothers_maiden_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
             x = await queryDatabase(query, [userId, fname, mname, lname, 0, email, contactNum, address, '', 25464136855, birthday, mothersMaidenName]);
             if (x) {
                 const newAccountQuery = `INSERT INTO public.accounts(
-	            "serverConn", "currPlan", account_id, "billingDate", stat, "userId") VALUES ($1,$2,$3,$4,$5,$6)`;
+	            server_conn, curr_plan, account_id, billing_date, stat, user_id) VALUES ($1,$2,$3,$4,$5,$6)`;
                 x = await queryDatabase(newAccountQuery, [null, plan, accountId, null, 6201, userId]);
                 if (x) {
                     return res.status(200).send({ message: 'Success! we will send a confirmation message through your email address about your account status' });
@@ -277,7 +276,7 @@ router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
             if (results == null) {
                 return res.status(300).json({ error: "No results found" });
             } else {
-                const buffer = results[0].profilePic;
+                const buffer = results[0].profilepic;
                 const image = buffer.toString('base64');
                 return res.status(200).json({ rawData: results, image });
             }
@@ -351,13 +350,13 @@ router.post('/getStaff', async (req, res) => {
     const authorizationToken = req.body;
     const query = `
         SELECT users.user_id AS id, 
-               CONCAT(users."firstName", ' ', users."lastName") AS name, 
-               users."email", 
-               users."contactNum" AS contact, 
-               acounttype."position"
+               CONCAT(users.first_name, ' ', users.last_name) AS name, 
+               users.email, 
+               users.contact_num AS contact, 
+               acounttype.position
         FROM users 
-        INNER JOIN acounttype ON users."restriction" = acounttype."restrictionId"
-        WHERE users."restriction" = 25464136865
+        INNER JOIN acounttype ON users.restriction = acounttype.restriction_id
+        WHERE users.restriction = 25464136865
     `;
 
     if (authorizationToken) {
@@ -390,7 +389,7 @@ router.post('/getPlans', async (req, res) => {
 });
 router.post('/getPositions', async (req, res) => {
     const authorizationToken = req.body;
-    const query = 'select * from acounttype where acounttype."restrictionId" != 25464136845  and acounttype."restrictionId" != 25464136855';
+    const query = 'select * from acounttype where acounttype.restriction_id != 25464136845  and acounttype.restriction_id != 25464136855';
 
     if (authorizationToken) {
         try {
@@ -409,14 +408,14 @@ router.post('/getCustomers', async (req, res) => {
     const authorizationToken = req.body;
     const query = `
         SELECT accounts.account_id, 
-               CONCAT(users."firstName", ' ', users."lastName") AS "fullName",  
-               users."address", 
-               plans."planName", 
-               accounts."billingDate", 
-               accounts."stat" 
+               CONCAT(users.first_name, ' ', users.last_name) AS "fullName",  
+               users.address, 
+               plans.plan_name, 
+               accounts.billing_date, 
+               accounts.stat 
         FROM users 
-        INNER JOIN accounts ON users.user_id = accounts."userId" 
-        INNER JOIN plans ON accounts."currPlan" = plans."planId"
+        INNER JOIN accounts ON users.user_id = accounts.user_id 
+        INNER JOIN plans ON accounts.curr_plan = plans.plan_id
     `;
 
     if (authorizationToken) {
@@ -444,5 +443,4 @@ function insertLoginLog(userId, ipAddress, action) {
     const query = 'INSERT INTO login_logs (userId, timedate, actionTaken, ipAdd) VALUES ($1, $2, $3, $4)';
     return db.query(query, [userId, new Date(), action, ipAddress]);
 }
-
 module.exports = router;

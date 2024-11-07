@@ -30,11 +30,11 @@ const Plans = () => {
   const renderData = [];
   while (i < plans.length) {
     renderData.push(
-      <tr key={plans[i].planId} className="hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
+      <tr key={plans[i].plan_id} className="hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
         <td></td>
-        <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].planName}</td>
-        <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].planSpeed}</td>
-        <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].planPrice}</td>
+        <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].plan_name}</td>
+        <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].plan_speed}</td>
+        <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].plan_price}</td>
         <td className="flex justify-center gap-1 py-4 px-4 whitespace-nowrap">
           <button className="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-yellow-300 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
             Edit

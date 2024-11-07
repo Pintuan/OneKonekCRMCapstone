@@ -10,10 +10,10 @@ app.use(bodyParser.json());
 
 // Create a pool for PostgreSQL
 const pool = new Pool({
-    user: 'onekonek@123',
-    host: '192.168.100.21',
+    user: 'postgres',
+    host: '13.211.183.92',
     database: 'onekonekcrm',
-    password: 'admin@1123',
+    password: '5cnzw7YVXSaRyN6JDm',
     port: 5432, // Default PostgreSQL port
 });
 
