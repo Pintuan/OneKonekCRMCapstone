@@ -11,6 +11,12 @@ import Transactions from '../components/Staff/Transactions';
 import Customers from '../components/Staff/Customers';
 import Settings from '../components/Staff/Settings';
 import Tickets from '../components/Staff/Tickets';
+<<<<<<< Updated upstream
+=======
+import Installation from '../components/Staff/Installation';
+import Completed from '../components/Staff/Completed.jsx';
+
+>>>>>>> Stashed changes
 
 function Dashboard() {
 
@@ -33,6 +39,11 @@ function Dashboard() {
           <Route path='/Transactions' element={<Transactions />} />
           <Route path='/Customers' element={<Customers />} />
           <Route path='/Tickets' element={<Tickets />} />
+<<<<<<< Updated upstream
+=======
+          <Route path='/Installation' element={<Installation />} />
+          <Route path='/Completed' element={<Completed />} />
+>>>>>>> Stashed changes
         </Routes>
       </div>
     </div>
