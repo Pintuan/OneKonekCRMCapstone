@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "../Modals/EditStaff";
+import EditStaff from "../Modals/EditStaff";
 
 const Staff = () => {
     const [staff, setStaff] = useState([]); // Initial state as an array
@@ -68,7 +69,7 @@ const Staff = () => {
                     className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                     type="button"
                 >
-                    <span>Edit</span>
+                    <span>Re-Assign</span>
                 </button>
                 <button
                     onClick={() => handleclick(staffMember.id)}
@@ -84,6 +85,8 @@ const Staff = () => {
     return (
         <section className="container px-4 mx-auto">
             <div className="flex items-center gap-x-3">
+
+                <EditStaff />
                 <div className="flex justify-end items-end">
                     <h2 className="font-bold mx-10 pt-5 text-lg font-lg text-gray-800 dark:text-white">
                         Staff
@@ -143,12 +146,6 @@ const Staff = () => {
                     </div>
                 </div>
             </div>
-            <Modal
-                isOpen={toggle}
-                onClose={closeModal}
-                data={data}
-                onSubmit={handleSubmit}
-            />
         </section>
     );
 };

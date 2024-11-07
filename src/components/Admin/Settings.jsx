@@ -28,7 +28,7 @@ const Home = () => {
         )
       );
       const response = await axios.post(
-        "http://localhost:7222/auth/zxT10Rrshxb",
+        "http://localhost:7222/auth/updateUserInfo",
         {
           hsdn2owet,
           fName,
@@ -54,7 +54,7 @@ const Home = () => {
         )
       );
       const response = await axios.post(
-        "http://localhost:7222/auth/bnfjvbxgdsHAngWR",
+        "http://localhost:7222/auth/updateLoginDetails",
         {
           hsdn2owet,
           password,
@@ -71,18 +71,18 @@ const Home = () => {
 
   return (
     <main className="grow">
-      <div className="px-4 sm:px-6 lg:px-8 w-full max-w-9xl mx-auto">
-        <div className="flex items-center gap-x-3">
+      <div className="sm:px-6 lg:px-8 w-full max-w-9xl">
+        <div className="flex items-center">
           <div className="flex justify-end items-end">
-            <h2 className="mb-4 font-bold mx-10 pt-5 text-lg font-lg text-gray-800 dark:text-white">
-              Account Settings
+            <h2 className="font-bold mx-8 pt-5 text-lg font-lg text-gray-800 dark:text-white mb-4">
+              My Account
             </h2>
           </div>
         </div>
 
         {/* Cards */}
-        <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-          <h2 className="font-bold mx-10 pt-5 text-lg font-lg text-gray-800 dark:text-white">
+        <section className="ml-4 max-w-6xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+          <h2 className="font-bold mx-2 pt-2 text-lg font-lg text-gray-800 dark:text-white">
             Personal Information
           </h2>
 
@@ -251,7 +251,7 @@ const Home = () => {
             </div>
           </form>
         </section>
-        <section className="my-4 max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+        <section className="ml-4 max-w-6xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 my-6">
           <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
             Login Details
           </h2>
