@@ -11,7 +11,6 @@ const pool = new Pool({
     password: '5cnzw7YVXSaRyN6JDm',
     port: 5432, // Default PostgreSQL port
 });
-
 // Function to query the database
 function queryDatabase(query, params) {
     if (params != null) {
@@ -120,8 +119,21 @@ async function genId(table, field, length) {
     }
     return id;
 }
+// Function to insert log
+function insertLog(logid, userId, action, ipAddress) {
+    return new Promise((resolve, reject) => {
+        const query = 'INSERT INTO systemlogs (logid,userId, timedate,actionTaken, ipAdd) VALUES  (?, ?, ?, ?, ?)';
 
-// Route to handle redirects
+        // Execute the query with parameters
+        db.query(query, [logid, userId, new Date(), action, ipAddress], (err, results) => {
+            if (err) {
+                return reject(err); // Reject the promise if there's an error
+            }
+
+            resolve(results); // Resolve with results if successful
+        });
+    });
+}
 router.post('/redirect', async (req, res) => {
     try {
         const { data } = req.body;
@@ -170,6 +182,8 @@ router.post('/login', async (req, res) => {
             zhas2chasT: restriction,
             auth: user.account_id,
         });
+        insertLog(await genId('systemlogs', 'logId', 100000000), user.accountId, 'Login', req.headers['x-forwarded-for'] || req.connection.remoteAddress);
+        res.json({ message: 'Login successful', token: token, zhas2chasT: restriction, auth: user.accountId });
     } catch (error) {
         res.status(500).json({ error: 'Server error', code: error.message });
     }
@@ -402,7 +416,6 @@ router.post('/getPositions', async (req, res) => {
         return res.status(400).json({ error: "No token provided" });
     }
 });
-
 // Get customers
 router.post('/getCustomers', async (req, res) => {
     const authorizationToken = req.body;
@@ -437,10 +450,4 @@ router.get('/', function (req, res) {
         res.status(401).json({ error: 'Unauthorized' });
     }
 });
-
-// Function to insert login log
-function insertLoginLog(userId, ipAddress, action) {
-    const query = 'INSERT INTO login_logs (userId, timedate, actionTaken, ipAdd) VALUES ($1, $2, $3, $4)';
-    return db.query(query, [userId, new Date(), action, ipAddress]);
-}
 module.exports = router;

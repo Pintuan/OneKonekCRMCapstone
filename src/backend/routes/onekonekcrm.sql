@@ -204,7 +204,6 @@ INSERT INTO servers (server_id, server_name, server_location, max_conn, ip_add) 
 --
 -- Table structure for table systemlogs
 --
-
 CREATE TABLE systemlogs (
   log_id decimal(30,0) NOT NULL,
   user_id varchar(50) NOT NULL,
