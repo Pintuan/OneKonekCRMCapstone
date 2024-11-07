@@ -306,17 +306,17 @@ router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
 router.post('/getTransactions', async (req, res) => {
     const authorizationToken = req.body;
     const query = `
-        SELECT p."paymentId", 
-               CONCAT(u."firstName", ' ', u."middleName", ' ', u."lastName") AS name, 
-               p."paymentDate", 
-               plans."planName", 
-               a."billingDate", 
-               p."totalPaid", 
-               p."rebate" 
+        SELECT p.payment_id as "paymentId", 
+               CONCAT(u.first_name, ' ', u.middle_name, ' ', u.last_name) AS name, 
+               p.payment_date as "paymentDate", 
+               plans.plan_name as "planName", 
+               a.billing_date as "billingDate", 
+               p.total_paid as "totalPaid", 
+               p.rebate 
         FROM payments p 
-        INNER JOIN accounts a ON p."accountId" = a.account_id 
-        INNER JOIN users u ON a."userId" = u.user_id 
-        INNER JOIN plans ON p."plan" = plans."planId"
+        INNER JOIN accounts a ON p.account_id = a.account_id 
+        INNER JOIN users u ON a.user_id = u.user_id 
+        INNER JOIN plans ON p.plan = plans.plan_id
     `;
 
     if (authorizationToken) {
@@ -336,8 +336,8 @@ router.post('/getCustomerBills', async (req, res) => {
     const { authorizationToken, customerId } = req.body;
     const query = `
         SELECT bill."billId", 
-               CONCAT(users."firstName", ' ', users."lastName") AS name, 
-               plans."planName", 
+               CONCAT(users.first__name, ' ', users.lastName) AS name, 
+               plans."plan_name", 
                bill."stat", 
                bill."amount"
         FROM bill 
@@ -423,6 +423,7 @@ router.post('/getCustomers', async (req, res) => {
         SELECT accounts.account_id, 
                CONCAT(users.first_name, ' ', users.last_name) AS "fullName",  
                users.address, 
+               users.email,
                plans.plan_name, 
                accounts.billing_date, 
                accounts.stat 

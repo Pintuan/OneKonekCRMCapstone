@@ -26,7 +26,7 @@ function Customers() {
     while (i < customers.length) {
         renderData.push(
             <tr>
-                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{customers[i].accountId}</td>
+                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{customers[i].account_id}</td>
                 <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                     <div className="inline-flex items-center gap-x-3">
                         <div className="flex items-center gap-x-2">
@@ -45,8 +45,8 @@ function Customers() {
                     </div>
                 </td>
                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{customers[i].email}</td>
-                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{customers[i].planName}</td>
-                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{customers[i].billingDate}</td>
+                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{customers[i].plan_name}</td>
+                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{customers[i].billing_date}</td>
 
                 <td className="px-4 py-4 text-sm whitespace-nowrap">
                     <div className="flex items-center gap-x-6">
