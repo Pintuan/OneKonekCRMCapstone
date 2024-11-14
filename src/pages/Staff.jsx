@@ -12,6 +12,7 @@ import Customers from '../components/Staff/Customers';
 import Settings from '../components/Staff/Settings';
 import Tickets from '../components/Staff/Tickets';
 import Installation from '../components/Staff/Installation';
+import Technician from '../components/Staff/Technician.jsx';
 
 
 function Dashboard() {
@@ -36,6 +37,7 @@ function Dashboard() {
           <Route path='/Customers' element={<Customers />} />
           <Route path='/Tickets' element={<Tickets />} />
           <Route path='/Installation' element={<Installation />} />
+          <Route path='/Technician' element={<Technician />} />
         </Routes>
       </div>
     </div>

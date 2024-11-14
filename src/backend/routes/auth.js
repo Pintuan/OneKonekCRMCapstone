@@ -1,412 +1,131 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const db = require('../db'); // Import database connection
-const { resolve } = require('chart.js/helpers');
-const { listItemSecondaryActionClasses } = require('@mui/material');
-const { json } = require('react-router-dom');
+const { Pool } = require('pg'); // Import pg Pool for PostgreSQL
 const router = express.Router();
 
-
-
-function getRestriction(accountId) {
-    return new Promise((resolve, reject) => {
-        const query = 'select userId, position from users u INNER JOIN acounttype accType on u.restriction = accType.restrictionId WHERE userId = ?';
-        db.query(query, [accountId], (err, results) => {
-            if (err) {
-                return reject(err); // Reject the promise on database error
-            }
-
-            if (results.length === 0) {
-                return reject(new Error('No user found')); // Handle no result case
-            }
-
-            const restrictionData = results[0];
-            console.log(restrictionData.position);
-            bcrypt.hash(restrictionData.position, 10, (err, hashedRestriction) => {
-                if (err) {
-                    return reject(err); // Reject if hashing fails
-                }
-
-                // Resolve the hashed restriction
-                resolve(hashedRestriction);
-            });
-        });
-    });
-}
-function checkUsername(username) {
-    return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM login where login.username ?';
-        db.query(query, [username], (err, results) => {
-            if (err) {
-                return reject(err); // Reject the promise on database error
-            }
-
-            if (results.length === 0) {
-                resolve(true);
-            }
-            else {
-                return reject(false);
-            }
-        });
-    });
-}
-function verifyPassword(accountId, password) {
-    return new Promise((resolve, reject) => {
-        const query = "select * from login where accountId = ?";
-        db.query(query, [accountId], (err, results) => {
-            if (err) {
-                return reject(err);
-            }
-            if (results != 0) {
-                user = results[0];
-                return resolve(bcrypt.compare(password, user.pWord));
-            }
-            else {
-                return reject('no user Found');
-            }
-        });
-    })
-}
-function verifyEmail(email) {
-    return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM users where email=?';
-        db.query(query, [email], (error, results) => {
-            if (error) {
-                return reject(error);
-            }
-            if (results.lenght === 0) {
-                return resolve(true);
-            }
-            else {
-                return resolve(false);
-            }
-        })
-    })
-
-}
-const genId = async (table, field, length) => {
-    let isUnique = false;
-    let id = 0;
-    while (!isUnique) {
-        const query = 'select * FROM ' + table + ' where ' + field + ' = ?';
-        const results = await new Promise((resolve, reject) => {
-            id = Math.floor(Math.random() * length);
-            db.query(query, [id], (err, results) => {
-                if (err) return reject(err);
-                resolve(results);
-            });
-        });
-
-        if (results.length === 0) {
-            isUnique = true;
-        }
-        else {
-            isUnique = false;
-        }
-    }
-    return id;
-}
-router.post('/redirect', async (req, res) => {
-    try {
-        const { data } = req.body;
-        const admin = await bcrypt.compare('Admin', data);
-        const staff = await bcrypt.compare('Staff', data);
-        if (admin) {
-            return res.json({ path: "/Admin" });
-        }
-        if (staff) {
-            return res.json({ path: "/Staff" });
-        }
-    } catch (error) {
-        return res.status(400).json({ code: error.data })
-    }
-
+// Configure your PostgreSQL connection
+const pool = new Pool({
+    user: 'postgres',
+    host: '13.211.183.92',
+    database: 'onekonekcrm',
+    password: '5cnzw7YVXSaRyN6JDm',
+    port: 5432, // Default PostgreSQL port
 });
-// Login Route
-router.post('/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
-
-        if (!username || !password) {
-            return res.status(400).json({ error: 'Please enter both username and password.' });
-        }
-
-        // Query to find the user by username
-        const query = 'select * from login where username = ?';
-        const results = await new Promise((resolve, reject) => {
-            db.query(query, [username], (err, results) => {
-                if (err) return reject(err);
-                resolve(results);
+// Function to query the database
+function queryDatabase(query, params) {
+    if (params != null) {
+        return new Promise((resolve, reject) => {
+            pool.query(query, params, (error, results) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(results.rows);
             });
         });
+    }
+    else {
+        return new Promise((resolve, reject) => {
+            pool.query(query, (error, results) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(results.rows);
+            });
+        });
+    }
+}
+
+pool.connect(err => {
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
+    } else {
+        console.log('Connected to the PostgreSQL database');
+    }
+});
+// Function to get restriction details
+async function getRestriction(accountId) {
+    try {
+        const query = `
+            SELECT u.user_id, acc_type.position 
+            FROM users u 
+            INNER JOIN acounttype acc_type 
+            ON u.restriction = acc_type.restriction_id
+            WHERE u.user_id = $1
+        `;
+        const results = await queryDatabase(query, [accountId]);
 
         if (results.length === 0) {
-            return res.status(400).json({ error: 'Invalid username or password.' });
+            throw new Error('No user found');
+        }
+
+        const restrictionData = results[0];
+        const hashedRestriction = await bcrypt.hash(restrictionData.position, 10);
+        return hashedRestriction;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Function to check if a username is unique
+async function checkUsername(username) {
+    try {
+        const query = 'SELECT * FROM login WHERE username = $1';
+        const results = await queryDatabase(query, [username]);
+        return results.length === 0;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Function to verify password
+async function verifyPassword(accountId, password) {
+    try {
+        const query = 'SELECT * FROM login WHERE account_id = $1';
+        const results = await queryDatabase(query, [accountId]);
+
+        if (results.length === 0) {
+            throw new Error('No user found');
         }
 
         const user = results[0];
-
-        // Compare the password using bcrypt
-        const isMatch = await bcrypt.compare(password, user.pWord);
-        if (!isMatch) {
-            return res.status(400).json({ error: 'Invalid username or password.' });
-        }
-
-        // Get restriction asynchronously with hashing
-        const restriction = await getRestriction(user.accountId);
-
-        // Generate the token
-        const token = await new Promise((resolve, reject) => {
-            bcrypt.hash(user.pWord, 10, (err, hash) => {
-                if (err) return reject(err);
-                resolve(hash);
-            });
-        });
-        res.json({ message: 'Login successful', token: token, zhas2chasT: restriction, auth: user.accountId });
+        const isMatch = await bcrypt.compare(password, user.pword);
+        return isMatch;
     } catch (error) {
-        res.json({ error: 'Server error', code: error });
+        throw error;
     }
-});
-// update login details for users
-router.post('/bnfjvbxgdsHAngWR', async (req, res) => {
-    const {
-        hsdn2owet,
-        username,
-        password,
-        confPass,
-        passConfirm
-    } = req.body;
-    const updates = [];
-    const values = [];
-    if (await verifyPassword(hsdn2owet, passConfirm)) {
-        if (await checkUsername(username)) {
-            updates.push('username = ?');
-            values.push(fName);
-        }
-        else {
-            return res.status(401).json({ error: 'Username already exists' });
-        }
-        if (confPass === password) {
-            updates.push('pWord =?');
-            values.push(password);
-        }
-        else {
-            return res.status(401).json({ error: "new password doesnt match" });
-        }
-    }
-    else {
-        return res.status(401).json({ error: "Incorrect password confirmation" });
-    }
+}
 
-})
-//update user information from settings
-router.post('/zxT10Rrshxb', async (req, res) => {
-    const {
-        hsdn2owet,
-        fName,
-        mName,
-        lName,
-        contactNum,
-        email,
-        profilePic,
-        passConfirm
-    } = req.body;
+// Function to verify email uniqueness
+async function verifyEmail(email) {
+    try {
+        const query = 'SELECT * FROM users WHERE email = $1';
+        const results = await queryDatabase(query, [email]);
+        return results.length === 0;
+    } catch (error) {
+        throw error;
+    }
+}
 
-    // Build the SQL update query dynamically
-    const updates = [];
-    const values = [];
-
-    if (fName) {
-        updates.push('firstName = ?');
-        values.push(fName);
+// Function to generate a unique ID
+async function genId(table, field, length) {
+    let isUnique = false;
+    let id;
+    while (!isUnique) {
+        id = Math.floor(Math.random() * length);
+        const query = `SELECT * FROM ${table} WHERE ${field} = $1`;
+        const results = await queryDatabase(query, [id]);
+        isUnique = results.length === 0;
     }
-    if (mName) {
-        updates.push('middleName = ?');
-        values.push(mName);
-    }
-    if (lName) {
-        updates.push('lastName = ?');
-        values.push(lName);
-    }
-    if (contactNum) {
-        updates.push('contactNum = ?');
-        values.push(contactNum);
-    }
-    if (email) {
-        updates.push('email = ?');
-        values.push(email);
-    }
-    if (profilePic) {
-        updates.push('profilePic = ?');
-        values.push(profilePic);
-    }
-    if (await verifyPassword(hsdn2owet, passConfirm)) {
-
-        values.push(hsdn2owet);
-    }
-    else {
-        return res.status(401).json({ error: "Incorrect password confirmation" });
-    }
-
-    const sql = `UPDATE users SET ${updates.join(', ')} WHERE userId = ?`;
-    const results = await new Promise((resolve, reject) => {
-        db.query(sql, values, (err, result) => {
-            if (err) {
-                return res.json(err);
-            }
-            res.send('User updated successfully!');
-        });
-    });
-    return results;
-});
-//inquire customer
-router.post('/hjgsahdghasgdhgdahsgdSAKNB', async (req, res) => {
-    const { fname, mname, lname, contactNum, address, email, plan } = req.body;
-    const userId = await genId('users', 'userId', 999999999999);
-    const accountId = await genId('accounts', 'accountId', 999999999999);
-    if (verifyEmail(email)) {
-        if (fname === '' || mname === '' || lname === '' || contactNum === '' || address === '' || email === '') {
-            return res.status(400).json({ error: 'fields must not be emmpty' })
-        }
-        else {
-            const resp = await new Promise((resolve, reject) => {
-                const query = 'INSERT INTO `users`(`userId`, `firstName`, `middleName`, `lastName`, `age`, `email`, `contactNum`, `address`, `profilePic`, `restriction`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-                db.query(query, [userId, fname, mname, lname, '', email, contactNum, address, '', '25464136855'], (error, result) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    if (result) {
-                        const newAccountQuery = 'INSERT INTO `accounts`(`serverConn`, `currPlan`, `accountId`, `billingDate`, `stat`, `userId`) VALUES (?,?,?,?,?,?)';
-                        db.query(newAccountQuery, ['645', plan, accountId, '', '6201', userId], (error, result) => {
-                            if (error) {
-                                return reject(error);
-                            }
-                            if (result) {
-                                return resolve(res.status(200).json({ message: 'Great! please wait for the confirmation that will be sent to your email' }));
-                            }
-                        })
-                    }
-                    else {
-
-                    }
-                })
-            })
-        }
-    }
-})
-
-
-router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
-    const { authorizationToken } = req.body;
-    const query = "SELECT * from users where users.userId = ?";
-    if (authorizationToken != null) {
-        const results = await new Promise((resolve, reject) => {
-            db.query(query, [authorizationToken], (err, results) => {
-                if (err) return reject(err);
-                resolve(results);
-            });
-        });
-        if (results === 0) {
-            return res.status(300).json({ error: "no results found" });
-        }
-        else {
-            const buffer = results[0].profilePic;
-            const image = buffer.toString('base64');
-            return res.status(200).json({ rawData: results, image: image });
-        }
-    }
-    else {
-        return res.status(400).json({ error: "No Token is Given" });
-    }
-
-
-});
-//getTransactions
-router.post('/getTransactions', async (req, res) => {
-    const authorizationToken = req.body;
-    const query = 'select p.paymentId, CONCAT(u.firstName, " ", u.middleName, " ", u.lastName) as name, p.paymentDate, plans.planName, a.billingDate, p.totalPaid, p.rebate from payments p INNER JOIN accounts a on p.accountId = a.accountId INNER JOIN users u on a.userId = u.userId INNER JOIN plans on p.plan = plans.planId';
-    if (authorizationToken != null) {
-        db.query(query, (error, results) => {
-            if (error) {
-                return res.status(400).json({ error: error })
-            }
-            res.json(results)
-        })
-    }
-
-});
-
-//getCustomer's Bill Records
-router.post('/getCustomerBills', async (req, res) => {
-    const { token, customerId } = req.body;
-    const query = "SELECT bill.billId, concat(users.firstName, ' ', users.lastName) as name, plans.planName, bill.stat, bill.amount " +
-        "FROM bill " +
-        "INNER JOIN accounts on bill.accountId = accounts.accountId " +
-        "INNER JOIN users on accounts.userId = users.userId " +
-        "INNER JOIN plans on bill.plan = plans.planId where bill.accountId = ?";
-    if (token != null) {
-        db.query(query, [customerId], (error, results) => {
-            if (error) {
-                return res.status(400).json({ error: error })
-            }
-            res.json(results)
-        })
-    }
-    else {
-        res.status(400).json({ message: "error! authentication token not valid!" });
-    }
-
-})
-router.post('/getStaff', async (req, res) => {
-    const authorizationToken = req.body;
-    const query = "SELECT users.userId as id,CONCAT(users.firstName,' ',users.lastName) as name, users.email,users.contactNum as contact, acounttype.position FROM users " +
-        "INNER JOIN acounttype on users.restriction = acounttype.restrictionid " +
-        "WHERE users.restriction = 25464136865";
-    if (authorizationToken != null) {
-        db.query(query, (error, results) => {
-            if (error) {
-                return res.status(400).json({ error: error })
-            }
-            res.json(results)
-        })
-    }
-
-});
-router.post('/getPlans', async (req, res) => {
-    const authorizationToken = req.body;
-    const query = "SELECT * FROM plans";
-    if (authorizationToken != null) {
-        db.query(query, (error, results) => {
-            if (error) {
-                return res.status(400).json({ error: error })
-            }
-            res.json(results)
-        })
-    }
-
-});
-router.post('/getCustomers', async (req, res) => {
-    const authorizationToken = req.body;
-    const query = "select accounts.accountId, concat(users.firstName, ' ', users.lastName) as 'fullName',  users.address, plans.planName, accounts.billingDate, accounts.stat from users "
-        + "INNER JOIN accounts on users.userId = accounts.userId "
-        + "INNER JOIN plans on accounts.currPlan = plans.planId";
-    if (authorizationToken != null) {
-        db.query(query, (error, results) => {
-            if (error) {
-                return res.status(400).json({ error: error })
-            }
-            res.json(results)
-        })
-    }
-
-});
+    return id;
+}
 // Function to insert log
-function insertLoginLog(userId, ipAddress, action) {
+function insertLog(logid, userId, action, ipAddress) {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO login_logs (userId, timedate,actionTaken, ipAdd) VALUES (?, ?, ?, ?)';
+        const query = 'INSERT INTO systemlogs (logid,userId, timedate,actionTaken, ipAdd) VALUES  (?, ?, ?, ?, ?)';
 
         // Execute the query with parameters
-        db.query(query, [userId, new Date(), action, ipAddress], (err, results) => {
+        db.query(query, [logid, userId, new Date(), action, ipAddress], (err, results) => {
             if (err) {
                 return reject(err); // Reject the promise if there's an error
             }
@@ -415,5 +134,346 @@ function insertLoginLog(userId, ipAddress, action) {
         });
     });
 }
+router.post('/redirect', async (req, res) => {
+    try {
+        const { data } = req.body;
 
+        const admin = await bcrypt.compare('Admin', data);
+        if (admin) {
+            return res.status(200).json({ path: '/Admin' });
+        }
+
+        const teamLeader = await bcrypt.compare('Team Leader', data);
+        if (teamLeader) {
+            return res.status(200).json({ path: '/Technician' });
+        }
+
+        const staff = await bcrypt.compare('Staff', data);
+        if (staff) {
+            return res.status(200).json({ path: '/Staff' });
+        }
+
+    } catch (error) {
+        return res.status(400).json({ code: error.message });
+    }
+});
+
+// Login route
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ error: 'Please enter both username and password.' });
+        }
+
+        const query = 'SELECT * FROM login WHERE username = $1';
+        const results = await queryDatabase(query, [username]);
+
+        if (results.length === 0) {
+            return res.status(400).json({ error: 'Invalid username or password.' });
+        }
+
+        const user = results[0];
+        const isMatch = await bcrypt.compare(password, user.pass_word);
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Invalid username or password.' });
+        }
+
+        const restriction = await getRestriction(user.account_id);
+        const token = await bcrypt.hash(user.pass_word, 10);
+        //insertLog(await genId('systemlogs', 'logId', 100000000), user.accountId, 'Login', req.headers['x-forwarded-for'] || req.connection.remoteAddress);
+        return res.json({ message: 'Login successful', token: token, zhas2chasT: restriction, auth: user.account_id });
+    } catch (error) {
+        res.status(500).json({ error: 'Server error', code: error.message });
+    }
+});
+
+// Update login details
+router.post('/updateLoginDetails', async (req, res) => {
+    const { hsdn2owet, username, password, confPass, passConfirm } = req.body;
+    try {
+        if (await verifyPassword(hsdn2owet, passConfirm)) {
+            const updates = [];
+            const values = [];
+
+            if (await checkUsername(username)) {
+                updates.push('username = $1');
+                values.push(username);
+            } else {
+                return res.status(401).json({ error: 'Username already exists' });
+            }
+
+            if (confPass === password) {
+                updates.push('pass_word = $2');
+                values.push(await bcrypt.hash(password, 10));
+            } else {
+                return res.status(401).json({ error: 'New password does not match' });
+            }
+
+            const sql = `UPDATE login SET ${updates.join(', ')} WHERE account_id = $3`;
+            await queryDatabase(sql, [values, hsdn2owet]);
+            res.send('User login details updated successfully!');
+        } else {
+            res.status(401).json({ error: 'Incorrect password confirmation' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Update user information
+router.post('/updateUserInfo', async (req, res) => {
+    const { hsdn2owet, fName, mName, lName, contactNum, email, profilePic, passConfirm } = req.body;
+    try {
+        const updates = [];
+        const values = [];
+
+        if (fName) updates.push('first_name = $1') && values.push(fName);
+        if (mName) updates.push('middle_name = $2') && values.push(mName);
+        if (lName) updates.push('last_name = $3') && values.push(lName);
+        if (contactNum) updates.push('contact_num = $4') && values.push(contactNum);
+        if (email) updates.push('email = $5') && values.push(email);
+        if (profilePic) updates.push('profilepic = $6') && values.push(profilePic);
+
+        if (await verifyPassword(hsdn2owet, passConfirm)) {
+            values.push(hsdn2owet);
+            const sql = `UPDATE users SET ${updates.join(', ')} WHERE user_id = $7`;
+            await queryDatabase(sql, values);
+            res.send('User information updated successfully!');
+        } else {
+            res.status(401).json({ error: 'Incorrect password confirmation' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+//inquire customer
+router.post('/hjgsahdghasgdhgdahsgdSAKNB', async (req, res) => {
+    let x;
+    const { fname, mname, lname, contactNum, address, email, birthday, mothersMaidenName, plan } = req.body;
+    const userId = await genId('users', 'user_id', 999999999999);
+    const accountId = await genId('accounts', 'account_id', 999999999999);
+    if (verifyEmail(email)) {
+        if (fname === '' || mname === '' || lname === '' || contactNum === '' || address === '' || email === '') {
+            return res.status(400).json({ error: 'fields must not be emmpty' })
+        }
+        else {
+            const query = `
+                INSERT INTO public.users(
+	                user_id, first_name, middle_name, last_name, age, email, contact_num, address, profilepic, restriction, birthdate, mothers_maiden_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+            x = await queryDatabase(query, [userId, fname, mname, lname, 0, email, contactNum, address, '', 25464136855, birthday, mothersMaidenName]);
+            if (x) {
+                const newAccountQuery = `INSERT INTO public.accounts(
+	            server_conn, curr_plan, account_id, billing_date, stat, user_id) VALUES ($1,$2,$3,$4,$5,$6)`;
+                x = await queryDatabase(newAccountQuery, [null, plan, accountId, null, 6201, userId]);
+                if (x) {
+                    return res.status(200).send({ message: 'Success! we will send a confirmation message through your email address about your account status' });
+                }
+                else {
+                    return res.status(301).send({ message: x });;
+                }
+            }
+        }
+    }
+})
+
+// Retrieve user details using the authorization token
+router.post('/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq', async (req, res) => {
+    debugger
+    const { authorizationToken } = req.body;
+    const query = 'SELECT * FROM users u WHERE u.user_id = $1';
+
+    if (authorizationToken) {
+        try {
+            const results = await queryDatabase(query, [authorizationToken]);
+            console.log(results);
+            if (results == null) {
+                return res.status(300).json({ error: "No results found" });
+            } else {
+                const buffer = results[0].profilepic;
+                const Image = buffer.toString('base64');
+                res.status(200).json({ rawData: results, Image });
+            }
+        } catch (error) {
+            return res.status(500).json({ error: "Server error", details: error });
+        }
+    } else {
+        return res.status(400).json({ error: "No Token is Given" });
+    }
+});
+
+// Get transactions
+router.post('/getTransactions', async (req, res) => {
+    debugger;
+    const authorizationToken = req.body;
+    const query = `
+        SELECT p.payment_id as "paymentId", 
+               CONCAT(u.first_name, ' ', u.middle_name, ' ', u.last_name) AS name, 
+               p.payment_date as "paymentDate", 
+               plans.plan_name as "planName", 
+               a.billing_date as "billingDate", 
+               p.total_paid as "totalPaid", 
+               p.rebate 
+        FROM payments p 
+        INNER JOIN accounts a ON p.account_id = a.account_id 
+        INNER JOIN users u ON a.user_id = u.user_id 
+        INNER JOIN plans ON p.plan = plans.plan_id
+    `;
+
+    if (authorizationToken) {
+        try {
+            const results = await queryDatabase(query);
+            res.json(results);
+        } catch (error) {
+            return res.status(400).json({ error });
+        }
+    } else {
+        return res.status(400).json({ message: "Error! Authentication token not valid!" });
+    }
+});
+
+// Get customer's bill records
+router.post('/getCustomerBills', async (req, res) => {
+    const { authorizationToken, customerId } = req.body;
+    const query = `
+        select * from bill b
+ inner join plans p on b."plan" = p.plan_id
+	where b.bill_account_id = $1
+    `;
+
+    if (authorizationToken) {
+        try {
+            const results = await queryDatabase(query, [customerId]);
+            res.json(results);
+        } catch (error) {
+            return res.status(400).json({ error });
+        }
+    } else {
+        return res.status(400).json({ message: "Error! Authentication token not valid!" });
+    }
+});
+router.post('/updatePosition', async (req, res) => {
+    debugger
+    const { authorizationToken, authKey, position, emp_id } = req.body;
+    const resp = await queryDatabase("SELECT * FROM login where account_id = $1", [authorizationToken]);
+    if (resp.length != 0 && (await bcrypt.compare(authKey, resp[0].pass_word))) {
+        const query = `UPDATE public.users
+                        SET restriction=$1
+                        WHERE user_id = $2`;
+        try {
+            const response = await queryDatabase(query, [position, emp_id]);
+            res.json({ message: response });
+        } catch (error) {
+            return res.status(400).json({ error });
+        }
+    }
+    else {
+        return res.status(401).json({ error: "Invalid authorization token or password" });
+    }
+
+});
+// Get staff details
+router.post('/getStaff', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = `
+        SELECT users.user_id AS id, 
+               CONCAT(users.first_name, ' ', users.last_name) AS name, 
+               users.email, 
+               users.contact_num AS contact, 
+               acounttype.position
+        FROM users 
+        INNER JOIN acounttype ON users.restriction = acounttype.restriction_id
+        WHERE users.restriction = 25464136865 or users.restriction = 25464136835 or users.restriction = 25464136836 or users.restriction = 25464136840
+    `;
+
+    if (authorizationToken) {
+        try {
+            const results = await queryDatabase(query);
+            res.json(results);
+        } catch (error) {
+            return res.status(400).json({ error });
+        }
+    } else {
+        return res.status(400).json({ error: "No token provided" });
+    }
+});
+router.get('/getPositions', async (req, res) => {
+
+    const authorizationToken = req.body;
+    const query = `select * from acounttype
+    where restriction_id != 25464136845 and restriction_id != 25464136855`;
+    if (authorizationToken) {
+
+        return res.status(200).json({ data: await queryDatabase(query) });
+    }
+    else {
+        return res.status(400).json({ error: "No token provided" });
+    }
+});
+// Get plans
+router.post('/getPlans', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = 'SELECT * FROM plans';
+
+    if (authorizationToken) {
+        try {
+            const results = await queryDatabase(query);
+            res.json(results);
+        } catch (error) {
+            return res.status(400).json({ error });
+        }
+    } else {
+        return res.status(400).json({ error: "No token provided" });
+    }
+});
+router.post('/getPositions', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = 'select * from acounttype where acounttype.restriction_id != 25464136845  and acounttype.restriction_id != 25464136855';
+
+    if (authorizationToken) {
+        try {
+            const results = await queryDatabase(query);
+            res.json(results);
+        } catch (error) {
+            return res.status(400).json({ error });
+        }
+    } else {
+        return res.status(400).json({ error: "No token provided" });
+    }
+});
+// Get customers
+router.post('/getCustomers', async (req, res) => {
+    const authorizationToken = req.body;
+    const query = `
+        SELECT accounts.account_id, 
+               CONCAT(users.first_name, ' ', users.last_name) AS "fullName",  
+               users.address, 
+               users.email,
+               plans.plan_name, 
+               accounts.billing_date, 
+               accounts.stat 
+        FROM users 
+        INNER JOIN accounts ON users.user_id = accounts.user_id 
+        INNER JOIN plans ON accounts.curr_plan = plans.plan_id
+    `;
+
+    if (authorizationToken) {
+        try {
+            const results = await queryDatabase(query);
+            res.json(results);
+        } catch (error) {
+            return res.status(400).json({ error });
+        }
+    } else {
+        return res.status(400).json({ error: "No token provided" });
+    }
+});
+router.get('/', function (req, res) {
+    const token = req.params.token;
+    if (token) {
+        res.json({ message: 'Authenticated' });
+    } else {
+        res.status(401).json({ error: 'Unauthorized' });
+    }
+});
 module.exports = router;

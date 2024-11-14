@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DashboardCard06 from "../../partials/dashboard/DashboardCard06";
 import PlanModal from "../Modals/planModal";
+import Select_Plan from "../Modals/Select_Plan";
+import Deactivate from "../Modals/Deactivate";
 
 const Plans = () => {
   const [plans, setPlans] = useState([]);
@@ -35,14 +37,10 @@ const Plans = () => {
         <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].planName}</td>
         <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].planSpeed}</td>
         <td className="py-4 px-4 text-sm font-normal text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{plans[i].planPrice}</td>
-        <td className="flex justify-center gap-1 py-4 px-4 whitespace-nowrap">
-          <button className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-            Edit
-          </button>
+        <td className="flex justify-center gap-2 py-4 px-4 whitespace-nowrap">
+          <Select_Plan />
           {plans[i].stat == 16340 ? (
-            <button className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-700 rounded-lg hover:bg-red-800 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-              Deactivate
-            </button>
+           <Deactivate />
           ) : (
             <button className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
               Activate

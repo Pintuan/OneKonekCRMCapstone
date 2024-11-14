@@ -9,7 +9,6 @@ import Sidebar from '../partials/AdminSidebar';
 import Header from '../partials/Header';
 
 import Home from '../components/Admin/Home';
-import Analytics from '../components/Admin/Analytics';
 import Logs from '../components/Admin/Logs';
 import Customers from '../components/Admin/Customers';
 import Plans from '../components/Admin/Plans';
@@ -35,7 +34,6 @@ function Dashboard() {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/Analytics' element={<Analytics />} />
           <Route path='/Plans' element={<Plans />} />
           <Route path='/Personal' element={<Settings />} />
           <Route path='/PaymentSettings' element={<PaymentSettings />} />

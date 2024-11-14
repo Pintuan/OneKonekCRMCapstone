@@ -50,7 +50,7 @@ function DashboardCard09() {
       </header>
       <div className="px-5 py-3">
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">+$6,796</div>
+          <div className="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">+₱6,796</div>
           <div className="text-sm font-medium text-red-700 px-1.5 bg-red-500/20 rounded-full">-34%</div>
         </div>
       </div>

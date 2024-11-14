@@ -50,52 +50,36 @@ function About() {
           </div>
         </div>
 
-        <div className="py-10">
-          <div className="mx-6 md:mx-28 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <div
-                className="flex items-center justify-center p-8 bg-gray-100 dark:bg-gray-800 rounded-full transition-shadow duration-300"
-                style={{
-                  boxShadow: "0px 4px 15px rgba(55, 65, 81, 0.3)", // Lighter shadow for light mode
-                  filter:
-                    "drop-shadow(0 4px 8px rgba(209, 213, 219, 0.3)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))",
-                }}
-              >
-                <div className="text-center">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4 dark:text-gray-300">
-                    Our Vision
-                  </h3>
-                  <p className="text-gray-800 mb-10 dark:text-gray-300">
-                    To be the leading community-based internet service provider
-                    in Bulacan, connecting communities through accessible,
-                    high-speed internet and supporting them with reliable,
-                    locally-managed technology solutions.
-                  </p>
-                </div>
+        <div className="py-12">
+          <div className="mx-6 md:mx-28 grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Vision Card */}
+            <div className="flex items-center justify-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg transition-shadow duration-300">
+              <div className="text-center max-w-md">
+                <h3 className="text-2xl font-semibold text-blue-600 mb-4 dark:text-blue-400">
+                  Our Vision
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300">
+                  To be the leading community-based internet service provider in
+                  Bulacan, connecting communities through accessible, high-speed
+                  internet and supporting them with reliable, locally-managed
+                  technology solutions.
+                </p>
               </div>
             </div>
 
-            <div className="mt-16">
-              <div
-                className="flex items-center justify-center p-8 bg-gray-100 dark:bg-gray-800 rounded-full transition-shadow duration-300"
-                style={{
-                  boxShadow: "0px 4px 15px rgba(55, 65, 81, 0.3)", // Lighter shadow for light mode
-                  filter:
-                    "drop-shadow(0 4px 8px rgba(209, 213, 219, 0.3)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))",
-                }}
-              >
-                <div className="text-center">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4 dark:text-gray-300">
-                    Our Mission
-                  </h3>
-                  <p className="text-gray-800 mb-10 dark:text-gray-300">
-                    ONE-KONEK is dedicated to bridging the digital gap in
-                    communities with services that are accessible, reliable, and
-                    responsive. 'OK sa SPEED, OK sa PRESYO, OK sa SERBISYO -
-                    TATAK One-Konek!'
-                  </p>
-                </div>
-              </div>``
+            {/* Mission Card */}
+            <div className="flex items-center justify-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg transition-shadow duration-300">
+              <div className="text-center max-w-md">
+                <h3 className="text-2xl font-semibold text-blue-600 mb-4 dark:text-blue-400">
+                  Our Mission
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300">
+                  ONE-KONEK is dedicated to bridging the digital gap in
+                  communities with services that are accessible, reliable, and
+                  responsive. 'OK sa SPEED, OK sa PRESYO, OK sa SERBISYO - TATAK
+                  One-Konek!'
+                </p>
+              </div>
             </div>
           </div>
         </div>

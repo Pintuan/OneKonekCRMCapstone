@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "../Modals/EditStaff";
-import Approved from "../Modals/Approved";
 
-const Installation = () => {
-  const [staff, setStaff] = useState([]);
+const Completed = () => {
+  const [staff, setStaff] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [toggle, setToggle] = useState(false);
   const [data, setData] = useState({ title: "", body: "" });
-  const [showModal, setShowModal] = useState(false);
-  const [selectedStaff, setSelectedStaff] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTime((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
   // Fetch data from the backend
   const fetchData = async () => {
     try {
@@ -51,12 +41,29 @@ const Installation = () => {
       const response = await axios.post(
         "http://localhost:7222/auth/hjgsahdghasgdhgdahsgdSAKNB",
         {
-          idNumber,
           contactNum,
           time,
           tech,
           server,
           maps,
+          plans,
+          pppoe,
+          napPort,
+          napReading,
+          insideReading,
+          comment,
+          status,
+          tl,
+          firstName,
+          middleName,
+          lastName,
+          address,
+          o_contact,
+          opticalReading,
+          duration,
+          barangay,
+          purok,
+          street,
         }
       );
       setShowModal(false); // Close modal on successful submission
@@ -65,15 +72,12 @@ const Installation = () => {
     }
   };
   const handleclick = (id) => {
-    const staffMember = staff.find((member) => member.id === id);
-    setSelectedStaff(staffMember);
-    setShowModal(true);
+    fetchStaffData(id);
+    setToggle(true);
   };
-
   const closeModal = () => {
-    setShowModal(false);
+    setToggle(false);
   };
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -97,10 +101,16 @@ const Installation = () => {
         {staffMember.position}
       </td>
       <td className="flex justify-center gap-2 py-4 px-4 whitespace-nowrap">
-        <Approved />
         <button
           onClick={() => handleclick(staffMember.id)}
-          className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"
+          className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+          type="button"
+        >
+          <span>Approved</span>
+        </button>
+        <button
+          onClick={() => handleclick(staffMember.id)}
+          className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"
           type="button"
         >
           <span>Deny</span>
@@ -170,19 +180,8 @@ const Installation = () => {
           </div>
         </div>
       </div>
-      {showModal && (
-        <Modal
-          isOpen={showModal}
-          onClose={closeModal}
-          data={selectedStaff}
-          onSubmit={() => {
-            console.log("Approved button clicked");
-            setShowModal(false);
-          }}
-        />
-      )}
     </section>
   );
 };
 
-export default Installation;
+export default Completed;

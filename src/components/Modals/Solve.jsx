@@ -1,35 +1,36 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-const TechSupport = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [contactNum, setContactNum] = useState("");
-  const [time, setTime] = useState({ hour: "", minute: "", period: "AM" });
-  const [tech, setTech] = useState("");
-  const [server, setServer] = useState("");
-  const [maps, setMaps] = useState("");
-  const [pppoe, setPPPEO] = useState("");
-  const [napPort, setNapPort] = useState("");
-  const [napReading, setNapReading] = useState("");
-  const [insideReading, setInsideReading] = useState("");
-  const [comment, setComment] = useState("");
-  const [tl, setTL] = useState("");
-  const [status, setStatus] = useState("");
-  const [error, setError] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [middleName, setMiddleName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [o_contact, setO_Contact] = useState("");
-  const [duration, setDuration] = useState("");
-  const [opticalReading, setOpticalReading] = useState("");
-  const [barangay, setBarangay] = useState("");
-  const [purok, setPurok] = useState("");
-  const [street, setStreet] = useState("");
+const Solve = () => {
+  const [s_error, sets_Error] = useState(null);
+  const [s_showModal, sets_ShowModal] = useState(false);
+  const [s_contactNum, sets_ContactNum] = useState("");
+  const [s_time, sets_Time] = useState({ hour: "", minute: "", period: "AM" });
+  const [s_tech, sets_Tech] = useState("");
+  const [s_server, sets_Server] = useState("");
+  const [s_firstName, sets_FirstName] = useState("");
+  const [s_middleName, sets_MiddleName] = useState("");
+  const [s_lastName, sets_LastName] = useState("");
+  const [s_maps, sets_Maps] = useState("");
+  const [s_plans, sets_Plans] = useState("");
+  const [s_pppoe, sets_PPPEO] = useState("");
+  const [s_o_contact, sets_O_Contact] = useState("");
+  const [s_napPort, sets_NapPort] = useState("");
+  const [s_napReading, sets_NapReading] = useState("");
+  const [s_insideReading, sets_InsideReading] = useState("");
+  const [s_comment, sets_Comment] = useState("");
+  const [s_duration, sets_Duration] = useState("");
+  const [s_opticalReading, sets_OpticalReading] = useState("");
+  const [s_tl, sets_TL] = useState("");
+  const [s_status, sets_Status] = useState("");
+  const [s_napfName, sets_NapFName] = useState("");
+  const [s_barangay, sets_Barangay] = useState("");
+  const [s_purok, sets_Purok] = useState("");
+  const [s_street, sets_Street] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTime((prev) => ({
+    s_time((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -40,49 +41,49 @@ const TechSupport = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7222/auth/hjgsahdghasgdhgdahsgdSAKNB",
+        "http://localhost:7222/auth/hjgsahdghahasdhasdnjansgdSAKNB",
         {
-          contactNum,
-          time,
-          tech,
-          server,
-          maps,
-          pppoe,
-          napPort,
-          napReading,
-          insideReading,
-          comment,
-          tl,
-          status,
-          firstName,
-          middleName,
-          lastName,
-          address,
-          o_contact,
-          opticalReading,
-          duration,
-          barangay,
-          purok,
-          street,
+          s_contactNum,
+          s_time,
+          s_tech,
+          s_server,
+          s_maps,
+          s_plans,
+          s_pppoe,
+          s_napfName,
+          s_napPort,
+          s_napReading,
+          s_insideReading,
+          s_comment,
+          s_tl,
+          s_status,
+          s_firstName,
+          s_middleName,
+          s_lastName,
+          s_o_contact,
+          s_opticalReading,
+          s_duration,
+          s_barangay,
+          s_purok,
+          s_street,
         }
       );
-      setShowModal(false); // Close modal on successful submission
+      sets_ShowModal(false); 
     } catch (err) {
-      setError("Failed to submit form: " + err.message);
+      sets_Error("Failed to submit form: " + err.message);
     }
   };
-
   return (
     <>
       <button
-        className="px-4 py-3 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+        className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
         type="button"
-        onClick={() => setShowModal(true)}
+        onClick={() => sets_ShowModal(true)}
       >
-        Tech Support
+        {" "}
+        Solve
       </button>
-
-      {showModal ? (
+      {s_showModal ? (
         <>
           <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
             <div
@@ -91,11 +92,12 @@ const TechSupport = () => {
             >
               <div className="flex items-center justify-between">
                 <h2 className="font-bold text-lg text-gray-800 dark:text-white mb-4">
-                  Technician Support Form
+                  {" "}
+                  Installation{" "}
                 </h2>
                 <button
                   className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => sets_ShowModal(false)}
                 >
                   ✕
                 </button>
@@ -107,8 +109,8 @@ const TechSupport = () => {
                       Status
                     </label>
                     <select
-                      value={status}
-                      onChange={(e) => setStatus(e.target.value)}
+                      value={s_status}
+                      onChange={(e) => sets_Status(e.target.value)}
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     >
                       <option value="" disabled>
@@ -124,8 +126,8 @@ const TechSupport = () => {
                         Team Leader
                       </label>
                       <select
-                        value={tl}
-                        onChange={(e) => setTL(e.target.value)}
+                        value={s_tl}
+                        onChange={(e) => sets_TL(e.target.value)}
                         className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       >
                         <option value="" disabled>
@@ -143,8 +145,8 @@ const TechSupport = () => {
                         Technician
                       </label>
                       <select
-                        value={tech}
-                        onChange={(e) => setTech(e.target.value)}
+                        value={s_tech}
+                        onChange={(e) => sets_Tech(e.target.value)}
                         className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       >
                         <option value="" disabled>
@@ -159,17 +161,17 @@ const TechSupport = () => {
                       </select>
                     </div>
                   </div>
-
                   <div>
                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                       Server
                     </label>
                     <select
-                      value={server}
-                      onChange={(e) => setServer(e.target.value)}
+                      value={s_server}
+                      onChange={(e) => sets_Server(e.target.value)}
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     >
                       <option value="" disabled>
+                        {" "}
                         Select Server
                       </option>
                       <option value="Server1">
@@ -189,52 +191,47 @@ const TechSupport = () => {
                       </option>
                     </select>
                   </div>
-
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                     <h3 className="col-span-3 font-semibold text-gray-700 dark:text-gray-300 mt-2">
                       Subscriber's Name
                     </h3>
-
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                         First Name
                       </label>
                       <input
                         type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        value={s_firstName}
+                        onChange={(e) => sets_FirstName(e.target.value)}
                         placeholder="Enter first name"
                         className="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
-
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                         Middle Name
                       </label>
                       <input
                         type="text"
-                        value={middleName}
-                        onChange={(e) => setMiddleName(e.target.value)}
+                        value={s_middleName}
+                        onChange={(e) => sets_MiddleName(e.target.value)}
                         placeholder="Enter middle name (optional)"
                         className="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
-
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                         Last Name
                       </label>
                       <input
                         type="text"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
+                        value={s_lastName}
+                        onChange={(e) => sets_LastName(e.target.value)}
                         placeholder="Enter last name"
                         className="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
                   </div>
-
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                     <h3 className="col-span-3 font-semibold text-gray-700 dark:text-gray-300 mt-2">
                       Address Details
@@ -245,41 +242,37 @@ const TechSupport = () => {
                       </label>
                       <input
                         type="text"
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
+                        value={s_street}
+                        onChange={(e) => sets_Street(e.target.value)}
                         placeholder="Enter street name"
                         className="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
-
-                    {/* Purok */}
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                         Purok
                       </label>
                       <input
                         type="text"
-                        value={purok}
-                        onChange={(e) => setPurok(e.target.value)}
+                        value={s_purok}
+                        onChange={(e) => sets_Purok(e.target.value)}
                         placeholder="Enter purok"
                         className="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
-
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                         Barangay
                       </label>
                       <input
                         type="text"
-                        value={barangay}
-                        onChange={(e) => setBarangay(e.target.value)}
+                        value={s_barangay}
+                        onChange={(e) => sets_Barangay(e.target.value)}
                         placeholder="Enter barangay"
                         className="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
                   </div>
-
                   <div>
                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                       Contact number
@@ -291,35 +284,45 @@ const TechSupport = () => {
                       <input
                         type="text"
                         placeholder="9XX-XXX-XXXX"
-                        value={contactNum}
-                        onChange={(e) => setContactNum(e.target.value)}
+                        value={s_contactNum}
+                        onChange={(e) => sets_ContactNum(e.target.value)}
                         className="block w-full rounded-l-none rtl:rounded-l-lg rtl:rounded-r-none placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
                       />
                     </div>
                   </div>
-
                   <div>
                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                       Other Contact Number
                     </label>
                     <input
                       type="text"
-                      value={o_contact}
-                      onChange={(e) => setO_Contact(e.target.value)}
+                      value={s_o_contact}
+                      onChange={(e) => sets_O_Contact(e.target.value)}
                       placeholder="Optional"
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-
+                  <div>
+                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                      PPPOE
+                    </label>
+                    <input
+                      type="text"
+                      value={s_pppoe}
+                      onChange={(e) => sets_PPPEO(e.target.value)}
+                      placeholder=""
+                      className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
-                        PPPOE
+                        NAP Facility Name
                       </label>
                       <input
                         type="text"
-                        value={pppoe}
-                        onChange={(e) => setPPPEO(e.target.value)}
+                        value={s_napfName}
+                        onChange={(e) => sets_NapFName(e.target.value)}
                         placeholder=""
                         className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
@@ -330,21 +333,20 @@ const TechSupport = () => {
                       </label>
                       <input
                         type="text"
-                        value={napPort}
-                        onChange={(e) => setNapPort(e.target.value)}
+                        value={s_napPort}
+                        onChange={(e) => sets_NapPort(e.target.value)}
                         placeholder=""
                         className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
                     </div>
-
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                         NAP Reading
                       </label>
                       <input
                         type="text"
-                        value={napReading}
-                        onChange={(e) => setNapReading(e.target.value)}
+                        value={s_napReading}
+                        onChange={(e) => sets_NapReading(e.target.value)}
                         placeholder=""
                         className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                       />
@@ -356,26 +358,24 @@ const TechSupport = () => {
                     </label>
                     <input
                       type="text"
-                      value={insideReading}
-                      onChange={(e) => setInsideReading(e.target.value)}
+                      value={s_insideReading}
+                      onChange={(e) => sets_InsideReading(e.target.value)}
                       placeholder=""
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-
                   <div>
                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                       Optical Reading
                     </label>
                     <input
                       type="text"
-                      value={opticalReading}
-                      onChange={(e) => setOpticalReading(e.target.value)}
+                      value={s_opticalReading}
+                      onChange={(e) => sets_OpticalReading(e.target.value)}
                       placeholder=""
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-
                   <div>
                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                       Maps Location
@@ -383,12 +383,11 @@ const TechSupport = () => {
                     <input
                       type="text"
                       placeholder=""
-                      value={maps}
-                      onChange={(e) => setMaps(e.target.value)}
+                      value={s_maps}
+                      onChange={(e) => sets_Maps(e.target.value)}
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
@@ -397,7 +396,7 @@ const TechSupport = () => {
                       <div className="flex items-center">
                         <select
                           name="hour"
-                          value={time.hour}
+                          value={s_time.hour}
                           onChange={handleChange}
                           className="mr-2 px-3 py-2 border rounded w-40 dark:bg-gray-600 dark:text-gray-100 bg-gray-300 text-gray-800"
                         >
@@ -412,10 +411,9 @@ const TechSupport = () => {
                             )
                           )}
                         </select>
-
                         <select
                           name="minute"
-                          value={time.minute}
+                          value={s_time.minute}
                           onChange={handleChange}
                           className="mr-2 px-3 py-2 border rounded w-40 dark:bg-gray-600 dark:text-gray-100 bg-gray-300 text-gray-800"
                         >
@@ -430,10 +428,9 @@ const TechSupport = () => {
                             )
                           )}
                         </select>
-
                         <select
                           name="period"
-                          value={time.period}
+                          value={s_time.period}
                           onChange={handleChange}
                           className="mr-2 px-3 py-2 border rounded w-40 dark:bg-gray-600 dark:text-gray-100 bg-gray-300 text-gray-800"
                         >
@@ -442,7 +439,6 @@ const TechSupport = () => {
                         </select>
                       </div>
                     </div>
-
                     <div>
                       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                         End Time
@@ -450,7 +446,7 @@ const TechSupport = () => {
                       <div className="flex items-center">
                         <select
                           name="hour"
-                          value={time.hour}
+                          value={s_time.hour}
                           onChange={handleChange}
                           className="mr-2 px-3 py-2 border rounded w-40 dark:bg-gray-600 dark:text-gray-100 bg-gray-300 text-gray-800"
                         >
@@ -465,10 +461,9 @@ const TechSupport = () => {
                             )
                           )}
                         </select>
-
                         <select
                           name="minute"
-                          value={time.minute}
+                          value={s_time.minute}
                           onChange={handleChange}
                           className="mr-2 px-3 py-2 border rounded w-40 dark:bg-gray-600 dark:text-gray-100 bg-gray-300 text-gray-800"
                         >
@@ -483,10 +478,9 @@ const TechSupport = () => {
                             )
                           )}
                         </select>
-
                         <select
                           name="period"
-                          value={time.period}
+                          value={s_time.period}
                           onChange={handleChange}
                           className="mr-2 px-3 py-2 border rounded w-40 dark:bg-gray-600 dark:text-gray-100 bg-gray-300 text-gray-800"
                         >
@@ -496,7 +490,6 @@ const TechSupport = () => {
                       </div>
                     </div>
                   </div>
-
                   <div>
                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                       Duration
@@ -504,12 +497,11 @@ const TechSupport = () => {
                     <input
                       type="text"
                       placeholder=""
-                      value={duration}
-                      onChange={(e) => setDuration(e.target.value)}
+                      value={s_duration}
+                      onChange={(e) => sets_Duration(e.target.value)}
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-
                   <div>
                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                       Remarks
@@ -517,23 +509,21 @@ const TechSupport = () => {
                     <input
                       type="text"
                       placeholder=""
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
+                      value={s_comment}
+                      onChange={(e) => sets_Comment(e.target.value)}
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
-                     {error && (
-                    <p className="mt-4 text-red-600 dark:text-red-400 text-right">
-                      {error}
-                    </p>
-                  )}
+                    {s_error && (
+                      <p className="mt-4 text-red-600 dark:text-red-400 text-right">
+                        {s_error}
+                      </p>
+                    )}
                   </div>
                   <div className="flex justify-end">
                     <button className="flex items-center justify-center w-50 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform hover:bg-blue-800 rounded-lg bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                       <span className="text-center">Submit</span>
                     </button>
                   </div>
-
-                 
                 </form>
               </div>
             </div>
@@ -543,5 +533,4 @@ const TechSupport = () => {
     </>
   );
 };
-
-export default TechSupport;
+export default Solve;

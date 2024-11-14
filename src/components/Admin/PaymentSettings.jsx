@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Payment_Add from "../Modals/Payment_Add";
 
 const PaymentSettings = () => {
   const [transaction, setTransactions] = useState([]); // Initial state as an array
@@ -62,7 +63,7 @@ const PaymentSettings = () => {
   }
 
   return (
-    <section className="container px-4 mx-auto">
+    <section className="container px-6 mx-auto">
       <div className="flex items-center gap-x-3">
         <div className="flex justify-end items-end">
           <h2 className="font-bold mx-10 pt-5 text-lg font-lg text-gray-800 dark:text-white">
@@ -70,29 +71,17 @@ const PaymentSettings = () => {
           </h2>
         </div>
       </div>
-
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 p-4">
-        {/* Card 1 */}
-        <div className="w-full max-w-sm h-56 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          {/* Content for Card 1 */}
+        {/* Cards */}
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-3 p-4 mx-8">
+        <div className="w-full max-w-sm h-56 bg-white dark:bg-gray-800 rounded-lg shadow-md p-2">
         </div>
-
-        {/* Card 2 */}
-        <div className="w-full max-w-sm h-56 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          {/* Content for Card 2 */}
+        <div className="w-full max-w-sm h-56 bg-white dark:bg-gray-800 rounded-lg shadow-md p-2">
         </div>
-
-        {/* Card 3 */}
-        <div className="w-full max-w-sm h-56 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          {/* Content for Card 3 */}
+        <div className="w-full max-w-sm h-56 bg-white dark:bg-gray-800 rounded-lg shadow-md p-2">
         </div>
-
-        {/* Button in Column 3 */}
-        <div className="flex justify-end items-end col-span-1 md:col-start-3">
-          <button className="px-4 py-2 mr-6 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-            Add
-          </button>
-        </div>
+      </div>
+      <div className="flex justify-end mr-12 mt-4">
+        <Payment_Add />
       </div>
 
       <div className="flex items-center gap-x-3">
@@ -106,7 +95,8 @@ const PaymentSettings = () => {
       <div className="flex flex-col mt-6 place-items-center w-full">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 w-full">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 text-center">
-            <div className="overflow-x-auto border border-gray-200 dark:border-gray-700 md:rounded-lg">
+            <div className="overflow-y-auto h-[650px] mb-4 border border-gray-200 dark:border-gray-700 md:rounded-lg">
+              {/* Table */}
               <table className="min-w-full w-full">
                 <thead className="bg-gray-50 dark:bg-gray-800">
                   <tr>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "../Modals/EditStaff";
+import Promote from "../Modals/Promote";
+import Deactivate from "../Modals/Deactivate";
 
 const Staff = () => {
     const [staff, setStaff] = useState([]); // Initial state as an array
@@ -63,20 +65,8 @@ const Staff = () => {
                 {staffMember.position}
             </td>
             <td className="flex justify-center gap-2 py-4 px-4 whitespace-nowrap">
-                <button
-                    onClick={() => handleclick(staffMember.id)}
-                    className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-                    type="button"
-                >
-                    <span>Edit</span>
-                </button>
-                <button
-                    onClick={() => handleclick(staffMember.id)}
-                    className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"
-                    type="button"
-                >
-                    <span>Deactivate</span>
-                </button>
+                <Promote user_id={staffMember.id} />
+                <Deactivate user_id={staffMember.id} />
             </td>
         </tr>
     ));

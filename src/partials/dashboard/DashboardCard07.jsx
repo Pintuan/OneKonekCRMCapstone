@@ -50,7 +50,7 @@ function DashboardCard07() {
                   <div className="text-center">2.4K</div>
                 </td>
                 <td className="p-2">
-                  <div className="text-center text-green-500">$3,877</div>
+                  <div className="text-center text-green-500">₱3,877</div>
                 </td>
                 <td className="p-2">
                   <div className="text-center">267</div>
