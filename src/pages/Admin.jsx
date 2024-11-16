@@ -7,7 +7,6 @@ import {
 
 import Sidebar from '../partials/AdminSidebar';
 import Header from '../partials/Header';
-
 import Home from '../components/Admin/Home';
 import Logs from '../components/Admin/Logs';
 import Customers from '../components/Admin/Customers';

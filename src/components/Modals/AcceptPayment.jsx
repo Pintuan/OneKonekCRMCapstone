@@ -7,6 +7,7 @@ const AcceptPayment = ({ id, name }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [bill, setBill] = useState([]);
+  let ammount = 0;
   const getBills = async () => {
     try {
       const response = await axios.post(
@@ -36,7 +37,7 @@ const AcceptPayment = ({ id, name }) => {
           {bill[i].ammount}
         </td>
         <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-          {bill[i].due_date}
+          {bill[i].due_date ? bill[i].due_date : "today"}
         </td>
         <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
           {bill[i].plan_name}
@@ -50,21 +51,20 @@ const AcceptPayment = ({ id, name }) => {
             </h2>
           </div>
         </td>
-        <td>
-          <button className="px-4 py-3 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-            type="button">Pay</button>
-        </td>
       </tr>
     );
+    ammount += bill[i].ammount;
     i++;
   }
 
   return (
     <>
       <button
-        className="px-4 py-3 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-        type="button"
-        onClick={() => { getBills(); setShowModal(true); }}
+        className="px-4 py-2 tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-800 rounded-lg hover:bg-green-900 focus:outline-none focus:ring focus:ring-green-300 focus:ring-opacity-80"
+        onClick={() => {
+          getBills();
+          setShowModal(true);
+        }}
       >
         View Billing Record
       </button>
@@ -72,88 +72,86 @@ const AcceptPayment = ({ id, name }) => {
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black bg-opacity-50">
             <div className="relative w-full max-w-6xl mx-4">
-              {/* Content */}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white dark:bg-gray-800 outline-none focus:outline-none">
-                {/* Header */}
                 <button
-                  className="text-blue-700 hover:text-white-600 dark:hover:text-white-300 transition-all duration-150"
+                  className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
                   onClick={() => setShowModal(false)}
                 >
-                  <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                    ×
-                  </span>
+                  ✕
                 </button>
-                <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 rounded-t">
-                  <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                    Customer Details
-                  </h3>
-                </div>
-                {/*body*/}
-                <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-                  <div className="mt-6 min-w-0 flex-1 sm:hidden md:block">
-                    <h1 className="truncate text-2xl font-bold text-blue-300">{name}</h1>
-                  </div>
+                <div className="p-4 border-b border-gray-200 dark:border-gray-700 rounded-t">
+                  <h2 className="font-bold text-lg text-gray-800 dark:text-white">
+                    Bill History
+                  </h2>
                 </div>
                 <div className="p-6">
-                  <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                    <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                              Bill ID
-                            </th>
-                            <th className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                              Bill Amount
-                            </th>
-                            <th className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                              Due Date
-                            </th>
-                            <th className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                              Plan Billed
-                            </th>
-                            <th className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                              Payment Status
-                            </th>
-                            <th className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {loading ? (
-                            <tr>
-                              <td colSpan="7" className="text-center">
-                                Loading...
-                              </td>
-                            </tr>
-                          ) : error ? (
-                            <tr>
-                              <td
-                                colSpan="7"
-                                className="text-center text-red-600"
-                              >
-                                {error}
-                              </td>
-                            </tr>
-                          ) : renderData.length > 0 ? (
-                            renderData
-                          ) : (
-                            <tr>
-                              <td colSpan="7" className="text-center">
-                                Nothing to Show
-                              </td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
-
+                  <h1 className="truncate text-xl font-bold ml-4 text-gray-800 dark:text-gray-200">
+                    {name}
+                  </h1>
+                  <div className="flex flex-col mt-2 p-4">
+                    <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
+                      <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div className="overflow-y-auto h-[400px] border border-gray-400 dark:border-gray-700 md:rounded-lg">
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                              <thead className="bg-gray-300 dark:bg-gray-700">
+                                <tr>
+                                  <th className="px-4 py-4 text-sm text-gray-800 dark:text-gray-300 whitespace-nowrap">
+                                    Bill ID
+                                  </th>
+                                  <th className="px-4 py-4 text-sm text-gray-800 dark:text-gray-300 whitespace-nowrap">
+                                    Bill Amount
+                                  </th>
+                                  <th className="px-4 py-4 text-sm text-gray-800 dark:text-gray-300 whitespace-nowrap">
+                                    Due Date
+                                  </th>
+                                  <th className="px-4 py-4 text-sm text-gray-800 dark:text-gray-300 whitespace-nowrap">
+                                    Plan Billed
+                                  </th>
+                                  <th className="px-4 py-4 text-sm text-gray-800 dark:text-gray-300 whitespace-nowrap">
+                                    Payment Status
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {loading ? (
+                                  <tr>
+                                    <td colSpan="5" className="text-center">
+                                      Loading...
+                                    </td>
+                                  </tr>
+                                ) : error ? (
+                                  <tr>
+                                    <td
+                                      colSpan="5"
+                                      className="text-center text-red-600"
+                                    >
+                                      {error}
+                                    </td>
+                                  </tr>
+                                ) : renderData.length > 0 ? (
+                                  renderData
+                                ) : (
+                                  <tr>
+                                    <td colSpan="5" className="text-center">
+                                      Nothing to Show
+                                    </td>
+                                  </tr>
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <label htmlFor="">Total Ammount to Pay: {ammount} </label>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
     </>

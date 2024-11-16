@@ -2,14 +2,35 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { Pool } = require('pg'); // Import pg Pool for PostgreSQL
 const router = express.Router();
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 
+debugger;
 // Configure your PostgreSQL connection
 const pool = new Pool({
-    user: 'postgres',
-    host: '13.211.183.92',
-    database: 'onekonekcrm',
-    password: '5cnzw7YVXSaRyN6JDm',
-    port: 5432, // Default PostgreSQL port
+    user: process.env.DATABASE_USERNAME,
+    host: process.env.DATABASE_HOST_NAME,
+    database: process.env.DATABASE_NAME,
+    password: process.env.DATABASE_PASSWORD,
+    port: process.env.DATABASE_PORT,
+});
+
+pool.connect(err => {
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
+    } else {
+        console.log('Connected to the PostgreSQL database');
+    }
+});
+
+const transporter = nodemailer.createTransport({
+    host: process.env.MAILER_HOST,
+    port: process.env.MAILER_PORT,
+    auth: {
+        user: process.env.MAILER_USER,
+        pass: process.env.MAILER_PASSWORD,
+    },
 });
 // Function to query the database
 function queryDatabase(query, params) {
@@ -34,15 +55,27 @@ function queryDatabase(query, params) {
         });
     }
 }
+async function sendEmail(to, subject, message, html) {
+    // Mail options
+    const mailOptions = {
+        from: process.env.MAILER_USER, // Sender address
+        to: to,                             // Recipient email
+        subject: subject,                        // Subject line
+        text: message,                           // Plain text body
+        html: html,                           // HTML body
+    };
 
-pool.connect(err => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        return;
-    } else {
-        console.log('Connected to the PostgreSQL database');
+    // Send the email
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        if (info) {
+            return true;
+        }
+    } catch (error) {
+        return false;
     }
-});
+}
+
 // Function to get restriction details
 async function getRestriction(accountId) {
     try {
@@ -101,7 +134,7 @@ async function verifyEmail(email) {
     try {
         const query = 'SELECT * FROM users WHERE email = $1';
         const results = await queryDatabase(query, [email]);
-        return results.length === 0;
+        return results;
     } catch (error) {
         throw error;
     }
@@ -134,6 +167,40 @@ function insertLog(logid, userId, action, ipAddress) {
         });
     });
 }
+
+router.post('/forgot-password', async (req, res) => {
+    debugger;
+    //generate new password
+    const password = await genId('users', 'user_id', 999999999);
+    const newPassword = bcrypt.hash(password, 10);
+    const text = `Password Reset has been Initiated\n\n
+                this is your new Password : ${password}\n
+                we recommend that you change it immediately after the first login\n
+
+                if you didn't do this changes, consider securing your email and password for your security
+            `;
+    const html = `Password Reset has been Initiated\n\n
+                this is your new Password : ${password}\n
+                we recommend that you change it immediately after the first login\n
+
+                if you didn't do this changes, consider securing your email and password for your security
+            `;
+    const query = `UPDATE public.login
+        SET pass_word=$1
+        WHERE account_id= $2;`;
+    const results = await verifyEmail(req.body.email);
+    if (results.length != 0) {
+        const resp = await queryDatabase(query, [newPassword, results[0].user_id]);
+        if (resp.length >= 0) {
+            sendEmail(req.body.email, 'Password Recovery', text, html);
+            return res.status(200).json({ resp: 'Password has been reset! please check your email for the instrunctions' });
+        }
+    }
+    else {
+        return res.status(200).json({ resp: 'Password has been reset! please check your email for the instrunctions' });
+    }
+});
+
 router.post('/redirect', async (req, res) => {
     try {
         const { data } = req.body;
@@ -181,7 +248,7 @@ router.post('/login', async (req, res) => {
 
         const restriction = await getRestriction(user.account_id);
         const token = await bcrypt.hash(user.pass_word, 10);
-        //insertLog(await genId('systemlogs', 'logId', 100000000), user.accountId, 'Login', req.headers['x-forwarded-for'] || req.connection.remoteAddress);
+        //insertLog(await ('systemlogs', 'logId', 100000000), user.accountId, 'Login', req.headers['x-forwarded-for'] || req.connection.remoteAddress);
         return res.json({ message: 'Login successful', token: token, zhas2chasT: restriction, auth: user.account_id });
     } catch (error) {
         res.status(500).json({ error: 'Server error', code: error.message });
@@ -247,6 +314,7 @@ router.post('/updateUserInfo', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 //inquire customer
 router.post('/hjgsahdghasgdhgdahsgdSAKNB', async (req, res) => {
     let x;
@@ -468,12 +536,26 @@ router.post('/getCustomers', async (req, res) => {
         return res.status(400).json({ error: "No token provided" });
     }
 });
-router.get('/', function (req, res) {
-    const token = req.params.token;
-    if (token) {
-        res.json({ message: 'Authenticated' });
+router.post('/sendTicket', async (req, res) => {
+    const user = req.body.user;
+    const problem = req.body.problem;
+    const desc = req.body.desc;
+    if (problem && desc && user) {
+        const ticketid = await genId("tickets", "ticked_id", 9999999999);
+        const query = `INSERT INTO public.tickets(
+	account_id, ticked_id, ticket_title, ticket_description, stat, technician_id, tl_id)
+	VALUES ($1, $2, $3, $4, 10, null, null);`;
+        const updateResp = await queryDatabase(query, [user, ticketid, problem, desc]);
+        if (updateResp) {
+            return res.status(200).json({ message: 'Ticket sent successfully' });
+        }
     } else {
         res.status(401).json({ error: 'Unauthorized' });
     }
 });
+
+router.get('/get-ticket', async function (req, res) {
+
+});
+transporter.verify().then(console.log).catch(console.error);
 module.exports = router;

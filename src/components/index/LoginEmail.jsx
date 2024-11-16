@@ -1,12 +1,21 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const LoginEmail = () => {
   const [email, setEmail] = useState("");
+  const [resp, setResponse] = useState("To retrieve access to your account, please enter your email address.");
+  const [state, setState] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form submission logic here
-    console.log("Email submitted:", email);
+    try {
+      const response = await axios.post("http://localhost:7222/auth/forgot-password", { email: email });
+      console.log(response);
+      setResponse(response.data.resp);
+      setState("text-green-100");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -18,11 +27,8 @@ const LoginEmail = () => {
 
         <form onSubmit={handleSubmit}>
           {/* Email Input */}
-          <div className="mb-4">
-            <p className="my-4">
-              To retrieve access to your account, please enter your email
-              address.
-            </p>
+          <div className='mb-4'>
+            <div className={state}> {resp}</div>
             <label
               htmlFor="email"
               className="block text-base font-medium text-gray-800 dark:text-gray-200"
@@ -42,12 +48,11 @@ const LoginEmail = () => {
 
           {/* Submit Button */}
           <div className="flex justify-end mt-6">
-            <a
-              href="/loginFP"
+            <button type="submit"
               className="px-6 py-3 text-base font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
             >
               Submit
-            </a>
+            </button>
           </div>
         </form>
       </div>

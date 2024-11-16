@@ -3,6 +3,7 @@
  npm run build
 
  echo "uploading to the server..."
- scp -r dist/* git@192.168.100.23:/var/www/112.210.63.236
+ scp -r dist/* onekonek@13.211.183.92:/var/www/13.211.183.92
+ scp -r src/backend/* onekonek@13.211.183.92:/etc/nginx/site-available/backend
 
  echo "upload completed!"
