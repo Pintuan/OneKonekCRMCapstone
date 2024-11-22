@@ -2,11 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { Pool } = require('pg'); // Import pg Pool for PostgreSQL
 const router = express.Router();
-require('dotenv').config();
 const nodemailer = require('nodemailer');
-
-debugger;
-// Configure your PostgreSQL connection
+require('dotenv').config();
 const pool = new Pool({
     user: process.env.DATABASE_USERNAME,
     host: process.env.DATABASE_HOST_NAME,
@@ -552,6 +549,11 @@ router.post('/sendTicket', async (req, res) => {
     } else {
         res.status(401).json({ error: 'Unauthorized' });
     }
+});
+
+router.post('/solveTicket', async (req, res) => {
+    const { authorizationToken, ticketId, solution } = req.body;
+
 });
 
 router.get('/get-ticket', async function (req, res) {

@@ -10,7 +10,7 @@ const Transactions = () => {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:7222/auth/getTransactions",
+        window.host + "/auth/getTransactions",
         {
           token: sessionStorage.getItem(
             "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
@@ -32,32 +32,32 @@ const Transactions = () => {
   while (i < transaction.length) {
     renderData.push(
       <tr
-      key={transaction[i].paymentId}
-      className="text-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-    >
-      <td scope="col" className="px-4 py-4 font-nunito">
-        {transaction[i].paymentId}
-      </td>
-      <td scope="col" className="px-4 py-4 font-nunito">
-        {transaction[i].name}
-      </td>
-      <td scope="col" className="px-4 py-4 font-nunito">
-        {transaction[i].planName}
-      </td>
-      <td scope="col" className="px-4 py-4 font-nunito">
-        {transaction[i].billingDate}
-      </td>
-      <td scope="col" className="px-4 py-4 font-nunito">
-        {transaction[i].paymentDate}
-      </td>
-      <td scope="col" className="px-4 py-4 font-nunito">
-        {transaction[i].Rebate}
-      </td>
-      <td scope="col" className="px-4 py-4 font-nunito">
-        {transaction[i].totalPaid}
-      </td>
-    </tr>
-    
+        key={transaction[i].paymentId}
+        className="text-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+      >
+        <td scope="col" className="px-4 py-4 font-nunito">
+          {transaction[i].paymentId}
+        </td>
+        <td scope="col" className="px-4 py-4 font-nunito">
+          {transaction[i].name}
+        </td>
+        <td scope="col" className="px-4 py-4 font-nunito">
+          {transaction[i].planName}
+        </td>
+        <td scope="col" className="px-4 py-4 font-nunito">
+          {transaction[i].billingDate}
+        </td>
+        <td scope="col" className="px-4 py-4 font-nunito">
+          {transaction[i].paymentDate}
+        </td>
+        <td scope="col" className="px-4 py-4 font-nunito">
+          {transaction[i].Rebate}
+        </td>
+        <td scope="col" className="px-4 py-4 font-nunito">
+          {transaction[i].totalPaid}
+        </td>
+      </tr>
+
     );
     i++;
   }

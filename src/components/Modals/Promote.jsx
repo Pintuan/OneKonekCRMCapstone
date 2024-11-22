@@ -11,7 +11,7 @@ const Promote = ({ user_id }) => {
 
   const loadPosition = async () => {
     try {
-      const response = await axios.get("http://localhost:7222/auth/getPositions", {
+      const response = await axios.get(window.host + "/auth/getPositions", {
         token: sessionStorage.getItem(
           "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
         ),
@@ -41,7 +41,7 @@ const Promote = ({ user_id }) => {
   const submitForm = async (event) => {
     event.preventDefault();
     const response = await axios.post(
-      "http://localhost:7222/auth/updatePosition",
+      window.host + "/auth/updatePosition",
       {
         authorizationToken: sessionStorage.getItem(sessionStorage.getItem("3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0")),
         authKey: adminPassword,

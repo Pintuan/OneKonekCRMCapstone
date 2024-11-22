@@ -3,18 +3,17 @@ const bodyParser = require('body-parser');
 const { Pool } = require('pg'); // Import Pool from 'pg' for PostgreSQL
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
-// Create a pool for PostgreSQL
 const pool = new Pool({
-    user: 'postgres',
-    host: '13.211.183.92',
-    database: 'onekonekcrm',
-    password: '5cnzw7YVXSaRyN6JDm',
-    port: 5432, // Default PostgreSQL port
+    user: process.env.DATABASE_USERNAME,
+    host: process.env.DATABASE_HOST_NAME,
+    database: process.env.DATABASE_NAME,
+    password: process.env.DATABASE_PASSWORD,
+    port: process.env.DATABASE_PORT,
 });
 
 // Middleware

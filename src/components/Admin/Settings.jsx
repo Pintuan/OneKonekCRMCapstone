@@ -28,7 +28,7 @@ const Home = () => {
         )
       );
       const response = await axios.post(
-        "http://localhost:7222/auth/zxT10Rrshxb",
+        "http://13.211.183.92/auth/zxT10Rrshxb",
         {
           hsdn2owet,
           fName,
@@ -54,7 +54,7 @@ const Home = () => {
         )
       );
       const response = await axios.post(
-        "http://localhost:7222/auth/bnfjvbxgdsHAngWR",
+        "http://13.211.183.92/auth/bnfjvbxgdsHAngWR",
         {
           hsdn2owet,
           password,
@@ -253,144 +253,144 @@ const Home = () => {
             </form>
           </section>
           <div className="container mx-0 my-6">
-          <section className="w-full p-6 bg-white rounded-md shadow-md dark:bg-gray-800">
-            <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
-              Login Details
-            </h2>
+            <section className="w-full p-6 bg-white rounded-md shadow-md dark:bg-gray-800">
+              <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
+                Login Details
+              </h2>
 
-            <form onSubmit={handleLoginInfoSubmit}>
-              <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1">
-                <div>
+              <form onSubmit={handleLoginInfoSubmit}>
+                <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1">
+                  <div>
+                    <label
+                      className="text-gray-700 dark:text-gray-200"
+                      htmlFor="username"
+                    >
+                      Username
+                    </label>
+                    <input
+                      onChange={(e) => setusername(e.target.value)}
+                      value={username}
+                      id="username"
+                      type="text"
+                      className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                    <div>
+                      <label
+                        className="text-gray-700 dark:text-gray-200"
+                        htmlFor="password"
+                      >
+                        Password
+                      </label>
+                      <div className="relative flex items-center mt-2">
+                        <button
+                          className="absolute right-0 focus:outline-none rtl:left-0 rtl:right-auto"
+                          onClick={toggleInput}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-6 h-6 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
+                          >
+                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                        <input
+                          onChange={(e) => setpassword(e.target.value)}
+                          id="password"
+                          type={type}
+                          placeholder=""
+                          className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 rtl:pr-5 rtl:pl-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        className="text-gray-700 dark:text-gray-200"
+                        htmlFor="confirmPass"
+                      >
+                        Password Confirmation
+                      </label>
+                      <div className="relative flex items-center mt-2">
+                        <button
+                          className="absolute right-0 focus:outline-none rtl:left-0 rtl:right-auto"
+                          onClick={toggleInput}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-6 h-6 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
+                          >
+                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                        <input
+                          onChange={(e) => setconfPass(e.target.value)}
+                          id="confirmPass"
+                          type={type}
+                          placeholder=""
+                          className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 rtl:pr-5 rtl:pl-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <label
                     className="text-gray-700 dark:text-gray-200"
-                    htmlFor="username"
+                    htmlFor="confirmPass"
                   >
-                    Username
+                    Confirn using your Current Password
                   </label>
-                  <input
-                    onChange={(e) => setusername(e.target.value)}
-                    value={username}
-                    id="username"
-                    type="text"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                  />
-                </div>
-                <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                  <div>
-                    <label
-                      className="text-gray-700 dark:text-gray-200"
-                      htmlFor="password"
+                  <div className="relative flex items-center mt-2">
+                    <button
+                      className="absolute right-0 focus:outline-none rtl:left-0 rtl:right-auto"
+                      onClick={toggleInput}
                     >
-                      Password
-                    </label>
-                    <div className="relative flex items-center mt-2">
-                      <button
-                        className="absolute right-0 focus:outline-none rtl:left-0 rtl:right-auto"
-                        onClick={toggleInput}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-6 h-6 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
-                        >
-                          <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                          <path
-                            fillRule="evenodd"
-                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                      <input
-                        onChange={(e) => setpassword(e.target.value)}
-                        id="password"
-                        type={type}
-                        placeholder=""
-                        className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 rtl:pr-5 rtl:pl-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      className="text-gray-700 dark:text-gray-200"
-                      htmlFor="confirmPass"
-                    >
-                      Password Confirmation
-                    </label>
-                    <div className="relative flex items-center mt-2">
-                      <button
-                        className="absolute right-0 focus:outline-none rtl:left-0 rtl:right-auto"
-                        onClick={toggleInput}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-6 h-6 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
-                        >
-                          <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                          <path
-                            fillRule="evenodd"
-                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                      <input
-                        onChange={(e) => setconfPass(e.target.value)}
-                        id="confirmPass"
-                        type={type}
-                        placeholder=""
-                        className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 rtl:pr-5 rtl:pl-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                      />
-                    </div>
+                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                        <path
+                          fillRule="evenodd"
+                          d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                    <input
+                      onChange={(e) => setpassConfirm(e.target.value)}
+                      id="passwordLoginInfoConfirm"
+                      type={type}
+                      placeholder=""
+                      className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 rtl:pr-5 rtl:pl-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
                   </div>
                 </div>
-                <label
-                  className="text-gray-700 dark:text-gray-200"
-                  htmlFor="confirmPass"
-                >
-                  Confirn using your Current Password
-                </label>
-                <div className="relative flex items-center mt-2">
-                  <button
-                    className="absolute right-0 focus:outline-none rtl:left-0 rtl:right-auto"
-                    onClick={toggleInput}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-6 h-6 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
-                    >
-                      <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                      <path
-                        fillRule="evenodd"
-                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                <div className="flex justify-end mt-6">
+                  <button className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                    Save
                   </button>
-                  <input
-                    onChange={(e) => setpassConfirm(e.target.value)}
-                    id="passwordLoginInfoConfirm"
-                    type={type}
-                    placeholder=""
-                    className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 rtl:pr-5 rtl:pl-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
                 </div>
-              </div>
-              <div className="flex justify-end mt-6">
-                <button className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                  Save
-                </button>
-              </div>
-            </form>
-          </section>
+              </form>
+            </section>
+          </div>
         </div>
-      </div>
       </div>
     </main>
   );

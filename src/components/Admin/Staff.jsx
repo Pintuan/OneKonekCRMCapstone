@@ -13,7 +13,7 @@ const Staff = () => {
     // Fetch data from the backend
     const fetchData = async () => {
         try {
-            const response = await axios.post("http://localhost:7222/auth/getStaff", {
+            const response = await axios.post("http://13.211.183.92/auth/getStaff", {
                 token: sessionStorage.getItem(
                     "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
                 ),
@@ -28,7 +28,7 @@ const Staff = () => {
     const fetchStaffData = async (authorizationToken) => {
         setData(
             await axios.post(
-                "http://localhost:7222/auth/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq",
+                "http://13.211.183.92/auth/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq",
                 { authorizationToken }
             )
         );

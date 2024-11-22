@@ -35,7 +35,7 @@ function Customers() {
     console.log(`Selected time: ${time.hour}:${time.minute} ${time.period}`);
     event.preventDefault();
     const response = await axios.post(
-      "http://localhost:7222/auth/hjgsahdghasgdhgdahsgdSAKNB",
+      window.host + "/auth/hjgsahdghasgdhgdahsgdSAKNB",
       {
         idNumber,
         contactNum,

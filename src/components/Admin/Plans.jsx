@@ -13,7 +13,7 @@ const Plans = () => {
   // Fetch data from the backend
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:7222/auth/getPlans", {
+      const response = await axios.post("http://13.211.183.92/auth/getPlans", {
         token: sessionStorage.getItem(
           "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
         ),
@@ -40,7 +40,7 @@ const Plans = () => {
         <td className="flex justify-center gap-2 py-4 px-4 whitespace-nowrap">
           <Select_Plan />
           {plans[i].stat == 16340 ? (
-           <Deactivate />
+            <Deactivate />
           ) : (
             <button className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
               Activate

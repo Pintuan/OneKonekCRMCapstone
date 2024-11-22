@@ -17,7 +17,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:7222/auth/login", {
+      const response = await axios.post(window.host + "/auth/login", {
         username,
         password,
       });
@@ -28,7 +28,7 @@ const LoginForm = () => {
         ) == null
       ) {
         let data = response.data.zhas2chasT;
-        const path = await axios.post("http://localhost:7222/auth/redirect", {
+        const path = await axios.post(window.host + "/auth/redirect", {
           data,
         });
         sessionStorage.setItem(
@@ -51,7 +51,7 @@ const LoginForm = () => {
           )
         );
         const resp = await axios.post(
-          "http://localhost:7222/auth/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq",
+          window.host + "/auth/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq",
           { authorizationToken }
         );
         let metadata = resp.data.rawData[0];

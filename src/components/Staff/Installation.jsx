@@ -22,7 +22,7 @@ const Installation = () => {
   // Fetch data from the backend
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:7222/auth/getStaff", {
+      const response = await axios.post(window.host + "/auth/getStaff", {
         token: sessionStorage.getItem(
           "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
         ),
@@ -37,7 +37,7 @@ const Installation = () => {
   const fetchStaffData = async (authorizationToken) => {
     setData(
       await axios.post(
-        "http://localhost:7222/auth/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq",
+        window.host + "/auth/fgbjmndo234bnkjcslknsqewrSADqwebnSFasq",
         { authorizationToken }
       )
     );
@@ -49,7 +49,7 @@ const Installation = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7222/auth/hjgsahdghasgdhgdahsgdSAKNB",
+        window.host + "/auth/hjgsahdghasgdhgdahsgdSAKNB",
         {
           idNumber,
           contactNum,

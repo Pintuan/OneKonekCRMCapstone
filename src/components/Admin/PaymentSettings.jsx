@@ -11,7 +11,7 @@ const PaymentSettings = () => {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:7222/auth/getTransactions",
+        "http://13.211.183.92/auth/getTransactions",
         {
           token: sessionStorage.getItem(
             "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
@@ -71,7 +71,7 @@ const PaymentSettings = () => {
           </h2>
         </div>
       </div>
-        {/* Cards */}
+      {/* Cards */}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-3 p-4 mx-8">
         <div className="w-full max-w-sm h-56 bg-white dark:bg-gray-800 rounded-lg shadow-md p-2">
         </div>

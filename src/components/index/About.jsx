@@ -320,13 +320,12 @@ function About() {
               <div key={label} className="mt-4 w-full">
                 <div
                   onClick={() => toggleDropdown(label)}
-                  className="rounded-xl dark:bg-gray-700 bg-gray-300 text-xl flex items-center justify-between cursor-pointer text-gray-800 dark:text-gray-200 shadow-lg p-4 rounded hover:text-blue-500 dark:hover:text-blue-500"
+                  className="rounded-xl dark:bg-gray-700 bg-gray-300 text-xl flex items-center justify-between cursor-pointer text-gray-800 dark:text-gray-200 shadow-lg p-4 hover:text-blue-500 dark:hover:text-blue-500"
                 >
                   <span className="text-left ml-4">{label}</span>
                   <span
-                    className={`transform transition-transform duration-200 ${
-                      activeDropdown === label ? "rotate-180" : ""
-                    }`}
+                    className={`transform transition-transform duration-200 ${activeDropdown === label ? "rotate-180" : ""
+                      }`}
                   >
                     ▼
                   </span>

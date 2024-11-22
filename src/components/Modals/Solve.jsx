@@ -41,7 +41,7 @@ const Solve = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7222/auth/hjgsahdghahasdhasdnjansgdSAKNB",
+        window.host + "/auth/hjgsahdghahasdhasdnjansgdSAKNB",
         {
           s_contactNum,
           s_time,
@@ -68,7 +68,7 @@ const Solve = () => {
           s_street,
         }
       );
-      sets_ShowModal(false); 
+      sets_ShowModal(false);
     } catch (err) {
       sets_Error("Failed to submit form: " + err.message);
     }

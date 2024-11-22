@@ -40,7 +40,7 @@ const TechSupport = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7222/auth/hjgsahdghasgdhgdahsgdSAKNB",
+        window.host + "/auth/hjgsahdghasgdhgdahsgdSAKNB",
         {
           contactNum,
           time,
@@ -521,11 +521,11 @@ const TechSupport = () => {
                       onChange={(e) => setComment(e.target.value)}
                       className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
-                     {error && (
-                    <p className="mt-4 text-red-600 dark:text-red-400 text-right">
-                      {error}
-                    </p>
-                  )}
+                    {error && (
+                      <p className="mt-4 text-red-600 dark:text-red-400 text-right">
+                        {error}
+                      </p>
+                    )}
                   </div>
                   <div className="flex justify-end">
                     <button className="flex items-center justify-center w-50 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform hover:bg-blue-800 rounded-lg bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
@@ -533,7 +533,7 @@ const TechSupport = () => {
                     </button>
                   </div>
 
-                 
+
                 </form>
               </div>
             </div>

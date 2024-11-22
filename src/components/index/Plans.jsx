@@ -9,7 +9,7 @@ const Plans = () => {
   // Fetch data from the backend
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:7222/getPLans"); // Node.js server URL
+      const response = await axios.post(window.host + "/auth/getPLans", { authorizationToken: "token" }); // Node.js server URL
       setData(response.data);
       setLoading(false);
     } catch (error) {
